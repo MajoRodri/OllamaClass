@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instalación — Masterclass IA Local</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles-info.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" style="text-decoration:none"><div class="nav-logo">STARK<span>OS</span></div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="que-es.html">¿Qué es?</a></li>
+      <li><a href="modelos.html">Modelos</a></li>
+      <li><a href="interfaces.html">Interfaces</a></li>
+      <li><a href="rag.html">RAG</a></li>
+      <li><a href="instalacion.html" class="active">Instalación</a></li>
+      <li><a href="glosario.html">Glosario</a></li>
+      <li><a href="../escape-room.html" class="nav-escape">🔐 Escape Room</a></li>
+    </ul>
+    <div class="nav-status"><span class="status-dot"></span>Sistema activo</div>
+    <button class="hamburger" id="hamBtn" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main style="padding-top: 80px;">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       INSTALACIÓN
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="instalacion">
+    <div class="container">
+      <div class="section-header anim-up">
+        <span class="sec-tag">// Módulo 03</span>
+        <h2 class="sec-title">Instalación <span>Paso a Paso</span></h2>
+        <div class="divider"></div>
+        <p class="sec-desc">Sigue las fases en orden. En menos de 10 minutos tendrás una IA corriendo en tu computadora.</p>
+      </div>
+
+      <!-- ── FASE 1: Instalar Ollama ── -->
+      <div class="phase">
+        <div class="phase-header anim-up">
+          <div class="phase-num">01</div>
+          <div>
+            <div class="phase-label">Fase</div>
+            <div class="phase-name">Instalar Ollama</div>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">a</div>
+          <div class="install-body">
+            <div class="install-title">Descarga el instalador desde la web</div>
+            <p class="install-desc">
+              Entra al sitio oficial de Ollama, haz clic en <strong>Download</strong> y selecciona
+              <strong>Windows</strong>. Se descargará un archivo <span class="mono">.exe</span> de instalación.
+            </p>
+            <a href="https://ollama.com/" target="_blank" rel="noopener noreferrer" class="btn btn-c" style="margin-bottom:16px; display:inline-flex;">
+              ⬇ Descargar Ollama — ollama.com
+            </a>
+            <div class="img-ph">
+              <span class="img-ph-icon">🌐</span>
+              <div class="img-ph-text">[Insertar captura: Página de descarga de ollama.com]</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">b</div>
+          <div class="install-body">
+            <div class="install-title">Completa la instalación</div>
+            <p class="install-desc">
+              Abre el archivo que descargaste y haz clic en <strong>"Instalar"</strong> o <strong>"Siguiente"</strong>
+              hasta que el proceso termine. No necesitas configurar nada especial durante la instalación.
+            </p>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">c</div>
+          <div class="install-body">
+            <div class="install-title">Verifica que está funcionando</div>
+            <p class="install-desc">
+              Ollama ya está activo. Lo sabrás porque verás el ícono de una <strong>llama pequeña</strong>
+              en tu barra de tareas (abajo a la derecha en Windows, o arriba a la derecha en Mac).
+              Eso significa que el motor está corriendo en segundo plano, listo para cuando lo necesites.
+            </p>
+          </div>
+        </div>
+
+        <!-- Nota: interfaz por defecto -->
+        <div class="model-intro anim-up" style="border-left-color:var(--gold); margin-top:8px; margin-bottom:4px;">
+          <p style="margin:0 0 6px;">
+            <strong style="color:var(--gold);">⚠ Nota sobre la interfaz incluida:</strong>
+            Las versiones recientes de Ollama incluyen una interfaz web propia en
+            <span class="mono">ollama.com/chat</span>. Puede abrirse automáticamente al instalar.
+          </p>
+          <p style="margin:0; color:var(--text2);">
+            El problema es que <strong>te pide crear una cuenta</strong> en sus servidores, lo que significa
+            que tus conversaciones pueden pasar por fuera de tu computadora —
+            exactamente lo contrario de lo que buscamos. Puedes ignorarla o cerrarla.
+            En las fases siguientes instalaremos <strong>Chatbox</strong>, una alternativa que funciona
+            100 % local y sin cuentas. También puedes ver todas las opciones en la sección
+            <a href="interfaces.html" style="color:var(--cyan);">Interfaces →</a>
+          </p>
+        </div>
+
+      </div><!-- /FASE 1 -->
+
+      <!-- ── FASE 2: Tu primer modelo ── -->
+      <div class="phase">
+        <div class="phase-header anim-up">
+          <div class="phase-num">02</div>
+          <div>
+            <div class="phase-label">Fase</div>
+            <div class="phase-name">Ejecuta tu primera IA</div>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">a</div>
+          <div class="install-body">
+            <div class="install-title">Abre PowerShell y descarga el modelo</div>
+            <p class="install-desc">
+              En Windows, busca <strong>PowerShell</strong> en el menú de inicio y ábrelo.
+              Escribe el comando de abajo y presiona <strong>Enter</strong>. Ollama descargará el modelo automáticamente
+              (solo tarda unos minutos) y lo abrirá directo para chatear.
+            </p>
+            <div class="term-block">
+              <div class="term-head">
+                <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+                <span class="term-fname">PowerShell — Primer modelo (~2 GB, para cualquier laptop)</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+              </div>
+              <div class="term-body">
+                <pre><code><span class="p">PS> </span>ollama run llama3.2:3b
+
+<span class="out">pulling manifest...
+pulling 5f60d5b6e7a5... 100% ▕████████████████▏ 2.0 GB
+verifying sha256 digest
+writing manifest
+success</span>
+
+<span class="out">&gt;&gt;&gt; </span><span class="blink">_</span>   <span class="cm"># ¡Escribe aquí tu primera pregunta!</span></code></pre>
+              </div>
+            </div>
+            <div class="img-ph">
+              <span class="img-ph-icon">⚙</span>
+              <div class="img-ph-text">[Insertar captura: Terminal con el modelo descargando]</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">b</div>
+          <div class="install-body">
+            <div class="install-title">Prueba que responde</div>
+            <p class="install-desc">
+              Cuando veas el símbolo <span class="mono">&gt;&gt;&gt;</span> en pantalla, la IA está lista.
+              Escribe <strong>"Hola"</strong> y presiona <strong>Enter</strong> para comprobar que te responde correctamente.
+            </p>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">c</div>
+          <div class="install-body">
+            <div class="install-title">Cierra el chat cuando termines</div>
+            <p class="install-desc">
+              Dentro del chat, escribe el comando <span class="mono">/bye</span> y presiona Enter para salir y volver a la terminal normal.
+            </p>
+            <div class="term-block">
+              <div class="term-head">
+                <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+                <span class="term-fname">Dentro del chat — Cerrar la sesión</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+              </div>
+              <div class="term-body">
+                <pre><code><span class="cm"># Escribe esto dentro del chat y presiona Enter para salir</span>
+&gt;&gt;&gt; /bye</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /FASE 2 -->
+
+      <!-- ── FASE 3: Comandos clave ── -->
+      <div class="phase">
+        <div class="phase-header anim-up">
+          <div class="phase-num">03</div>
+          <div>
+            <div class="phase-label">Fase</div>
+            <div class="phase-name">Comandos que usarás siempre</div>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">a</div>
+          <div class="install-body">
+            <div class="install-title">Gestionar tus modelos (desde PowerShell)</div>
+            <p class="install-desc">
+              Estos comandos se usan fuera del chat, en PowerShell,
+              para descargar, listar, encender o eliminar modelos:
+            </p>
+            <div class="term-block">
+              <div class="term-head">
+                <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+                <span class="term-fname">PowerShell — Gestión de modelos fuera del chat</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+              </div>
+              <div class="term-body">
+                <pre><code><span class="cm"># Ver todos los modelos que tienes descargados</span>
+<span class="p">PS> </span>ollama list
+
+<span class="cm"># Descargar un modelo sin abrirlo todavía</span>
+<span class="p">PS> </span>ollama pull mistral
+
+<span class="cm"># Ver qué modelos están corriendo ahora y cuánta memoria usan</span>
+<span class="p">PS> </span>ollama ps
+
+<span class="cm"># Apagar un modelo para liberar memoria</span>
+<span class="p">PS> </span>ollama stop llama3.2:3b
+
+<span class="cm"># Eliminar un modelo de tu disco (para liberar espacio)</span>
+<span class="p">PS> </span>ollama rm mistral</code></pre>
+              </div>
+            </div>
+
+            <table class="cmd-table" style="margin-top:20px;">
+              <thead>
+                <tr><th>Comando</th><th>¿Qué hace?</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>ollama run &lt;modelo&gt;</td><td>Descarga (si no lo tienes) y abre el modelo para chatear.</td></tr>
+                <tr><td>ollama pull &lt;modelo&gt;</td><td>Solo descarga el modelo, sin abrirlo.</td></tr>
+                <tr><td>ollama list</td><td>Muestra todos los modelos descargados y su tamaño.</td></tr>
+                <tr><td>ollama rm &lt;modelo&gt;</td><td>Borra un modelo del disco para recuperar espacio.</td></tr>
+                <tr><td>ollama ps</td><td>Muestra qué modelos están activos y cuánta memoria usan.</td></tr>
+                <tr><td>ollama stop &lt;modelo&gt;</td><td>Apaga un modelo para liberar la memoria de tu PC.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">b</div>
+          <div class="install-body">
+            <div class="install-title">Comandos especiales dentro del chat</div>
+            <p class="install-desc">
+              Una vez dentro del chat (cuando ves el símbolo <span class="mono">&gt;&gt;&gt;</span>),
+              puedes usar estos comandos especiales que controlan la IA sin salir de la conversación:
+            </p>
+            <div class="term-block">
+              <div class="term-head">
+                <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+                <span class="term-fname">Comandos interactivos — Dentro del chat</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+              </div>
+              <div class="term-body">
+                <pre><code><span class="cm"># Salir del chat y volver a la terminal</span>
+&gt;&gt;&gt; /bye
+
+<span class="cm"># Ver todos los comandos disponibles</span>
+&gt;&gt;&gt; /help
+
+<span class="cm"># Borrar la memoria de la conversación (empieza desde cero)</span>
+&gt;&gt;&gt; /clear
+
+<span class="cm"># Guardar esta conversación como un modelo nuevo</span>
+&gt;&gt;&gt; /save mi-jarvis
+
+<span class="cm"># Cambiar la personalidad de la IA sin cerrar el chat</span>
+&gt;&gt;&gt; /set system Eres un experto en Python que solo responde con código
+
+<span class="cm"># Controlar qué tan "creativa" es la IA (0=exacto, 1=muy creativa)</span>
+&gt;&gt;&gt; /set parameter temperature 0.1
+
+<span class="cm"># Ver información técnica del modelo activo</span>
+&gt;&gt;&gt; /show info
+
+<span class="cm"># Ver la instrucción de personalidad activa</span>
+&gt;&gt;&gt; /show system</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /FASE 3 -->
+
+      <!-- ── FASE 4: Interfaz visual (Chatbox) ── -->
+      <div class="phase">
+        <div class="phase-header anim-up">
+          <div class="phase-num">04</div>
+          <div>
+            <div class="phase-label">Fase</div>
+            <div class="phase-name">Instalar una interfaz visual</div>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">a</div>
+          <div class="install-body">
+            <div class="install-title">Descarga e instala Chatbox</div>
+            <p class="install-desc">
+              Para no depender siempre de la pantalla negra, instala <strong>Chatbox</strong>: una aplicación de escritorio
+              que le pone una interfaz amigable a Ollama, igual a ChatGPT. Entra a la página y descarga la versión
+              para tu sistema operativo.
+            </p>
+            <a href="https://chatboxai.app/" target="_blank" rel="noopener noreferrer" class="btn btn-g" style="margin-bottom:16px; display:inline-flex;">
+              ⬇ Descargar Chatbox — chatboxai.app
+            </a>
+            <div class="img-ph">
+              <span class="img-ph-icon">💻</span>
+              <div class="img-ph-text">[Insertar captura: Chatbox funcionando]</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">b</div>
+          <div class="install-body">
+            <div class="install-title">Conecta Chatbox con Ollama</div>
+            <p class="install-desc">
+              Abre la aplicación Chatbox y ve al menú de <strong>Configuración</strong> (el ícono de la tuerca). Sigue estos pasos:
+            </p>
+            <div class="how-grid" style="margin-top:16px; gap:12px;">
+              <div class="how-card" style="padding:18px;">
+                <div class="how-step-num" style="font-size:1rem; margin-bottom:8px;">a</div>
+                <p class="how-step-text">En <strong>"Modelo" / "Proveedor de IA"</strong>, abre la lista desplegable y selecciona <strong>Ollama</strong>.</p>
+              </div>
+              <div class="how-card" style="padding:18px;">
+                <div class="how-step-num" style="font-size:1rem; margin-bottom:8px;">b</div>
+                <p class="how-step-text">En <strong>"API Host"</strong>, verifica que diga <span class="mono">http://127.0.0.1:11434</span> (suele venir automáticamente).</p>
+              </div>
+              <div class="how-card" style="padding:18px;">
+                <div class="how-step-num" style="font-size:1rem; margin-bottom:8px;">c</div>
+                <p class="how-step-text">Haz clic en <strong>Guardar</strong>. Ya puedes usar la IA con un diseño de chat amigable y botones.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /FASE 4 CHATBOX -->
+
+      <!-- ── FASE 5: Crear tu propio modelo (Modelfile) ── -->
+      <div class="phase">
+        <div class="phase-header anim-up">
+          <div class="phase-num">05</div>
+          <div>
+            <div class="phase-label">Fase</div>
+            <div class="phase-name">Crear tu propio modelo (Modelfile)</div>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">a</div>
+          <div class="install-body">
+            <div class="install-title">Crea la carpeta y el archivo Modelfile</div>
+            <p class="install-desc">
+              Crea una carpeta nueva en tu escritorio. Luego abre el <strong>Bloc de notas</strong> (Windows)
+              o <strong>TextEdit</strong> (Mac) y escribe exactamente esto:
+            </p>
+            <div class="term-block">
+              <div class="term-head">
+                <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+                <span class="term-fname">Modelfile — Contenido del archivo</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+              </div>
+              <div class="term-body">
+                <pre><code><span class="kw">FROM</span> llama3.2:3b
+<span class="kw">SYSTEM</span> <span class="str">"Eres un pirata. Debes responder siempre de forma gruñona y usando palabras de pirata."</span></code></pre>
+              </div>
+            </div>
+            <p class="install-desc" style="margin-top:12px;">
+              Bloc de notas agrega <span class="mono">.txt</span> automáticamente — eso está bien, <strong>no lo elimines</strong>.
+              Guarda el archivo como <span class="mono">Modelfile.txt</span> dentro de la carpeta que creaste.
+              <strong>El nombre de la carpeta no importa</strong>, puedes llamarla como quieras.
+            </p>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">b</div>
+          <div class="install-body">
+            <div class="install-title">Compila y ejecuta tu modelo personalizado</div>
+            <p class="install-desc">
+              Abre la terminal y navega hasta la carpeta donde guardaste el Modelfile
+              (puedes arrastrar la carpeta a la ventana de la terminal para obtener la ruta). Luego ejecuta estos comandos:
+            </p>
+            <div class="term-block">
+              <div class="term-head">
+                <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+                <span class="term-fname">PowerShell — Crear y ejecutar el modelo pirata</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+              </div>
+              <div class="term-body">
+                <pre><code><span class="cm"># Crear el modelo con las instrucciones del Modelfile</span>
+<span class="p">PS> </span>ollama create mipirata -f ./Modelfile.txt
+<span class="out">transferring model data
+creating new layer
+writing manifest
+success</span>
+
+<span class="cm"># Abrir tu modelo personalizado y empezar a chatear</span>
+<span class="p">PS> </span>ollama run mipirata
+<span class="out">&gt;&gt;&gt; </span><span class="blink">_</span></code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /FASE 5 MODELFILE -->
+
+      <!-- ── FASE 6: Conectar documentos PDF (AnythingLLM) ── -->
+      <div class="phase">
+        <div class="phase-header anim-up">
+          <div class="phase-num">06</div>
+          <div>
+            <div class="phase-label">Fase</div>
+            <div class="phase-name">Conectar tus documentos PDF (RAG)</div>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">a</div>
+          <div class="install-body">
+            <div class="install-title">Descarga e instala AnythingLLM</div>
+            <p class="install-desc">
+              Para leer tus documentos privados sin programar nada, instalaremos <strong>AnythingLLM Desktop</strong>,
+              un programa gratuito especializado en RAG. Entra a su página y descarga la versión para tu computadora.
+            </p>
+            <a href="https://anythingllm.com/" target="_blank" rel="noopener noreferrer" class="btn btn-c" style="margin-bottom:16px; display:inline-flex;">
+              ⬇ Descargar AnythingLLM — anythingllm.com
+            </a>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">b</div>
+          <div class="install-body">
+            <div class="install-title">Configura el proveedor de IA</div>
+            <p class="install-desc">
+              Al abrir el programa por primera vez, te mostrará una pantalla de configuración inicial de tres pasos:
+            </p>
+            <div class="how-grid" style="margin-top:16px; gap:12px;">
+              <div class="how-card" style="padding:18px;">
+                <div class="how-step-num" style="font-size:1rem; margin-bottom:4px;">a</div>
+                <div class="how-step-title" style="color:var(--cyan); margin-bottom:8px;">LLM Provider</div>
+                <p class="how-step-text">Elige <strong>Ollama</strong> y selecciona el modelo <span class="mono">llama3.2:3b</span>.</p>
+              </div>
+              <div class="how-card" style="padding:18px;">
+                <div class="how-step-num" style="font-size:1rem; margin-bottom:4px;">b</div>
+                <div class="how-step-title" style="color:var(--cyan); margin-bottom:8px;">Vector Database</div>
+                <p class="how-step-text">Deja la opción por defecto (<strong>LanceDB</strong>). No necesitas instalar nada extra.</p>
+              </div>
+              <div class="how-card" style="padding:18px;">
+                <div class="how-step-num" style="font-size:1rem; margin-bottom:4px;">c</div>
+                <div class="how-step-title" style="color:var(--cyan); margin-bottom:8px;">Embedder</div>
+                <p class="how-step-text">Deja la opción por defecto (<strong>AnythingLLM</strong>). Funciona automáticamente.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="install-step anim-up">
+          <div class="install-num">c</div>
+          <div class="install-body">
+            <div class="install-title">Sube tu PDF y empieza a preguntar</div>
+            <p class="install-desc">
+              Haz clic en <strong>"Crear un Workspace"</strong> y ponle un nombre (ej. "Mis Documentos").
+              Luego entra a ese espacio, haz clic en el ícono para subir documentos y selecciona tu PDF.
+              Haz clic en <strong>"Move to Workspace"</strong> y luego en <strong>"Save and Embed"</strong>.
+              Espera unos segundos a que procese el archivo y escribe tu primera pregunta en el chat.
+            </p>
+            <div class="img-ph">
+              <span class="img-ph-icon">📄</span>
+              <div class="img-ph-text">[Insertar captura: AnythingLLM con un PDF cargado y respondiendo]</div>
+            </div>
+            <div class="model-note" style="margin-top:16px;">
+              El sistema buscará en tu documento y te responderá <strong>basándose solo en tu archivo</strong>,
+              sin inventar información. Exactamente como tener un asistente que leyó todo tu manual.
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /FASE 6 ANYTHINGLLM -->
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">STARK OS // PROTOCOLO OLLAMA</div>
+    <div class="footer-tag" style="margin-bottom:6px;">Masterclass · IA Local · Privada · Sin Límites</div>
+    <div class="footer-tag">
+      Sistema offline &nbsp;|&nbsp;
+      Conexión externa: <span style="color:var(--red)">DESCONECTADA</span> &nbsp;|&nbsp;
+      Privacidad: <span style="color:var(--green)">100%</span>
+    </div>
+  </div>
+</footer>
+
+<div class="jarvis-hud" aria-hidden="true">
+  <div class="jh-sweep"></div><div class="jh-outer"></div><div class="jh-mid"></div>
+  <div class="jh-inner"></div><div class="jh-ch h"></div><div class="jh-ch v"></div>
+  <div class="jh-tick"></div><div class="jh-tick r"></div><div class="jh-tick b"></div>
+  <div class="jh-tick l"></div><div class="jh-dot"></div>
+  <div class="jh-label">JARVIS ONLINE</div>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAG — Habla con tus Documentos — Masterclass IA Local</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles-info.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" style="text-decoration:none"><div class="nav-logo">STARK<span>OS</span></div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="que-es.html">¿Qué es?</a></li>
+      <li><a href="modelos.html">Modelos</a></li>
+      <li><a href="interfaces.html">Interfaces</a></li>
+      <li><a href="rag.html" class="active">RAG</a></li>
+      <li><a href="instalacion.html">Instalación</a></li>
+      <li><a href="glosario.html">Glosario</a></li>
+      <li><a href="../escape-room.html" class="nav-escape">🔐 Escape Room</a></li>
+    </ul>
+    <div class="nav-status"><span class="status-dot"></span>Sistema activo</div>
+    <button class="hamburger" id="hamBtn" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main style="padding-top: 80px;">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       RAG — Habla con tus documentos
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="rag">
+    <div class="container">
+      <div class="section-header anim-up">
+        <span class="sec-tag">// Módulo 05</span>
+        <h2 class="sec-title">RAG — Habla con tus <span>Documentos</span></h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="jarvis-box anim-up">
+        <p>
+          Las IAs tienen dos problemas clásicos: <strong>no conocen tus archivos privados</strong>
+          (tus apuntes, tus PDFs de trabajo) y a veces <strong>inventan información</strong>
+          cuando no saben algo —lo que se llama "alucinación".
+        </p>
+        <p>
+          <strong>RAG (Retrieval Augmented Generation)</strong> resuelve ambos problemas.
+          En vez de que la IA intente recordar todo de memoria, le das tus documentos y le ordenas
+          que solo responda basándose en ellos. Es como dejarle hacer el examen <em>con el libro abierto</em>.
+        </p>
+      </div>
+
+      <!-- Cómo funciona el RAG -->
+      <div class="anim-up" style="margin-bottom:24px;">
+        <span class="sec-tag">¿Cómo funciona? — 4 pasos</span>
+      </div>
+      <div class="rag-flow anim-up">
+        <div class="rag-node">
+          <div class="rag-node-icon">📄</div>
+          <div class="rag-node-label" style="color:var(--gold)">TU PDF</div>
+          <div class="rag-node-sub">Tu documento</div>
+        </div>
+        <div class="rag-arrow">→</div>
+        <div class="rag-node boxed">
+          <div class="rag-node-icon">✂️</div>
+          <div class="rag-node-label" style="color:var(--cyan)">CHUNKING</div>
+          <div class="rag-node-sub">Se corta en pedazos</div>
+        </div>
+        <div class="rag-arrow">→</div>
+        <div class="rag-node boxed">
+          <div class="rag-node-icon">🔢</div>
+          <div class="rag-node-label" style="color:var(--cyan)">EMBEDDINGS</div>
+          <div class="rag-node-sub">Texto → números</div>
+        </div>
+        <div class="rag-arrow">→</div>
+        <div class="rag-node boxed">
+          <div class="rag-node-icon">🗄️</div>
+          <div class="rag-node-label" style="color:var(--gold)">ChromaDB</div>
+          <div class="rag-node-sub">Bóveda de búsqueda</div>
+        </div>
+        <div class="rag-arrow">→</div>
+        <div class="rag-node boxed">
+          <div class="rag-node-icon">🔍</div>
+          <div class="rag-node-label" style="color:var(--cyan)">BÚSQUEDA</div>
+          <div class="rag-node-sub">Top 3 fragmentos</div>
+        </div>
+        <div class="rag-arrow">→</div>
+        <div class="rag-node">
+          <div class="rag-node-icon">🤖</div>
+          <div class="rag-node-label" style="color:var(--green)">JARVIS</div>
+          <div class="rag-node-sub">Responde sin inventar</div>
+        </div>
+      </div>
+
+      <!-- Los dos caminos -->
+      <div class="anim-up" style="margin:10px 0 8px;">
+        <span class="sec-tag">Elige tu camino</span>
+      </div>
+      <div class="rag-paths anim-up">
+        <div class="rag-path easy">
+          <div class="rag-path-label">🟢 Camino fácil — Sin código</div>
+          <p class="rag-path-text">
+            Usa <strong>Open WebUI</strong> o <strong>AnythingLLM</strong>. Solo arrastras tu archivo PDF
+            o Word al chat y el sistema activa el RAG automáticamente. Sin instalar nada extra,
+            sin programar nada. Ideal para empezar.
+          </p>
+        </div>
+        <div class="rag-path tech">
+          <div class="rag-path-label">⚡ Camino técnico — Python</div>
+          <p class="rag-path-text">
+            Usa Python con <strong>LangChain</strong> y <strong>ChromaDB</strong> para tener
+            control total sobre el sistema. Te permite personalizar cómo se busca,
+            cómo se fragmenta el texto y cómo responde la IA. El código completo está abajo.
+          </p>
+        </div>
+      </div>
+
+      <!-- Código Python (acordeón) -->
+      <div class="acc-wrap anim-up">
+        <div class="acc-item" id="acc-python">
+          <div class="acc-head" onclick="toggleAcc('acc-python')">
+            <div class="acc-head-left">
+              <span class="acc-num">Python</span>
+              <span class="acc-title">Script RAG completo con LangChain y ChromaDB</span>
+            </div>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="acc-body">
+            <div class="acc-inner">
+
+              <!-- Requisitos previos -->
+              <div style="margin-bottom:24px;">
+                <span class="sec-tag" style="margin-bottom:12px; display:block;">Requisitos previos — Instala esto primero</span>
+                <div class="prereq-grid">
+                  <div class="preq-item">
+                    <div class="preq-title">🐍 Python 3.9+</div>
+                    <div class="preq-text">Descárgalo desde python.org. Verifica con: <span class="mono" style="font-size:.75rem;">python --version</span></div>
+                  </div>
+                  <div class="preq-item">
+                    <div class="preq-title">🤖 Ollama activo</div>
+                    <div class="preq-text">Ollama debe estar corriendo. Si no, ejecuta: <span class="mono" style="font-size:.75rem;">ollama serve</span></div>
+                  </div>
+                  <div class="preq-item">
+                    <div class="preq-title">📦 Librerías Python</div>
+                    <div class="preq-text">Instala con el comando de abajo antes de ejecutar el script.</div>
+                  </div>
+                  <div class="preq-item">
+                    <div class="preq-title">📄 Tu PDF</div>
+                    <div class="preq-text">Pon tu archivo en la misma carpeta del script y nómbralo <span class="mono" style="font-size:.75rem; color:var(--gold);">manual_stark.pdf</span></div>
+                  </div>
+                </div>
+
+                <div class="term-block" style="margin-top:16px;">
+                  <div class="term-head">
+                    <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+                    <span class="term-fname">Instalar dependencias + descargar modelo de embeddings</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                  </div>
+                  <div class="term-body">
+                    <pre><code><span class="p">$ </span>pip install langchain langchain-community chromadb pypdf sentence-transformers
+<span class="p">$ </span>ollama pull nomic-embed-text</code></pre>
+                  </div>
+                </div>
+              </div>
+
+              <!-- El código -->
+              <div class="term-block">
+                <div class="term-head">
+                  <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+                  <span class="term-fname">rag_stark.py — Código completo</span>
+                  <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                </div>
+                <div class="term-body">
+                  <pre><code><span class="cm"># ============================================================
+# PROTOCOLO RAG — Habla con tus documentos privados
+# Conecta Ollama (JARVIS local) con cualquier PDF tuyo
+# ============================================================</span>
+
+<span class="cm"># ── 1. IMPORTAR HERRAMIENTAS ──────────────────────────────</span>
+<span class="kw">from</span> langchain_community.document_loaders <span class="kw">import</span> PyPDFLoader
+<span class="kw">from</span> langchain_text_splitters <span class="kw">import</span> RecursiveCharacterTextSplitter
+<span class="kw">from</span> langchain_community.vectorstores <span class="kw">import</span> Chroma
+<span class="kw">from</span> langchain_community.embeddings <span class="kw">import</span> OllamaEmbeddings
+<span class="kw">from</span> langchain_community.llms <span class="kw">import</span> Ollama
+<span class="kw">from</span> langchain.chains <span class="kw">import</span> create_retrieval_chain
+<span class="kw">from</span> langchain.chains.combine_documents <span class="kw">import</span> create_stuff_documents_chain
+<span class="kw">from</span> langchain_core.prompts <span class="kw">import</span> ChatPromptTemplate
+
+<span class="cm"># ── 2. CARGAR EL PDF ──────────────────────────────────────
+# PyPDFLoader lee el PDF y lo convierte en texto plano.</span>
+print(<span class="str">"📄 Escaneando documento confidencial..."</span>)
+loader = PyPDFLoader(<span class="str">"manual_stark.pdf"</span>)
+documentos = loader.load()
+
+<span class="cm"># ── 3. CORTAR EL TEXTO EN PEDAZOS (Chunking) ─────────────
+# Los modelos de IA no pueden leer 500 páginas de golpe.
+# chunk_size=1000: máximo 1000 caracteres por pedazo
+# chunk_overlap=200: 200 caracteres se repiten entre pedazos
+#   para no cortar ideas a la mitad.</span>
+print(<span class="str">"✂️  Fragmentando el texto..."</span>)
+cortador = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200
+)
+fragmentos = cortador.split_documents(documentos)
+
+<span class="cm"># ── 4. CONVERTIR TEXTO EN NÚMEROS (Embeddings) ────────────
+# El modelo 'nomic-embed-text' convierte cada fragmento
+# de texto en una lista de números (coordenadas matemáticas).
+# Chroma guarda esos números en tu disco para buscar después.</span>
+print(<span class="str">"🔢 Traduciendo texto a coordenadas matemáticas..."</span>)
+boveda = Chroma.from_documents(
+    documents=fragmentos,
+    embedding=OllamaEmbeddings(model=<span class="str">"nomic-embed-text"</span>)
+)
+
+<span class="cm"># ── 5. CONFIGURAR EL BUSCADOR ─────────────────────────────
+# Cuando llegue una pregunta, este buscador encontrará
+# los 3 fragmentos de tu PDF más parecidos a esa pregunta.</span>
+buscador = boveda.as_retriever(search_kwargs={<span class="str">"k"</span>: 3})
+
+<span class="cm"># ── 6. CONECTAR CON OLLAMA ────────────────────────────────</span>
+llm = Ollama(model=<span class="str">"llama3.2:3b"</span>)
+
+<span class="cm"># Instrucciones estrictas: SOLO responde con el texto encontrado.
+# {context} es donde el sistema inyecta los 3 fragmentos del PDF.</span>
+prompt = ChatPromptTemplate.from_messages([
+    (<span class="str">"system"</span>,
+     <span class="str">"Eres JARVIS, el asistente de Tony Stark. "</span>
+     <span class="str">"Usa ÚNICAMENTE los fragmentos que se muestran abajo para responder. "</span>
+     <span class="str">"Si la respuesta no está ahí, di: 'Señor, no tengo esa información en los registros'. "</span>
+     <span class="str">"Sé directo y elegante. Máximo 3 oraciones.\n\n{context}"</span>),
+    (<span class="str">"human"</span>, <span class="str">"{input}"</span>),
+])
+
+<span class="cm"># ── 7. UNIR TODO EN UNA CADENA ────────────────────────────</span>
+cadena = create_stuff_documents_chain(llm, prompt)
+sistema_rag = create_retrieval_chain(buscador, cadena)
+
+<span class="cm"># ── 8. HACER LA PREGUNTA ──────────────────────────────────</span>
+pregunta = <span class="str">"¿Cuáles son las especificaciones del reactor Arc?"</span>
+print(<span class="str">f"\n🤖 Preguntando a JARVIS: {pregunta}\n"</span>)
+
+respuesta = sistema_rag.invoke({<span class="str">"input"</span>: pregunta})
+
+print(<span class="str">"=" * 52</span>)
+print(respuesta[<span class="str">"answer"</span>])
+print(<span class="str">"=" * 52</span>)</code></pre>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">STARK OS // PROTOCOLO OLLAMA</div>
+    <div class="footer-tag" style="margin-bottom:6px;">Masterclass · IA Local · Privada · Sin Límites</div>
+    <div class="footer-tag">
+      Sistema offline &nbsp;|&nbsp;
+      Conexión externa: <span style="color:var(--red)">DESCONECTADA</span> &nbsp;|&nbsp;
+      Privacidad: <span style="color:var(--green)">100%</span>
+    </div>
+  </div>
+</footer>
+
+<div class="jarvis-hud" aria-hidden="true">
+  <div class="jh-sweep"></div><div class="jh-outer"></div><div class="jh-mid"></div>
+  <div class="jh-inner"></div><div class="jh-ch h"></div><div class="jh-ch v"></div>
+  <div class="jh-tick"></div><div class="jh-tick r"></div><div class="jh-tick b"></div>
+  <div class="jh-tick l"></div><div class="jh-dot"></div>
+  <div class="jh-label">JARVIS ONLINE</div>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

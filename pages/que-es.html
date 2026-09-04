@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Qué es Ollama? — Masterclass IA Local</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles-info.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" style="text-decoration:none"><div class="nav-logo">STARK<span>OS</span></div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="que-es.html" class="active">¿Qué es?</a></li>
+      <li><a href="modelos.html">Modelos</a></li>
+      <li><a href="interfaces.html">Interfaces</a></li>
+      <li><a href="rag.html">RAG</a></li>
+      <li><a href="instalacion.html">Instalación</a></li>
+      <li><a href="glosario.html">Glosario</a></li>
+      <li><a href="../escape-room.html" class="nav-escape">🔐 Escape Room</a></li>
+    </ul>
+    <div class="nav-status"><span class="status-dot"></span>Sistema activo</div>
+    <button class="hamburger" id="hamBtn" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main style="padding-top: 80px;">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       QUÉ ES OLLAMA
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="que-es">
+    <div class="container">
+      <div class="section-header anim-up">
+        <span class="sec-tag">// Módulo 01</span>
+        <h2 class="sec-title">¿Qué es <span>Ollama</span>?</h2>
+        <div class="divider"></div>
+      </div>
+
+      <!-- Analogía JARVIS -->
+      <div class="jarvis-box anim-up">
+        <p>
+          Imagina que eres <strong>Tony Stark</strong>. ChatGPT sería como llamar a una empresa externa cada vez que necesitas ayuda:
+          tu mensaje sale de tu taller, viaja hasta sus oficinas, y ellos te mandan la respuesta. Si no tienes señal en medio de una batalla, estás solo.
+        </p>
+        <p>
+          <strong>Ollama es tener a JARVIS dentro de tu propio taller.</strong> El cerebro de la IA vive en tu computadora,
+          funciona sin conexión, y nadie afuera sabe lo que le preguntas. Tú tienes el control total.
+        </p>
+      </div>
+
+      <!-- Explicación simple -->
+      <div class="anim-up" style="max-width:720px; margin-bottom:44px;">
+        <p style="color:var(--text2); font-size:.97rem; margin-bottom:14px;">
+          En términos simples: <strong style="color:var(--text)">Ollama es un programa gratuito</strong> que te permite descargar
+          modelos de inteligencia artificial (los "cerebros" de la IA, llamados <strong style="color:var(--cyan)">LLMs</strong>)
+          y ejecutarlos directamente en tu computadora.
+        </p>
+        <p style="color:var(--text2); font-size:.97rem;">
+          Funciona igual que cuando instalas un videojuego: una vez descargado, puedes jugarlo sin internet.
+          Aquí, en lugar de un juego, descargas una IA completa que queda guardada en tu disco duro y
+          te responde preguntas al instante.
+        </p>
+      </div>
+
+      <!-- Los 4 pasos de cómo funciona -->
+      <div class="anim-up" style="margin-bottom:10px;">
+        <span class="sec-tag">¿Cómo funciona por dentro?</span>
+      </div>
+      <div class="how-grid">
+
+        <div class="how-card anim-up">
+          <div class="how-step-num">01</div>
+          <div class="how-step-title">Descarga el cerebro (una sola vez)</div>
+          <p class="how-step-text">
+            Ollama va a internet una única vez para bajar el archivo del modelo de IA
+            (el "cerebro"). Una vez descargado, no necesitas internet nunca más para usarlo.
+          </p>
+        </div>
+
+        <div class="how-card anim-up">
+          <div class="how-step-num">02</div>
+          <div class="how-step-title">Comprime el modelo (Formato GGUF)</div>
+          <p class="how-step-text">
+            Los modelos originales son enormes. Ollama usa versiones comprimidas
+            (formato GGUF) que pesan mucho menos y caben en laptops normales sin perder casi nada de calidad.
+          </p>
+        </div>
+
+        <div class="how-card anim-up">
+          <div class="how-step-num">03</div>
+          <div class="how-step-title">Lo carga en la memoria de tu PC</div>
+          <p class="how-step-text">
+            Ollama coloca el modelo en la memoria de tu computadora (RAM o VRAM de la tarjeta gráfica)
+            para que pueda responder rápido. Cuanta más memoria tenga tu PC, más rápido irá.
+          </p>
+        </div>
+
+        <div class="how-card anim-up">
+          <div class="how-step-num">04</div>
+          <div class="how-step-title">Abre un canal de comunicación</div>
+          <p class="how-step-text">
+            Ollama crea una línea directa entre tú y el modelo. Escribes, él piensa y te
+            responde palabra por palabra en tiempo real, todo dentro de tu propia máquina.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Los componentes del taller (mapa de quién es quién) -->
+      <div class="anim-up" style="margin-top:52px;">
+        <span class="sec-tag">El mapa completo — ¿Quién es quién?</span>
+        <div class="model-intro" style="margin-top:16px; border-left-color:var(--gold);">
+          <p>Para entender el sistema completo, cada pieza tiene un rol claro:</p>
+        </div>
+      </div>
+
+      <div class="how-grid" style="margin-top:0;">
+        <div class="how-card anim-up">
+          <div class="how-step-title" style="color:var(--cyan)">Tú (Tony Stark)</div>
+          <p class="how-step-text">Das las órdenes, haces las preguntas y diriges todo el proceso desde la consola o desde la interfaz gráfica.</p>
+        </div>
+        <div class="how-card anim-up">
+          <div class="how-step-title" style="color:var(--gold)">Tu computadora (El Traje / Reactor Arc)</div>
+          <p class="how-step-text">La tarjeta gráfica (GPU) y la memoria RAM son la "energía" del sistema. A más potencia, más grande puede ser el modelo que uses.</p>
+        </div>
+        <div class="how-card anim-up">
+          <div class="how-step-title" style="color:var(--cyan)">El modelo LLM (JARVIS / FRIDAY)</div>
+          <p class="how-step-text">El archivo del cerebro artificial. Ejemplos: <span class="mono">Llama 3</span>, <span class="mono">Mistral</span>, <span class="mono">Gemma</span>. Cada uno tiene una "personalidad" y capacidades distintas.</p>
+        </div>
+        <div class="how-card anim-up">
+          <div class="how-step-title" style="color:var(--gold)">Ollama (El sistema operativo del taller)</div>
+          <p class="how-step-text">El programa que descarga los modelos, los enciende cuando los llamas y hace de puente entre tú y la IA.</p>
+        </div>
+      </div>
+
+      <!-- Qué puede y qué no puede -->
+      <div class="anim-up" style="margin-top:52px;">
+        <span class="sec-tag">Capacidades y limitaciones</span>
+      </div>
+      <div class="feat-grid anim-up" style="margin-top:16px;">
+        <div class="feat-box can">
+          <div class="feat-box-title">✔ SÍ PUEDE HACER</div>
+          <div class="feat-item"><span class="ck">✔</span><span>Resumir libros, documentos y textos largos</span></div>
+          <div class="feat-item"><span class="ck">✔</span><span>Escribir, corregir y explicar código</span></div>
+          <div class="feat-item"><span class="ck">✔</span><span>Razonamiento matemático y lógico</span></div>
+          <div class="feat-item"><span class="ck">✔</span><span>Traducir entre decenas de idiomas</span></div>
+          <div class="feat-item"><span class="ck">✔</span><span>Leer y analizar imágenes (con modelos Vision)</span></div>
+          <div class="feat-item"><span class="ck">✔</span><span>Adoptar personalidades personalizadas (Modelfile)</span></div>
+          <div class="feat-item"><span class="ck">✔</span><span>Responder preguntas sobre tus documentos privados (RAG)</span></div>
+        </div>
+        <div class="feat-box cant">
+          <div class="feat-box-title">✖ NO PUEDE HACER</div>
+          <div class="feat-item"><span class="cx">✖</span><span>Generar o dibujar imágenes (no es Midjourney ni DALL·E)</span></div>
+          <div class="feat-item"><span class="cx">✖</span><span>Sintetizar voz o audio de forma nativa</span></div>
+          <div class="feat-item"><span class="cx">✖</span><span>Navegar por internet en tiempo real (a menos que lo configures)</span></div>
+          <div class="feat-item"><span class="cx">✖</span><span>Crear videos</span></div>
+          <div class="feat-item" style="margin-top:16px; padding-top:14px; border-top:1px solid var(--border);">
+            <span class="cx" style="color:var(--gold)">!</span>
+            <span style="color:var(--text2);">
+              <strong style="color:var(--gold)">Nota importante:</strong> Ollama no crea imágenes, pero sí puede
+              <em>leer</em> imágenes que tú le subas (fotos, diagramas, facturas) si usas modelos
+              con visión como <span class="mono">llava</span> o <span class="mono">llama3.2-vision</span>.
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">STARK OS // PROTOCOLO OLLAMA</div>
+    <div class="footer-tag" style="margin-bottom:6px;">Masterclass · IA Local · Privada · Sin Límites</div>
+    <div class="footer-tag">
+      Sistema offline &nbsp;|&nbsp;
+      Conexión externa: <span style="color:var(--red)">DESCONECTADA</span> &nbsp;|&nbsp;
+      Privacidad: <span style="color:var(--green)">100%</span>
+    </div>
+  </div>
+</footer>
+
+<div class="jarvis-hud" aria-hidden="true">
+  <div class="jh-sweep"></div><div class="jh-outer"></div><div class="jh-mid"></div>
+  <div class="jh-inner"></div><div class="jh-ch h"></div><div class="jh-ch v"></div>
+  <div class="jh-tick"></div><div class="jh-tick r"></div><div class="jh-tick b"></div>
+  <div class="jh-tick l"></div><div class="jh-dot"></div>
+  <div class="jh-label">JARVIS ONLINE</div>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protocolo Ollama — Masterclass IA Local</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles-info.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NAVEGACIÓN
+═══════════════════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" style="text-decoration:none"><div class="nav-logo">STARK<span>OS</span></div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="pages/que-es.html">¿Qué es?</a></li>
+      <li><a href="pages/modelos.html">Modelos</a></li>
+      <li><a href="pages/interfaces.html">Interfaces</a></li>
+      <li><a href="pages/rag.html">RAG</a></li>
+      <li><a href="pages/instalacion.html">Instalación</a></li>
+      <li><a href="pages/glosario.html">Glosario</a></li>
+      <li><a href="escape-room.html" class="nav-escape">🔐 Escape Room</a></li>
+    </ul>
+    <div class="nav-status"><span class="status-dot"></span>Sistema activo</div>
+    <button class="hamburger" id="hamBtn" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+
+  <!-- Reactor Arc — fondo animado del hero -->
+  <div class="arc-reactor" aria-hidden="true">
+    <div class="ar-ring ar-r1"></div>
+    <div class="ar-ring ar-r2"></div>
+    <div class="ar-ring ar-r3"></div>
+    <div class="ar-ring ar-r4"></div>
+    <div class="ar-ring ar-r5"></div>
+    <div class="ar-core"></div>
+  </div>
+
+  <div class="hero-content">
+
+    <div class="hero-eyebrow">Masterclass // IA Local con Ollama</div>
+
+    <h1 class="hero-title">
+      <span class="t1">Tu propia IA.</span>
+      <span class="t2">En tu computadora.</span>
+      <span class="t3">Sin internet &nbsp;&bull;&nbsp; Sin costos &nbsp;&bull;&nbsp; Sin que nadie vea tus datos</span>
+    </h1>
+
+    <p class="hero-tagline">
+      Aprende a instalar, configurar y personalizar modelos de inteligencia artificial directamente en tu máquina,
+      con total privacidad y sin depender de ningún servicio externo.
+    </p>
+
+    <div class="hero-terminal">
+      <div class="th">&gt; Verificando estado del sistema...</div>
+      <span class="tline">Privacidad: <span style="color:var(--green)">100%</span> &nbsp;|&nbsp; Conexión externa: <span style="color:var(--red)">DESCONECTADA</span></span>
+      <span class="tline">Modo: Operación local autónoma <span class="blink">_</span></span>
+    </div>
+
+    <div class="hero-cta">
+      <a href="pages/que-es.html" class="btn btn-c">▶ Empezar desde cero</a>
+      <a href="pages/instalacion.html" class="btn btn-g">⚙ Ir a la instalación</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     COMPARACIÓN: ChatGPT vs Ollama
+═══════════════════════════════════════════════════════════ -->
+<section id="comparacion">
+  <div class="container">
+    <div class="section-header anim-up">
+      <span class="sec-tag">// Por qué importa</span>
+      <h2 class="sec-title">¿Por qué no alcanza con <span>ChatGPT</span>?</h2>
+      <div class="divider"></div>
+      <p class="sec-desc">
+        Cada vez que usas ChatGPT, tu texto viaja por internet hasta los servidores de otra empresa.
+        Ollama hace lo contrario: instala el "cerebro" de la IA directamente en tu computadora.
+      </p>
+    </div>
+
+    <div class="compare-grid anim-up">
+
+      <div class="compare-side loser">
+        <div class="compare-head">
+          <span>💬</span> IA en la nube (ChatGPT, Gemini…)
+        </div>
+        <div class="compare-row"><span class="icon x">✖</span><span>Necesita internet para funcionar</span></div>
+        <div class="compare-row"><span class="icon x">✖</span><span>La empresa puede leer tus conversaciones y usar tus datos</span></div>
+        <div class="compare-row"><span class="icon x">✖</span><span>Tiene límites: tokens por día, modelos restringidos</span></div>
+        <div class="compare-row"><span class="icon x">✖</span><span>Cuesta dinero (suscripción mensual)</span></div>
+        <div class="compare-row"><span class="icon x">✖</span><span>Si los servidores caen, tú también quedas sin servicio</span></div>
+      </div>
+
+      <div class="vs-badge">VS</div>
+
+      <div class="compare-side winner">
+        <div class="compare-head">
+          <span>⚡</span> Ollama — IA en tu computadora
+        </div>
+        <div class="compare-row"><span class="icon ok">✔</span><span>Funciona sin internet, incluso en una montaña o en un avión</span></div>
+        <div class="compare-row"><span class="icon ok">✔</span><span>Todo se queda en tu máquina. Nadie afuera puede leer nada</span></div>
+        <div class="compare-row"><span class="icon ok">✔</span><span>Sin límites: usa la IA tanto como quieras, cuando quieras</span></div>
+        <div class="compare-row"><span class="icon ok">✔</span><span>100 % gratis. El programa y los modelos no cuestan nada</span></div>
+        <div class="compare-row"><span class="icon ok">✔</span><span>Siempre disponible. Depende de tu computadora, no de nadie más</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">STARK OS // PROTOCOLO OLLAMA</div>
+    <div class="footer-tag" style="margin-bottom:6px;">Masterclass · IA Local · Privada · Sin Límites</div>
+    <div class="footer-tag">
+      Sistema offline &nbsp;|&nbsp;
+      Conexión externa: <span style="color:var(--red)">DESCONECTADA</span> &nbsp;|&nbsp;
+      Privacidad: <span style="color:var(--green)">100%</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+
+<!-- Scanner JARVIS — esquina inferior derecha, siempre visible -->
+<div class="jarvis-hud" aria-hidden="true">
+  <div class="jh-sweep"></div>
+  <div class="jh-outer"></div>
+  <div class="jh-mid"></div>
+  <div class="jh-inner"></div>
+  <div class="jh-ch h"></div>
+  <div class="jh-ch v"></div>
+  <div class="jh-tick"></div>
+  <div class="jh-tick r"></div>
+  <div class="jh-tick b"></div>
+  <div class="jh-tick l"></div>
+  <div class="jh-dot"></div>
+  <div class="jh-label">JARVIS ONLINE</div>
+</div>
+
+</body>
+</html>

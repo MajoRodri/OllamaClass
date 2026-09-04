@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glosario — Masterclass IA Local</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles-info.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" style="text-decoration:none"><div class="nav-logo">STARK<span>OS</span></div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="que-es.html">¿Qué es?</a></li>
+      <li><a href="modelos.html">Modelos</a></li>
+      <li><a href="interfaces.html">Interfaces</a></li>
+      <li><a href="rag.html">RAG</a></li>
+      <li><a href="instalacion.html">Instalación</a></li>
+      <li><a href="glosario.html" class="active">Glosario</a></li>
+      <li><a href="../escape-room.html" class="nav-escape">🔐 Escape Room</a></li>
+    </ul>
+    <div class="nav-status"><span class="status-dot"></span>Sistema activo</div>
+    <button class="hamburger" id="hamBtn" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main style="padding-top: 80px;">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       GLOSARIO
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="glosario">
+    <div class="container">
+      <div class="section-header anim-up">
+        <span class="sec-tag">// Referencia</span>
+        <h2 class="sec-title"><span>Glosario</span> — Diccionario del taller</h2>
+        <div class="divider"></div>
+        <p class="sec-desc">Términos técnicos que aparecen en esta masterclass, explicados en lenguaje simple.</p>
+      </div>
+
+      <div class="glos-grid">
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">LLM</div>
+          <div class="glos-def">Large Language Model (Modelo de Lenguaje Grande). Es el archivo del "cerebro" de la IA. Contiene todo el conocimiento y la capacidad de razonamiento del sistema. Ejemplos: Llama 3, Mistral, Gemma.</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">Parámetros (3B, 7B, 70B)</div>
+          <div class="glos-def">Las "neuronas" del modelo. La "B" significa billions (miles de millones en inglés). Más parámetros = más inteligente, pero necesita más RAM para correr.</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">Prompt</div>
+          <div class="glos-def">El texto que tú escribes para darle una orden o hacer una pregunta a la IA. Es "lo que le dices".</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">System Prompt</div>
+          <div class="glos-def">Instrucción de fondo que define la personalidad y el comportamiento de la IA en toda la conversación. Por ejemplo: "Eres un experto en ciberseguridad que responde siempre en español".</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">Token</div>
+          <div class="glos-def">La unidad básica que lee la IA. No son palabras completas, sino fragmentos de texto (sílabas o grupos de letras). Regla general: 100 tokens ≈ 75 palabras en inglés.</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">Context Window</div>
+          <div class="glos-def">La "memoria a corto plazo" de la IA durante una conversación. Es el máximo de texto que puede recordar en una sola sesión. Si superas ese límite, empieza a olvidar lo que hablaron.</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">Temperatura</div>
+          <div class="glos-def">Un número entre 0 y 1 que controla qué tan "creativa" es la IA. Cerca de 0 = respuestas exactas y predecibles (ideal para código). Cerca de 1 = respuestas creativas y variadas (ideal para escribir).</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">Alucinación</div>
+          <div class="glos-def">Cuando la IA no sabe algo y, en vez de decirlo, inventa una respuesta que suena completamente verdadera. RAG es la principal herramienta para evitarlo.</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">VRAM</div>
+          <div class="glos-def">Memoria dedicada de la tarjeta gráfica (GPU). Si el modelo cabe completamente en la VRAM, la IA responde muy rápido. Si no cabe, usa la RAM normal y va más lento.</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">GGUF</div>
+          <div class="glos-def">El formato de archivo que usan los modelos en Ollama. Es el equivalente al "mp3" de la música: comprimido, optimizado y listo para reproducirse en computadoras normales.</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">Cuantización</div>
+          <div class="glos-def">El proceso de comprimir un modelo de IA redondeando sus números internos. Hace que el modelo pese menos y corra más rápido, perdiendo apenas un 2–3% de calidad.</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">RAG</div>
+          <div class="glos-def">Retrieval Augmented Generation. Técnica que le da a la IA acceso a tus documentos privados para que responda preguntas basándose en ellos, sin inventar información.</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">Embedding</div>
+          <div class="glos-def">La conversión de texto en una lista de números (coordenadas matemáticas). Permite a la computadora "buscar" por significado, no solo por palabras exactas.</div>
+        </div>
+
+        <div class="glos-term anim-up">
+          <div class="glos-name">Modelfile</div>
+          <div class="glos-def">Archivo de texto que le dice a Ollama qué modelo usar como base y qué instrucciones de personalidad aplicar. Permite crear tu propia versión personalizada de cualquier IA.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">STARK OS // PROTOCOLO OLLAMA</div>
+    <div class="footer-tag" style="margin-bottom:6px;">Masterclass · IA Local · Privada · Sin Límites</div>
+    <div class="footer-tag">
+      Sistema offline &nbsp;|&nbsp;
+      Conexión externa: <span style="color:var(--red)">DESCONECTADA</span> &nbsp;|&nbsp;
+      Privacidad: <span style="color:var(--green)">100%</span>
+    </div>
+  </div>
+</footer>
+
+<div class="jarvis-hud" aria-hidden="true">
+  <div class="jh-sweep"></div><div class="jh-outer"></div><div class="jh-mid"></div>
+  <div class="jh-inner"></div><div class="jh-ch h"></div><div class="jh-ch v"></div>
+  <div class="jh-tick"></div><div class="jh-tick r"></div><div class="jh-tick b"></div>
+  <div class="jh-tick l"></div><div class="jh-dot"></div>
+  <div class="jh-label">JARVIS ONLINE</div>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escape Room — STARK OS Protocolo Ollama</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  /* ── Estilos específicos de la página Escape Room ── */
+  .er-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 80px;
+    background: var(--bg);
+  }
+  .er-hero .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 60%, rgba(255,60,60,.05) 0, transparent 55%),
+      radial-gradient(ellipse at 80% 20%, rgba(212,150,15,.06) 0, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(0,212,255,.03) 0, transparent 60%);
+  }
+  .er-hero .grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,.018) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .er-content {
+    position: relative; z-index: 1;
+    text-align: center; max-width: 860px;
+    padding: 0 24px;
+  }
+  .er-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(212,60,60,.08); border: 1px solid rgba(212,60,60,.35);
+    padding: 6px 20px; font-family: var(--f3); font-size: .66rem;
+    color: var(--red); letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .er-badge::before {
+    content: ''; width: 7px; height: 7px;
+    background: var(--red); border-radius: 50%;
+    animation: pulse 1.2s infinite;
+  }
+  .er-classified {
+    font-family: var(--f3); font-size: .72rem; color: var(--muted);
+    letter-spacing: 6px; text-transform: uppercase;
+    margin-bottom: 22px; opacity: 0;
+    animation: fadeUp .7s .3s forwards;
+  }
+  .er-title {
+    font-family: var(--f1); font-weight: 900;
+    text-transform: uppercase; line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .er-title .et1 {
+    display: block;
+    font-size: clamp(2rem, 6vw, 3.8rem);
+    color: var(--text); letter-spacing: 4px;
+    opacity: 0; animation: glitch 1.1s .6s forwards;
+  }
+  .er-title .et2 {
+    display: block;
+    font-size: clamp(1.2rem, 3.5vw, 2rem);
+    color: var(--red); letter-spacing: 5px;
+    margin-top: 10px;
+    opacity: 0; animation: fadeUp .8s 1.2s forwards;
+  }
+  .er-separator {
+    width: 120px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    margin: 28px auto;
+    opacity: 0; animation: fadeUp .6s 1.6s forwards;
+  }
+  .er-terminal {
+    background: var(--term); border: 1px solid rgba(212,60,60,.25);
+    border-left: 3px solid var(--red);
+    padding: 18px 24px; font-family: var(--f3); font-size: .78rem;
+    text-align: left; max-width: 620px; margin: 0 auto 36px;
+    opacity: 0; animation: fadeUp .8s 1.9s forwards;
+  }
+  .er-terminal .th { color: var(--red); margin-bottom: 8px; }
+  .er-tline { display: block; color: var(--muted); margin: 4px 0; }
+  .er-tline::before { content: '>>> '; color: rgba(62,94,116,.5); }
+  .er-tline.warn { color: var(--gold); }
+  .er-tline.warn::before { content: '!!! '; color: var(--gold); }
+  .er-status-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 14px; max-width: 620px; margin: 0 auto 36px;
+    opacity: 0; animation: fadeUp .8s 2.2s forwards;
+  }
+  .er-status-cell {
+    border: 1px solid var(--border); padding: 14px 12px;
+    background: rgba(0,0,0,.3); text-align: center;
+  }
+  .er-status-cell .es-label {
+    font-family: var(--f3); font-size: .58rem;
+    color: var(--muted); letter-spacing: 3px;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .er-status-cell .es-val {
+    font-family: var(--f1); font-size: .82rem; letter-spacing: 2px;
+  }
+  .es-val.locked   { color: var(--red); }
+  .es-val.pending  { color: var(--gold); }
+  .es-val.unknown  { color: var(--muted); }
+
+  .er-back-btn {
+    opacity: 0; animation: fadeUp .8s 2.5s forwards;
+    margin-top: 8px;
+  }
+  .er-back-btn .btn {
+    clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  }
+
+  /* línea de acceso denegado parpadeante */
+  .er-denied {
+    display: inline-block;
+    font-family: var(--f3); font-size: .65rem;
+    color: var(--red); letter-spacing: 4px;
+    margin-top: 24px;
+    opacity: 0; animation: fadeUp .6s 2.8s forwards;
+  }
+  .er-denied span { animation: blink 1.4s step-end infinite; }
+
+  @media(max-width: 640px) {
+    .er-status-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NAVEGACIÓN
+═══════════════════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">STARK<span>OS</span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">← Volver al inicio</a></li>
+      <li><a href="#" class="active">Escape Room</a></li>
+    </ul>
+    <div class="nav-status"><span class="status-dot" style="background:var(--red);"></span>Módulo restringido</div>
+    <button class="hamburger" id="hamBtn" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO — ESCAPE ROOM (EN CONSTRUCCIÓN)
+═══════════════════════════════════════════════════════════ -->
+<section class="er-hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+
+  <!-- Reactor Arc — mismo que index.html -->
+  <div class="arc-reactor" aria-hidden="true">
+    <div class="ar-ring ar-r1"></div>
+    <div class="ar-ring ar-r2"></div>
+    <div class="ar-ring ar-r3"></div>
+    <div class="ar-ring ar-r4"></div>
+    <div class="ar-ring ar-r5"></div>
+    <div class="ar-core"></div>
+  </div>
+
+  <div class="er-content">
+
+    <div class="er-badge">Protocolo clasificado — Acceso restringido</div>
+
+    <div class="er-classified">// Módulo: Escape Room — Estado: En construcción</div>
+
+    <h1 class="er-title">
+      <span class="et1">Escape Room</span>
+      <span class="et2">⚠ Módulo en construcción</span>
+    </h1>
+
+    <div class="er-separator"></div>
+
+    <div class="er-terminal">
+      <div class="th">&gt; Protocolo STARK-9 — Verificando acceso...</div>
+      <span class="er-tline">Escaneando credenciales del agente...</span>
+      <span class="er-tline warn">ACCESO DENEGADO — Nivel de autorización insuficiente</span>
+      <span class="er-tline">Módulo: <span style="color:var(--red)">OFFLINE</span> &nbsp;|&nbsp; Fecha estimada de activación: <span style="color:var(--gold)">TBD</span></span>
+      <span class="er-tline">Este sector del sistema está siendo ensamblado por JARVIS <span class="blink">_</span></span>
+    </div>
+
+    <div class="er-status-grid">
+      <div class="er-status-cell">
+        <div class="es-label">Estado</div>
+        <div class="es-val locked">BLOQUEADO</div>
+      </div>
+      <div class="er-status-cell">
+        <div class="es-label">Progreso</div>
+        <div class="es-val pending">EN CURSO</div>
+      </div>
+      <div class="er-status-cell">
+        <div class="es-label">Nivel</div>
+        <div class="es-val unknown">CLASIFICADO</div>
+      </div>
+    </div>
+
+    <div class="er-back-btn">
+      <a href="index.html" class="btn btn-g">← Volver al Cuartel General</a>
+    </div>
+
+    <div class="er-denied">
+      STARK OS &nbsp;|&nbsp; SISTEMA OFFLINE &nbsp;|&nbsp; <span>■</span> ACCESO RESTRINGIDO
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">STARK OS // PROTOCOLO OLLAMA</div>
+    <div class="footer-tag" style="margin-bottom:6px;">Masterclass · IA Local · Privada · Sin Límites</div>
+    <div class="footer-tag">
+      Sistema offline &nbsp;|&nbsp;
+      Conexión externa: <span style="color:var(--red)">DESCONECTADA</span> &nbsp;|&nbsp;
+      Privacidad: <span style="color:var(--green)">100%</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+
+<!-- Scanner JARVIS — esquina inferior derecha, siempre visible -->
+<div class="jarvis-hud" aria-hidden="true">
+  <div class="jh-sweep"></div>
+  <div class="jh-outer"></div>
+  <div class="jh-mid"></div>
+  <div class="jh-inner"></div>
+  <div class="jh-ch h"></div>
+  <div class="jh-ch v"></div>
+  <div class="jh-tick"></div>
+  <div class="jh-tick r"></div>
+  <div class="jh-tick b"></div>
+  <div class="jh-tick l"></div>
+  <div class="jh-dot"></div>
+  <div class="jh-label">JARVIS ONLINE</div>
+</div>
+
+</body>
+</html>

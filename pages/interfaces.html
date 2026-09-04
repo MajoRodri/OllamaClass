@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interfaces y Personalización — Masterclass IA Local</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles-info.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" style="text-decoration:none"><div class="nav-logo">STARK<span>OS</span></div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="que-es.html">¿Qué es?</a></li>
+      <li><a href="modelos.html">Modelos</a></li>
+      <li><a href="interfaces.html" class="active">Interfaces</a></li>
+      <li><a href="rag.html">RAG</a></li>
+      <li><a href="instalacion.html">Instalación</a></li>
+      <li><a href="glosario.html">Glosario</a></li>
+      <li><a href="../escape-room.html" class="nav-escape">🔐 Escape Room</a></li>
+    </ul>
+    <div class="nav-status"><span class="status-dot"></span>Sistema activo</div>
+    <button class="hamburger" id="hamBtn" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main style="padding-top: 80px;">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       INTERFACES GRÁFICAS + MODELFILE
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="interfaces-modelfile">
+    <div class="container">
+      <div class="section-header anim-up">
+        <span class="sec-tag">// Módulo 04</span>
+        <h2 class="sec-title">Interfaces y <span>Personalización</span></h2>
+        <div class="divider"></div>
+      </div>
+
+      <!-- Interfaz por defecto de Ollama -->
+      <div class="anim-up" style="margin-bottom:16px;">
+        <span class="sec-tag">Interfaces gráficas — Dile adiós a la pantalla negra</span>
+        <p style="color:var(--text2); font-size:.95rem; margin-top:8px; max-width:700px;">
+          Ollama corre en segundo plano como un motor silencioso. Al principio, solo verás texto blanco
+          sobre fondo negro. Antes de ver las opciones recomendadas, hay algo importante que aclarar:
+        </p>
+      </div>
+
+      <!-- Aviso interfaz nativa -->
+      <div class="anim-up" style="margin-bottom:36px;">
+        <div class="feat-grid">
+          <div class="feat-box cant" style="flex:1;">
+            <div class="feat-box-title">⚠ La interfaz incluida con Ollama</div>
+            <div class="feat-item"><span class="cx">✖</span><span>Al instalar Ollama, la versión reciente incluye una interfaz web propia en <span class="mono">ollama.com/chat</span></span></div>
+            <div class="feat-item"><span class="cx">✖</span><span>Para usarla, <strong>te pide crear una cuenta</strong> en los servidores de Ollama</span></div>
+            <div class="feat-item"><span class="cx">✖</span><span>Eso significa que tus conversaciones <strong>pueden pasar por sus servidores</strong>, lo que contradice el objetivo de privacidad total</span></div>
+            <div class="feat-item" style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border);">
+              <span class="cx" style="color:var(--gold)">!</span>
+              <span style="color:var(--text2);">
+                <strong style="color:var(--gold)">Conclusión:</strong> puedes usarla para probar, pero si la privacidad importa,
+                usa alguna de las alternativas de abajo — todas funcionan 100 % local.
+              </span>
+            </div>
+          </div>
+          <div class="feat-box can" style="flex:1;">
+            <div class="feat-box-title">✔ Las alternativas 100 % locales</div>
+            <div class="feat-item"><span class="ck">✔</span><span><strong>Chatbox</strong> — app de escritorio, cero configuración, detecta Ollama automáticamente</span></div>
+            <div class="feat-item"><span class="ck">✔</span><span><strong>Open WebUI</strong> — interfaz web completa que corre en tu máquina, sin cuentas externas</span></div>
+            <div class="feat-item"><span class="ck">✔</span><span><strong>Page Assist</strong> — extensión de navegador, sin instalar nada extra</span></div>
+            <div class="feat-item"><span class="ck">✔</span><span>Ninguna de estas envía nada fuera de tu computadora</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="anim-up" style="margin-bottom:16px;">
+        <span class="sec-tag">Las opciones recomendadas — elige la que va con tu nivel</span>
+      </div>
+
+      <div class="ui-cards anim-up">
+
+        <div class="ui-card">
+          <span class="tag-pill pill-green">★ Más potente</span>
+          <div class="ui-card-name">Open WebUI</div>
+          <p class="ui-card-text">
+            Interfaz web idéntica a ChatGPT. Tiene historial de conversaciones, subida de documentos,
+            gestión de usuarios y soporte de voz. Se instala con <strong>Docker</strong> (un programa de contenedores).
+            La mejor opción a largo plazo.
+          </p>
+          <div class="term-block" style="margin-top:14px;">
+            <div class="term-head">
+              <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+              <span class="term-fname">Lanzar Open WebUI</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <div class="term-body" style="padding:14px 16px;">
+              <pre style="font-size:.78rem; white-space:pre-wrap; word-break:break-all;"><code>docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main</code></pre>
+            </div>
+          </div>
+          <p style="font-family:var(--f3); font-size:.7rem; color:var(--muted); margin-top:8px;">Luego abre: http://localhost:3000</p>
+        </div>
+
+        <div class="ui-card">
+          <span class="tag-pill pill-gold">◆ Más fácil</span>
+          <div class="ui-card-name">Chatbox</div>
+          <p class="ui-card-text">
+            Aplicación de escritorio que se instala como cualquier programa (.exe en Windows,
+            .dmg en Mac). La abres, detecta Ollama automáticamente y ya puedes chatear.
+            Cero configuraciones. La mejor opción si quieres empezar ya.
+          </p>
+          <div class="img-ph" style="margin-top:14px; padding:24px;">
+            <span class="img-ph-icon" style="font-size:1.5rem;">💻</span>
+            <div class="img-ph-text">[Insertar captura: Chatbox funcionando]</div>
+          </div>
+        </div>
+
+        <div class="ui-card">
+          <span class="tag-pill pill-cyan">⬡ Para el navegador</span>
+          <div class="ui-card-name">Page Assist</div>
+          <p class="ui-card-text">
+            Extensión para Chrome, Brave o Edge. Agrega una barra lateral en tu navegador
+            para hablar con Ollama mientras navegas, lees artículos o estudias.
+            Sin instalar nada extra, solo activa la extensión.
+          </p>
+          <div class="img-ph" style="margin-top:14px; padding:24px;">
+            <span class="img-ph-icon" style="font-size:1.5rem;">🌐</span>
+            <div class="img-ph-text">[Insertar captura: Page Assist en el navegador]</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MODELFILE -->
+      <div class="anim-up" style="margin-top:64px;">
+        <span class="sec-tag">Modelfile — Crea tu propia personalidad de IA</span>
+      </div>
+
+      <div class="jarvis-box anim-up" style="margin-top:16px;">
+        <p>
+          Tony Stark puede reprogramar a JARVIS cuando quiere. No construye una IA nueva desde cero;
+          simplemente le cambia las instrucciones. Con el <strong>Modelfile</strong> tú haces exactamente eso:
+          defines quién es tu IA, cómo habla y en qué se especializa.
+        </p>
+      </div>
+
+      <div class="install-step anim-up">
+        <div class="install-num">1</div>
+        <div class="install-body">
+          <div class="install-title">Crear el archivo Modelfile</div>
+          <p class="install-desc">
+            Abre el Bloc de notas, escribe las instrucciones y guarda el archivo como
+            <span class="mono">Modelfile.txt</span> en cualquier carpeta de tu computadora
+            (<strong>el nombre de la carpeta no importa</strong>). Bloc de notas agrega <span class="mono">.txt</span> automáticamente — eso está bien, déjalo así.
+          </p>
+          <div class="term-block">
+            <div class="term-head">
+              <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+              <span class="term-fname">Modelfile — Tu JARVIS personalizado</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <div class="term-body">
+              <pre><code><span class="cm"># ¿Qué cerebro base quieres usar?</span>
+<span class="kw">FROM</span> llama3.2:3b
+
+<span class="cm"># Creatividad: 0.1=muy exacto, 0.9=muy creativo</span>
+<span class="kw">PARAMETER</span> temperature 0.7
+
+<span class="cm"># Instrucciones de personalidad (se aplican a TODAS las conversaciones)</span>
+<span class="kw">SYSTEM</span> <span class="str">"""
+Eres JARVIS, el asistente de Tony Stark.
+Siempre te diriges al usuario como "Señor".
+Eres elegante, preciso y ligeramente irónico.
+Si no sabes algo, responde: "Me temo que esa información
+no está en mis registros actuales, Señor."
+Siempre respondes en español.
+"""</span></code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="install-step anim-up">
+        <div class="install-num">2</div>
+        <div class="install-body">
+          <div class="install-title">Compilar y usar tu JARVIS</div>
+          <p class="install-desc">
+            Abre la terminal en la carpeta donde guardaste el Modelfile y ejecuta estos dos comandos:
+          </p>
+          <div class="term-block">
+            <div class="term-head">
+              <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+              <span class="term-fname">Terminal — Crear y ejecutar el modelo personalizado</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <div class="term-body">
+              <pre><code><span class="cm"># Paso 1: Construir el modelo con las instrucciones del Modelfile</span>
+<span class="p">PS> </span>ollama create mi-jarvis -f Modelfile.txt
+<span class="out">transferring model data
+creating new layer
+writing manifest
+success</span>
+
+<span class="cm"># Paso 2: Ejecutar tu JARVIS personalizado</span>
+<span class="p">PS> </span>ollama run mi-jarvis
+<span class="out">&gt;&gt;&gt; </span><span class="blink">_</span></code></pre>
+            </div>
+          </div>
+          <div class="img-ph">
+            <span class="img-ph-icon">🤖</span>
+            <div class="img-ph-text">[Insertar captura: JARVIS respondiendo con su personalidad]</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">STARK OS // PROTOCOLO OLLAMA</div>
+    <div class="footer-tag" style="margin-bottom:6px;">Masterclass · IA Local · Privada · Sin Límites</div>
+    <div class="footer-tag">
+      Sistema offline &nbsp;|&nbsp;
+      Conexión externa: <span style="color:var(--red)">DESCONECTADA</span> &nbsp;|&nbsp;
+      Privacidad: <span style="color:var(--green)">100%</span>
+    </div>
+  </div>
+</footer>
+
+<div class="jarvis-hud" aria-hidden="true">
+  <div class="jh-sweep"></div><div class="jh-outer"></div><div class="jh-mid"></div>
+  <div class="jh-inner"></div><div class="jh-ch h"></div><div class="jh-ch v"></div>
+  <div class="jh-tick"></div><div class="jh-tick r"></div><div class="jh-tick b"></div>
+  <div class="jh-tick l"></div><div class="jh-dot"></div>
+  <div class="jh-label">JARVIS ONLINE</div>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
