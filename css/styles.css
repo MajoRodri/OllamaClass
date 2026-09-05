@@ -1,6 +1,9 @@
-/* ============================================================
-   STARK OS — Protocolo Ollama — Masterclass
+﻿/* ============================================================
+   STARK OS - Protocolo Ollama - Masterclass
    ============================================================ */
+
+/* FOUC prevention - i18n.js makes body visible after applying translations */
+body { visibility: hidden; }
 
 /* ─── VARIABLES ─── */
 :root {
@@ -130,6 +133,13 @@ nav {
 .status-dot { width:7px; height:7px; background:var(--green); border-radius:50%; animation:pulse 2s infinite; }
 .hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:2px; }
 .hamburger span { width:22px; height:2px; background:var(--cyan); display:block; transition:all .3s; }
+.lang-btn {
+  font-family: var(--f1); font-size: .6rem; letter-spacing: 2px;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); padding: 4px 10px; cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+.lang-btn:hover { color: var(--text); border-color: var(--cyan, var(--accent)); }
 
 /* ─── HERO ─── */
 #hero {
@@ -471,7 +481,7 @@ footer { background:var(--term); border-top:1px solid var(--border); padding:44p
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ARC REACTOR — Hero background (muy sutil)
+   ARC REACTOR - Hero background (muy sutil)
 ═══════════════════════════════════════════════════════════ */
 .arc-reactor {
   position: absolute;
@@ -489,7 +499,7 @@ footer { background:var(--term); border-top:1px solid var(--border); padding:44p
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
-/* anillo exterior — gira muy lento, tiene un punto orbital cyan */
+/* anillo exterior - gira muy lento, tiene un punto orbital cyan */
 .ar-r1 {
   width: 100%; height: 100%;
   border: 1px solid rgba(0,212,255,.5);
@@ -505,13 +515,13 @@ footer { background:var(--term); border-top:1px solid var(--border); padding:44p
   transform: translateX(-50%);
   box-shadow: 0 0 14px rgba(0,212,255,.9), 0 0 28px rgba(0,212,255,.4);
 }
-/* anillo 2 — punteado, giro inverso */
+/* anillo 2 - punteado, giro inverso */
 .ar-r2 {
   width: 82%; height: 82%;
   border: 1px dashed rgba(0,212,255,.35);
   animation: arCCW 30s linear infinite;
 }
-/* anillo 3 — sólido, punto dorado doble (arriba y abajo) */
+/* anillo 3 - sólido, punto dorado doble (arriba y abajo) */
 .ar-r3 {
   width: 64%; height: 64%;
   border: 1.5px solid rgba(0,212,255,.4);
@@ -528,13 +538,13 @@ footer { background:var(--term); border-top:1px solid var(--border); padding:44p
 }
 .ar-r3::before { top: -3.5px; }
 .ar-r3::after  { bottom: -3.5px; }
-/* anillo 4 — dorado tenue */
+/* anillo 4 - dorado tenue */
 .ar-r4 {
   width: 46%; height: 46%;
   border: 1px solid rgba(255,193,7,.25);
   animation: arCCW 35s linear infinite;
 }
-/* anillo interior — punteado rápido */
+/* anillo interior - punteado rápido */
 .ar-r5 {
   width: 28%; height: 28%;
   border: 1px dashed rgba(0,212,255,.5);
@@ -561,7 +571,7 @@ footer { background:var(--term); border-top:1px solid var(--border); padding:44p
 
 
 /* ═══════════════════════════════════════════════════════════
-   JARVIS HUD SCANNER — esquina fija (sutil, siempre visible)
+   JARVIS HUD SCANNER - esquina fija (sutil, siempre visible)
 ═══════════════════════════════════════════════════════════ */
 .jarvis-hud {
   position: fixed;

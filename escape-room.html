@@ -1,13 +1,17 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Escape Room — STARK OS Protocolo Ollama</title>
+<link rel="icon" href="img/icon.png" type="image/png">
+<title>Escape Room - STARK OS Protocolo Ollama</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.3/dist/lottie-player.js"></script>
 <style>
   /* ── Estilos específicos de la página Escape Room ── */
+
+  /* ── HERO ── */
   .er-hero {
     min-height: 100vh;
     display: flex;
@@ -33,7 +37,7 @@
     background-size: 60px 60px;
   }
   .er-content {
-    position: relative; z-index: 1;
+    position: relative; z-index: 3;
     text-align: center; max-width: 860px;
     padding: 0 24px;
   }
@@ -108,31 +112,447 @@
   .er-status-cell .es-val {
     font-family: var(--f1); font-size: .82rem; letter-spacing: 2px;
   }
-  .es-val.locked   { color: var(--red); }
-  .es-val.pending  { color: var(--gold); }
-  .es-val.unknown  { color: var(--muted); }
+  .es-val.rooms   { color: var(--cyan); }
+  .es-val.attempts { color: var(--gold); }
+  .es-val.level   { color: var(--green); }
 
-  .er-back-btn {
+  .er-start-btn {
     opacity: 0; animation: fadeUp .8s 2.5s forwards;
     margin-top: 8px;
   }
-  .er-back-btn .btn {
-    clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  .btn-start {
+    font-family: var(--f1); font-size: .85rem; letter-spacing: 3px;
+    text-transform: uppercase; padding: 16px 48px;
+    background: var(--red); color: #fff; border: none; cursor: pointer;
+    clip-path: polygon(14px 0%,100% 0%,calc(100% - 14px) 100%,0% 100%);
+    transition: opacity .2s, transform .15s;
   }
-
-  /* línea de acceso denegado parpadeante */
-  .er-denied {
-    display: inline-block;
-    font-family: var(--f3); font-size: .65rem;
-    color: var(--red); letter-spacing: 4px;
-    margin-top: 24px;
-    opacity: 0; animation: fadeUp .6s 2.8s forwards;
-  }
-  .er-denied span { animation: blink 1.4s step-end infinite; }
+  .btn-start:hover { opacity: .85; transform: translateY(-2px); }
 
   @media(max-width: 640px) {
     .er-status-grid { grid-template-columns: 1fr; }
   }
+
+  /* ── GAME SECTION ── */
+  .er-game {
+    display: none;
+    min-height: 100vh;
+    background: transparent;
+    padding-top: 90px;
+    padding-bottom: 80px;
+  }
+
+  /* Game header - progress bar + counter */
+  .game-header {
+    position: fixed;
+    top: 60px;
+    left: 0; right: 0;
+    z-index: 90;
+    background: rgba(8,10,14,.95);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    backdrop-filter: blur(6px);
+  }
+  .progress-bar {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+  .prog-seg {
+    width: 28px; height: 4px;
+    background: var(--border);
+    transition: background .35s;
+  }
+  .prog-seg.done    { background: var(--green); }
+  .prog-seg.active  { background: var(--red); }
+  .game-counter {
+    font-family: var(--f1); font-size: .65rem;
+    color: var(--muted); letter-spacing: 3px;
+    white-space: nowrap;
+    min-width: 90px;
+  }
+  .game-counter span { color: var(--text); }
+
+  /* Room card */
+  .game-body {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 2;
+  }
+  .room-card {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 40px 0 40px;
+    opacity: 1;
+    transition: opacity .3s;
+  }
+  .room-card.fade-out { opacity: 0; }
+
+  .room-label {
+    font-family: var(--f1); font-size: .58rem;
+    color: var(--red); letter-spacing: 5px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .room-title {
+    font-family: var(--f1); font-size: 1.2rem;
+    color: #ffffff; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(212,60,60,.3);
+    text-shadow: 0 0 20px rgba(0,0,0,.9);
+  }
+  .room-context {
+    font-family: var(--f3); font-size: .76rem;
+    color: rgba(180,200,220,.95); line-height: 1.7;
+    margin-bottom: 22px;
+    padding: 0 0 0 14px;
+    border-left: 2px solid rgba(0,212,255,.18);
+    position: relative;
+  }
+  .room-context::before {
+    content: '>>> ';
+    color: rgba(62,94,116,.5);
+  }
+  .room-question {
+    font-family: var(--f2); font-size: 1.2rem;
+    color: #ffffff; font-weight: 600;
+    margin-bottom: 28px; line-height: 1.5;
+    text-shadow: 0 0 18px rgba(0,0,0,.8);
+  }
+
+  /* Choice grid */
+  .choice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  @media(max-width: 520px) {
+    .choice-grid { grid-template-columns: 1fr; }
+  }
+  .choice-btn {
+    background: rgba(0,0,0,.45);
+    border: 1px solid var(--border);
+    color: rgba(200,215,230,.9);
+    font-family: var(--f3); font-size: .84rem;
+    padding: 18px 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color .2s, color .2s, background .2s;
+    line-height: 1.6;
+  }
+  .choice-btn:hover {
+    border-color: rgba(212,60,60,.5);
+    color: var(--text);
+    background: rgba(212,60,60,.07);
+  }
+  .choice-btn.selected {
+    border-color: var(--red);
+    color: var(--text);
+    background: rgba(212,60,60,.12);
+  }
+  .choice-btn:disabled {
+    cursor: default;
+  }
+  .choice-letter {
+    font-family: var(--f1); font-size: .58rem;
+    color: var(--red); letter-spacing: 2px;
+    display: block; margin-bottom: 4px;
+  }
+
+  /* Terminal input */
+  .terminal-input-wrap {
+    display: flex;
+    align-items: center;
+    background: var(--term);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    margin-bottom: 24px;
+    gap: 8px;
+    transition: border-color .2s;
+  }
+  .terminal-input-wrap:focus-within {
+    border-color: var(--red);
+  }
+  .terminal-input-wrap::before {
+    content: '$';
+    font-family: var(--f3); font-size: .85rem;
+    color: var(--red);
+    flex-shrink: 0;
+  }
+  .terminal-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--f3); font-size: .82rem;
+    color: var(--text);
+    width: 100%;
+    caret-color: var(--red);
+  }
+  .terminal-input::placeholder {
+    color: var(--muted);
+    opacity: .5;
+  }
+
+  /* Verify button */
+  .btn-verify {
+    font-family: var(--f1); font-size: .72rem;
+    letter-spacing: 3px; text-transform: uppercase;
+    padding: 12px 32px;
+    background: var(--red); color: #fff;
+    border: none; cursor: pointer;
+    clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+    transition: opacity .2s;
+    display: block;
+    width: 100%;
+  }
+  .btn-verify:hover { opacity: .85; }
+  .btn-verify:disabled { opacity: .35; cursor: default; }
+
+  /* Feedback area */
+  .room-feedback {
+    display: none;
+    margin-top: 20px;
+    padding: 20px 24px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border);
+    font-family: var(--f3); font-size: .78rem;
+    line-height: 1.7;
+    background: rgba(8,10,14,.75);
+    backdrop-filter: blur(4px);
+  }
+  .room-feedback.correct {
+    display: block;
+    border-color: var(--green);
+    border-left-color: var(--green);
+    background: rgba(0,212,100,.07);
+    color: var(--text);
+  }
+  .room-feedback.wrong {
+    display: block;
+    border-color: var(--red);
+    border-left-color: var(--red);
+    background: rgba(212,60,60,.07);
+    color: var(--text);
+  }
+  .room-feedback.incomplete {
+    display: block;
+    border-color: var(--gold);
+    border-left-color: var(--gold);
+    background: rgba(212,150,15,.07);
+    color: var(--text);
+  }
+  .feedback-status {
+    font-family: var(--f1); font-size: .62rem;
+    letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .feedback-status.ok  { color: var(--green); }
+  .feedback-status.err { color: var(--red); }
+  .feedback-msg { color: var(--muted); margin-bottom: 16px; }
+
+  .btn-next, .btn-retry {
+    font-family: var(--f1); font-size: .68rem;
+    letter-spacing: 3px; text-transform: uppercase;
+    padding: 10px 28px;
+    border: none; cursor: pointer;
+    clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+    transition: opacity .2s;
+  }
+  .btn-next {
+    background: transparent;
+    border: 1px solid var(--green);
+    color: var(--green);
+    clip-path: none;
+    padding: 10px 28px;
+  }
+  .btn-next:hover  { background: rgba(0,212,100,.12); }
+  .btn-retry {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    clip-path: none;
+    padding: 10px 28px;
+  }
+  .btn-retry:hover { background: rgba(212,150,15,.12); }
+
+  /* ── VICTORY SCREEN ── */
+  .er-victory {
+    display: none;
+    min-height: 100vh;
+    background: var(--bg);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 100px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .er-victory.active { display: flex; }
+  .er-victory .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(0,212,100,.08) 0, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(0,212,255,.05) 0, transparent 55%);
+    pointer-events: none;
+  }
+  .victory-label {
+    font-family: var(--f3); font-size: .65rem;
+    color: var(--green); letter-spacing: 6px;
+    text-transform: uppercase; margin-bottom: 20px;
+    animation: fadeUp .6s forwards;
+  }
+  .victory-title {
+    font-family: var(--f1); font-weight: 900;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    color: var(--green); letter-spacing: 4px;
+    text-transform: uppercase;
+    animation: fadeUp .7s .2s both;
+  }
+  .victory-sub {
+    font-family: var(--f2); font-size: 1.1rem;
+    color: var(--muted); margin: 18px 0 36px;
+    animation: fadeUp .7s .4s both;
+    max-width: 520px;
+  }
+  .victory-stats {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 16px; max-width: 400px; width: 100%;
+    margin-bottom: 40px;
+    animation: fadeUp .7s .6s both;
+  }
+  .victory-stat {
+    border: 1px solid var(--border);
+    padding: 16px; background: rgba(0,0,0,.3);
+  }
+  .vs-label {
+    font-family: var(--f3); font-size: .55rem;
+    color: var(--muted); letter-spacing: 3px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .vs-val {
+    font-family: var(--f1); font-size: .95rem;
+    letter-spacing: 2px;
+  }
+  .vs-val.green { color: var(--green); }
+  .vs-val.gold  { color: var(--gold); }
+  .btn-restart {
+    font-family: var(--f1); font-size: .72rem;
+    letter-spacing: 3px; text-transform: uppercase;
+    padding: 14px 40px;
+    background: transparent;
+    border: 1px solid var(--cyan);
+    color: var(--cyan); cursor: pointer;
+    animation: fadeUp .7s .8s both;
+    transition: background .2s;
+  }
+  .btn-restart:hover { background: rgba(0,212,255,.1); }
+
+  /* ── ORDER TYPE ── */
+  .order-list { display:flex; flex-direction:column; gap:8px; margin-bottom:24px; }
+  .order-item {
+    display:flex; align-items:center; gap:14px;
+    padding:12px 16px;
+    background:var(--term); border:1px solid var(--border);
+    cursor:pointer; font-family:var(--f3); font-size:.8rem;
+    color:var(--muted); transition:border-color .2s, color .2s, background .2s;
+    user-select:none;
+  }
+  .order-item:hover { border-color:rgba(212,150,15,.5); color:var(--text); }
+  .order-item.ord-selected { border-color:var(--gold); color:var(--gold); background:rgba(212,150,15,.1); }
+  .order-num { font-family:var(--f1); font-size:.58rem; color:var(--red); letter-spacing:2px; min-width:20px; }
+  .order-text { font-family:var(--f3); }
+
+  /* ── MATCH TYPE ── */
+  .match-wrap { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px; }
+  @media(max-width:540px) { .match-wrap { grid-template-columns:1fr; } }
+  .match-col { display:flex; flex-direction:column; gap:8px; }
+  .match-col-label { font-family:var(--f1); font-size:.55rem; color:var(--muted); letter-spacing:3px; margin-bottom:4px; text-transform:uppercase; }
+  .match-item {
+    padding:10px 14px;
+    border:1px solid var(--border); background:var(--term);
+    font-family:var(--f3); font-size:.74rem; line-height:1.4;
+    cursor:pointer; color:var(--muted);
+    transition:border-color .2s, color .2s, background .2s;
+  }
+  .match-item:hover:not(.matched) { border-color:rgba(0,212,255,.4); color:var(--text); }
+  .match-item.m-selected { border-color:var(--cyan); color:var(--cyan); background:rgba(0,212,255,.08); }
+  .match-item.matched { border-color:var(--green); color:var(--green); background:rgba(0,212,100,.07); cursor:default; }
+  .match-badge { display:inline-block; font-family:var(--f1); font-size:.52rem; color:var(--red); letter-spacing:2px; margin-bottom:3px; }
+  .room-hint { font-family:var(--f3); font-size:.7rem; color:var(--muted); margin-bottom:12px; opacity:.7; }
+
+  /* ── Arc reactor - fondo fijo de las salas ── */
+  .gr-ring {
+    position:absolute; top:50%; left:50%;
+    border-radius:50%; transform:translate(-50%,-50%);
+  }
+  .gr-r1 {
+    width:100%; height:100%;
+    border:2px solid rgba(0,195,220,.8);
+    box-shadow:0 0 14px rgba(0,195,220,.3),inset 0 0 14px rgba(0,195,220,.08);
+    animation:grCW 50s linear infinite;
+  }
+  .gr-r1::before {
+    content:''; position:absolute;
+    width:12px; height:12px; border-radius:50%;
+    background:rgba(0,210,235,1);
+    top:-6px; left:50%; transform:translateX(-50%);
+    box-shadow:0 0 10px rgba(0,210,235,.9),0 0 26px rgba(0,210,235,.4);
+  }
+  .gr-r2 {
+    width:82%; height:82%;
+    border:1.5px dashed rgba(0,195,220,.55);
+    animation:grCCW 30s linear infinite;
+  }
+  .gr-r3 {
+    width:65%; height:65%;
+    border:2px solid rgba(0,195,220,.7);
+    box-shadow:0 0 8px rgba(0,195,220,.2);
+    animation:grCW 20s linear infinite;
+  }
+  .gr-r3::before,.gr-r3::after {
+    content:''; position:absolute;
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(212,150,15,1);
+    left:50%; transform:translateX(-50%);
+    box-shadow:0 0 8px rgba(212,150,15,.7);
+  }
+  .gr-r3::before { top:-4px; }
+  .gr-r3::after  { bottom:-4px; }
+  .gr-r4 {
+    width:47%; height:47%;
+    border:1.5px solid rgba(212,150,15,.5);
+    animation:grCCW 35s linear infinite;
+  }
+  .gr-r5 {
+    width:29%; height:29%;
+    border:1px dashed rgba(0,195,220,.7);
+    animation:grCW 14s linear infinite;
+  }
+  .gr-core {
+    position:absolute; top:50%; left:50%;
+    width:44px; height:44px;
+    transform:translate(-50%,-50%); border-radius:50%;
+    background:radial-gradient(circle,rgba(0,220,245,1) 0%,rgba(0,195,220,.5) 40%,rgba(0,175,200,.1) 70%,transparent 100%);
+    animation:grPulse 3s ease-in-out infinite;
+  }
+  @keyframes grCW  { to { transform:translate(-50%,-50%) rotate(360deg);  } }
+  @keyframes grCCW { to { transform:translate(-50%,-50%) rotate(-360deg); } }
+  @keyframes grPulse {
+    0%,100% { box-shadow:0 0 20px rgba(0,210,235,.5),0 0 50px rgba(0,195,220,.2); opacity:.75; }
+    50%     { box-shadow:0 0 42px rgba(0,210,235,.9),0 0 90px rgba(0,195,220,.35); opacity:1; }
+  }
+  @media(max-width:480px) { #gameReactor { display:none !important; } }
+
+  /* ── Ocultar JARVIS HUD en el escape room ── */
+  .jarvis-hud { display:none !important; }
 </style>
 </head>
 <body>
@@ -144,10 +564,11 @@
   <div class="nav-inner">
     <div class="nav-logo">STARK<span>OS</span></div>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">← Volver al inicio</a></li>
-      <li><a href="#" class="active">Escape Room</a></li>
+      <li><a href="index.html" data-i18n="nav.back">← Volver al inicio</a></li>
+      <li><a href="#" class="active" data-i18n="nav.escape">Escape Room</a></li>
     </ul>
-    <div class="nav-status"><span class="status-dot" style="background:var(--red);"></span>Módulo restringido</div>
+    <div class="nav-status"><span class="status-dot" style="background:var(--red);"></span><span data-i18n="nav.module">Módulo restringido</span></div>
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()" aria-label="Switch language">EN</button>
     <button class="hamburger" id="hamBtn" aria-label="Menú">
       <span></span><span></span><span></span>
     </button>
@@ -155,68 +576,122 @@
 </nav>
 
 
+<!-- Arc reactor - fondo de las salas del juego -->
+<div id="gameReactor" aria-hidden="true" style="display:none;position:fixed;top:50%;left:50%;width:min(700px,90vmin);height:min(700px,90vmin);transform:translate(-50%,-50%);pointer-events:none;z-index:1;opacity:.45;">
+  <div class="gr-ring gr-r1"></div>
+  <div class="gr-ring gr-r2"></div>
+  <div class="gr-ring gr-r3"></div>
+  <div class="gr-ring gr-r4"></div>
+  <div class="gr-ring gr-r5"></div>
+  <div class="gr-core"></div>
+</div>
+
 <!-- ═══════════════════════════════════════════════════════════
-     HERO — ESCAPE ROOM (EN CONSTRUCCIÓN)
+     HERO - PANTALLA DE INTRO
 ═══════════════════════════════════════════════════════════ -->
 <section class="er-hero" id="hero">
   <div class="hero-bg"></div>
   <div class="grid-lines"></div>
 
-  <!-- Reactor Arc — mismo que index.html -->
-  <div class="arc-reactor" aria-hidden="true">
-    <div class="ar-ring ar-r1"></div>
-    <div class="ar-ring ar-r2"></div>
-    <div class="ar-ring ar-r3"></div>
-    <div class="ar-ring ar-r4"></div>
-    <div class="ar-ring ar-r5"></div>
-    <div class="ar-core"></div>
-  </div>
+  <canvas id="jarvisCanvas" width="700" height="700" aria-hidden="true"
+    style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:1;pointer-events:none;z-index:2;width:min(960px,115vmin);height:min(960px,115vmin);"></canvas>
 
   <div class="er-content">
 
-    <div class="er-badge">Protocolo clasificado — Acceso restringido</div>
+    <div class="er-badge" data-i18n="er.badge">Protocolo STARK-9 - Verificación de Agente</div>
 
-    <div class="er-classified">// Módulo: Escape Room — Estado: En construcción</div>
+    <div class="er-classified" data-i18n="er.classified">// Identificación de agente requerida para continuar</div>
 
     <h1 class="er-title">
-      <span class="et1">Escape Room</span>
-      <span class="et2">⚠ Módulo en construcción</span>
+      <span class="et1" data-i18n="er.et1">Escape Room</span>
+      <span class="et2" data-i18n="er.et2">Demuestra que eres agente</span>
     </h1>
 
     <div class="er-separator"></div>
 
     <div class="er-terminal">
-      <div class="th">&gt; Protocolo STARK-9 — Verificando acceso...</div>
-      <span class="er-tline">Escaneando credenciales del agente...</span>
-      <span class="er-tline warn">ACCESO DENEGADO — Nivel de autorización insuficiente</span>
-      <span class="er-tline">Módulo: <span style="color:var(--red)">OFFLINE</span> &nbsp;|&nbsp; Fecha estimada de activación: <span style="color:var(--gold)">TBD</span></span>
-      <span class="er-tline">Este sector del sistema está siendo ensamblado por JARVIS <span class="blink">_</span></span>
+      <div class="th" data-i18n="er.term.head">&gt; STARK OS - Briefing de misión cargado</div>
+      <span class="er-tline" data-i18n="er.term.l1">Sistema de verificación de agentes activo.</span>
+      <span class="er-tline" data-i18n="er.term.l2">10 salas de seguridad bloquean el acceso a STARK OS.</span>
+      <span class="er-tline warn" data-i18n="er.term.l3">Cada sala contiene una prueba de conocimiento sobre Ollama e IA local.</span>
+      <span class="er-tline warn" data-i18n="er.term.l4">Solo 2 intentos por sala. Si fallas ambos, el protocolo reinicia desde la Sala 01.</span>
+      <span class="er-tline" data-i18n="er.term.l5">Solo los agentes con conocimiento real del sistema obtienen acceso completo <span class="blink">_</span></span>
     </div>
 
     <div class="er-status-grid">
       <div class="er-status-cell">
-        <div class="es-label">Estado</div>
-        <div class="es-val locked">BLOQUEADO</div>
+        <div class="es-label" data-i18n="er.stat.rooms">Salas</div>
+        <div class="es-val rooms">10</div>
       </div>
       <div class="er-status-cell">
-        <div class="es-label">Progreso</div>
-        <div class="es-val pending">EN CURSO</div>
+        <div class="es-label" data-i18n="er.stat.attempts">Intentos</div>
+        <div class="es-val attempts" data-i18n="er.stat.val2">2 POR SALA</div>
       </div>
       <div class="er-status-cell">
-        <div class="es-label">Nivel</div>
-        <div class="es-val unknown">CLASIFICADO</div>
+        <div class="es-label" data-i18n="er.stat.level">Nivel</div>
+        <div class="es-val level" data-i18n="er.stat.val3">AGENTE</div>
       </div>
     </div>
 
-    <div class="er-back-btn">
-      <a href="index.html" class="btn btn-g">← Volver al Cuartel General</a>
-    </div>
-
-    <div class="er-denied">
-      STARK OS &nbsp;|&nbsp; SISTEMA OFFLINE &nbsp;|&nbsp; <span>■</span> ACCESO RESTRINGIDO
+    <div class="er-start-btn">
+      <button class="btn-start" onclick="startGame()" data-i18n="er.start">INICIAR PROTOCOLO</button>
     </div>
 
   </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     GAME SECTION
+═══════════════════════════════════════════════════════════ -->
+<section class="er-game" id="gameSection">
+
+  <div class="game-header" id="gameHeader">
+    <div class="progress-bar" id="progressBar">
+      <!-- 10 segments rendered by JS -->
+    </div>
+    <div class="game-counter" id="gameCounter">SALA <span>01</span> / 10</div>
+  </div>
+
+  <div class="game-body">
+    <div class="room-card" id="roomCard">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     VICTORY SCREEN
+═══════════════════════════════════════════════════════════ -->
+<section class="er-victory" id="victoryScreen">
+  <div class="hero-bg"></div>
+
+  <lottie-player
+    src="https://lottie.host/a2ad999c-b4be-41a0-ba7e-0628c7b4585e/Jkc7T1syu2.json"
+    background="transparent"
+    speed="1"
+    style="width:260px;height:260px;margin-bottom:8px;"
+    loop autoplay>
+  </lottie-player>
+
+  <div class="victory-label" data-i18n="er.victory.label">// Protocolo STARK-9 completado</div>
+  <div class="victory-title" data-i18n="er.victory.title">ACCESO CONCEDIDO</div>
+  <div class="victory-sub" data-i18n="er.victory.sub">
+    Has demostrado conocimiento real del sistema. STARK OS te reconoce como agente autorizado.
+  </div>
+  <div class="victory-stats">
+    <div class="victory-stat">
+      <div class="vs-label" data-i18n="er.victory.rooms">Salas completadas</div>
+      <div class="vs-val green" id="v-rooms">10 / 10</div>
+    </div>
+    <div class="victory-stat">
+      <div class="vs-label" data-i18n="er.victory.tries">Total de intentos</div>
+      <div class="vs-val gold" id="v-attempts">-</div>
+    </div>
+  </div>
+  <button class="btn-restart" onclick="restartGame()" data-i18n="er.restart">VOLVER AL INICIO</button>
 </section>
 
 
@@ -226,18 +701,15 @@
 <footer>
   <div class="container">
     <div class="footer-logo">STARK OS // PROTOCOLO OLLAMA</div>
-    <div class="footer-tag" style="margin-bottom:6px;">Masterclass · IA Local · Privada · Sin Límites</div>
-    <div class="footer-tag">
-      Sistema offline &nbsp;|&nbsp;
-      Conexión externa: <span style="color:var(--red)">DESCONECTADA</span> &nbsp;|&nbsp;
-      Privacidad: <span style="color:var(--green)">100%</span>
-    </div>
+    <div class="footer-tag" style="margin-bottom:6px;" data-i18n="footer.tag">Masterclass · IA Local · Privada · Sin Límites</div>
+    <div class="footer-tag" data-i18n="footer.author">Autora: Mariajose A.</div>
   </div>
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/i18n.js"></script>
 
-<!-- Scanner JARVIS — esquina inferior derecha, siempre visible -->
+<!-- Scanner JARVIS - esquina inferior derecha, siempre visible -->
 <div class="jarvis-hud" aria-hidden="true">
   <div class="jh-sweep"></div>
   <div class="jh-outer"></div>
@@ -252,6 +724,761 @@
   <div class="jh-dot"></div>
   <div class="jh-label">JARVIS ONLINE</div>
 </div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   ESCAPE ROOM - STARK OS
+   Lógica del juego autónoma (bilingüe)
+═══════════════════════════════════════════════════════════ */
+
+/* ── Utilidades de normalización ── */
+function normBasic(s)   { return s.trim().toLowerCase().replace(/\s+/g,' '); }
+function normAccents(s) {
+  return normBasic(s).normalize('NFD').replace(/[̀-ͯ]/g,'');
+}
+
+/* ── Helper: get value from room field, supporting {es, en} objects ── */
+function rLang(field) {
+  if (field && typeof field === 'object') {
+    return field[currentLang] || field.es || '';
+  }
+  return field || '';
+}
+
+/* ── Definición de las 10 salas (bilingüe) ── */
+const ROOMS = [
+  /* 01 - Más fácil - Opción múltiple */
+  {
+    num:'01',
+    title:{ es:'Identificación del Sistema', en:'System Identification' },
+    context:{ es:'JARVIS requiere verificar tu conocimiento básico sobre el protocolo antes de conceder cualquier acceso.', en:'JARVIS requires verifying your basic knowledge of the protocol before granting any access.' },
+    question:{ es:'¿Para qué sirve Ollama?', en:'What is Ollama used for?' },
+    type:'choice',
+    choices:{
+      es:['Editar videos e imágenes con inteligencia artificial','Ejecutar modelos de lenguaje de IA directamente en tu computadora','Conectarse de forma optimizada a ChatGPT y Claude','Crear y publicar páginas web con asistencia de IA'],
+      en:['Edit videos and images with artificial intelligence','Run AI language models directly on your computer','Connect optimally to ChatGPT and Claude','Create and publish websites with AI assistance']
+    },
+    correctIndex:1,
+    okMsg:{ es:'Correcto. Ollama es un gestor que permite descargar y ejecutar LLMs localmente en tu propio hardware, sin enviar datos a servidores externos. Sin suscripción, sin internet, sin límites.', en:'Correct. Ollama is a manager that lets you download and run LLMs locally on your own hardware, without sending data to external servers. No subscription, no internet, no limits.' },
+    errMsgs:{
+      es:['Incorrecto. Ollama no procesa video ni imagen - es exclusivamente para modelos de lenguaje de texto.',null,'Incorrecto. Ollama ejecuta los modelos en tu propio equipo. No es un proxy ni conector para servicios cloud.','Incorrecto. Ollama no tiene funciones de desarrollo web - es una herramienta para correr LLMs en local.'],
+      en:['Incorrect. Ollama doesn\'t process video or images - it\'s exclusively for text language models.',null,'Incorrect. Ollama runs models on your own machine. It\'s not a proxy or connector for cloud services.','Incorrect. Ollama has no web development features - it\'s a tool for running LLMs locally.']
+    }
+  },
+  /* 02 - Fácil - Opción múltiple */
+  {
+    num:'02',
+    title:{ es:'Nomenclatura de Modelos', en:'Model Nomenclature' },
+    context:{ es:"El inventario de STARK OS usa nomenclatura estándar. Para seleccionar el agente correcto necesitas descifrarla.", en:'The STARK OS inventory uses standard nomenclature. To select the correct agent you need to decipher it.' },
+    question:{ es:"¿Qué significa la 'B' en un modelo etiquetado como '7B'?", en:"What does the 'B' mean in a model labeled '7B'?" },
+    type:'choice',
+    choices:{
+      es:['Bytes - el tamaño del archivo en disco','Básico - el nivel de capacidad del modelo','Billions - miles de millones de parámetros','Build - la versión de compilación del modelo'],
+      en:['Bytes - the file size on disk','Basic - the capability level of the model','Billions - billions of parameters','Build - the compilation version of the model']
+    },
+    correctIndex:2,
+    okMsg:{ es:"Correcto. La 'B' viene del inglés 'billions' (miles de millones). Un modelo 7B tiene ~7,000,000,000 parámetros - los pesos matemáticos que determinan cómo razona. Más parámetros = más capacidad, pero más RAM requerida.", en:"Correct. 'B' comes from 'billions'. A 7B model has ~7,000,000,000 parameters - the mathematical weights that determine how it reasons. More parameters = more capability, but more RAM required." },
+    errMsgs:{
+      es:["Incorrecto. El tamaño en disco depende de la cuantización. La 'B' siempre es cantidad de parámetros, no bytes.","Incorrecto. 'Básico' no es nomenclatura estándar. La B siempre se refiere a la cantidad de parámetros.",null,"Incorrecto. La versión de compilación se indica de otra forma. La 'B' siempre es 'billions' de parámetros."],
+      en:["Incorrect. The disk size depends on quantization. 'B' is always parameter count, not bytes.","Incorrect. 'Basic' is not standard nomenclature. B always refers to the number of parameters.",null,"Incorrect. The compilation version is indicated differently. 'B' always means 'billions' of parameters."]
+    }
+  },
+  /* 03 - Fácil-medio - ORDENAR */
+  {
+    num:'03',
+    title:{ es:'Clasificación de Compresión', en:'Compression Classification' },
+    context:{ es:'El sistema de archivos de STARK OS organiza los modelos por nivel de cuantización GGUF. Están desordenados - reconstruye la secuencia.', en:'The STARK OS file system organizes models by GGUF quantization level. They are out of order - reconstruct the sequence.' },
+    question:{ es:'Ordena estos niveles de cuantización de MAYOR calidad a MENOR calidad:', en:'Order these quantization levels from HIGHEST to LOWEST quality:' },
+    type:'order',
+    items:['Q4_K_M','Q8_0','Q2_K','Q5_K_M'],
+    correctOrder:['Q8_0','Q5_K_M','Q4_K_M','Q2_K'],
+    okMsg:{ es:'Correcto. Q8_0 (casi idéntico al original) → Q5_K_M (excelente balance) → Q4_K_M (estándar recomendado, retiene ~95% de calidad) → Q2_K (alta degradación, solo como último recurso).', en:'Correct. Q8_0 (nearly identical to original) → Q5_K_M (excellent balance) → Q4_K_M (recommended standard, retains ~95% quality) → Q2_K (high degradation, last resort only).' },
+    errMsg:{ es:'Orden incorrecto. Recuerda: a mayor número de bits, mayor calidad pero más memoria. Q8 > Q5 > Q4 > Q2.', en:'Incorrect order. Remember: higher bit number = higher quality but more memory. Q8 > Q5 > Q4 > Q2.' }
+  },
+  /* 04 - Medio - Terminal input */
+  {
+    num:'04',
+    title:{ es:'El Aprovisionamiento', en:'The Provisioning' },
+    context:{ es:"JARVIS necesita descargar el modelo 'llama3.2' en el servidor local. Tú eres el operador a cargo.", en:"JARVIS needs to download the 'llama3.2' model to the local server. You are the operator in charge." },
+    question:{ es:'Escribe el comando para descargar el modelo llama3.2:', en:'Type the command to download the llama3.2 model:' },
+    type:'input',
+    placeholder:'ollama ...',
+    correct:['ollama pull llama3.2'],
+    normalize:normBasic,
+    okMsg:{ es:"Correcto. 'ollama pull llama3.2' descarga el modelo sin ejecutarlo. Es la forma de aprovisionar un modelo antes de usarlo. Si quisieras descargarlo Y ejecutarlo a la vez, usarías 'ollama run'.", en:"Correct. 'ollama pull llama3.2' downloads the model without running it. For provisioning only, pull is the right choice. If you wanted to download AND run it at once, you'd use 'ollama run'." },
+    errMsg: v => `${currentLang === 'en' ? 'Command' : 'Comando'} "${v}" ${currentLang === 'en' ? 'incorrect. The command to download is: ollama pull llama3.2. Remember: pull = download only, run = download and execute.' : 'incorrecto. El comando para descargar es: ollama pull llama3.2. Recuerda: pull = solo descargar, run = descargar y ejecutar.'}`
+  },
+  /* 05 - Medio - Opción múltiple */
+  {
+    num:'05',
+    title:{ es:'Cálculo de Recursos', en:'Resource Calculation' },
+    context:{ es:'El servidor tiene 8 GB de RAM. JARVIS debe calcular si el modelo cabe en memoria antes de intentar cargarlo.', en:'The server has 8 GB of RAM. JARVIS must calculate if the model fits in memory before attempting to load it.' },
+    question:{ es:'¿Cuánta RAM/VRAM necesita aproximadamente un modelo de 7B parámetros con cuantización Q4?', en:'How much RAM/VRAM does a 7B parameter model with Q4 quantization approximately need?' },
+    type:'choice',
+    choices:{
+      es:['~1–2 GB','~3–4 GB','~4–6 GB','~14–16 GB'],
+      en:['~1–2 GB','~3–4 GB','~4–6 GB','~14–16 GB']
+    },
+    correctIndex:2,
+    okMsg:{ es:'Correcto. Regla: 7B × 0.5 bytes/parámetro (Q4) ≈ 3.5 GB de pesos + ~1-2 GB de KV Cache = ~4–6 GB totales. Con 8 GB de RAM cabe con margen suficiente.', en:'Correct. Rule: 7B × 0.5 bytes/param (Q4) ≈ 3.5 GB of weights + ~1-2 GB KV Cache = ~4–6 GB total. With 8 GB RAM it fits with sufficient margin.' },
+    errMsgs:{
+      es:['Insuficiente. Solo los pesos del modelo 7B Q4 ya ocupan ~3.5 GB, más el caché del contexto activo.','~3-4 GB olvida el KV Cache del contexto, que añade ~1-2 GB adicionales a los pesos del modelo.',null,'~14-16 GB sería para un 7B en FP16 sin cuantizar. Con Q4 el tamaño se reduce drásticamente.'],
+      en:['Insufficient. Just the 7B Q4 model weights already take ~3.5 GB, plus the active context cache.','~3-4 GB forgets the KV Cache, which adds ~1-2 GB on top of the model weights.',null,'~14-16 GB would be for a 7B in FP16 unquantized. With Q4 the size is drastically reduced.']
+    }
+  },
+  /* 06 - Medio - EMPAREJAR */
+  {
+    num:'06',
+    title:{ es:'Mapeo de Conceptos', en:'Concept Mapping' },
+    context:{ es:'JARVIS detecta términos críticos del protocolo sin clasificar. Emparéjalos con su definición para desbloquear el módulo.', en:'JARVIS detects unclassified critical protocol terms. Match them with their definition to unlock the module.' },
+    question:{ es:'Conecta cada término con su definición correcta:', en:'Connect each term to its correct definition:' },
+    type:'match',
+    terms:['LLM','RAG','Embedding','Temperatura'],
+    termLabels:{ en:['LLM','RAG','Embedding','Temperature'] },
+    definitions:{
+      es:['Parámetro entre 0 y 1 que controla la creatividad de las respuestas','Conversión de texto en coordenadas numéricas para búsqueda por significado','Modelo de lenguaje grande: el cerebro de la IA','Técnica para conectar la IA con documentos privados y evitar alucinaciones'],
+      en:['Parameter between 0 and 1 that controls response creativity','Converting text into numerical coordinates for meaning-based search','Large language model: the AI\'s brain','Technique to connect AI with private documents and avoid hallucinations']
+    },
+    correctPairs:[2,3,1,0],
+    okMsg:{ es:'Correcto. LLM = cerebro de la IA | RAG = conexión con documentos privados | Embedding = texto a coordenadas numéricas | Temperatura = control de creatividad.', en:'Correct. LLM = AI\'s brain | RAG = connects to private documents | Embedding = text to numerical coordinates | Temperature = creativity control.' },
+    errMsg:{ es:'Algún par está mal. Revisa: LLM es el modelo en sí, RAG conecta con documentos, Embedding convierte texto a números, Temperatura controla la aleatoriedad.', en:'Some pair is wrong. Review: LLM is the model itself, RAG connects to documents, Embedding converts text to numbers, Temperature controls randomness.' }
+  },
+  /* 07 - Medio-difícil - Opción múltiple */
+  {
+    num:'07',
+    title:{ es:'Comportamiento del Sistema', en:'System Behavior' },
+    context:{ es:'Un agente nuevo intenta activar llama3.2 con el comando run, pero el modelo no ha sido descargado previamente. JARVIS necesita predecir qué ocurrirá.', en:'A new agent attempts to activate llama3.2 with the run command, but the model has not been downloaded previously. JARVIS needs to predict what will happen.' },
+    question:{ es:'Si ejecutas "ollama run llama3.2" y el modelo NO está descargado, ¿qué hace Ollama?', en:'If you run "ollama run llama3.2" and the model is NOT downloaded, what does Ollama do?' },
+    type:'choice',
+    choices:{
+      es:['Muestra un error y no hace nada - debes hacer pull primero','Lo descarga automáticamente y luego lo ejecuta de inmediato','Abre el navegador para descargarlo desde la web oficial','Carga el modelo más parecido que ya esté instalado'],
+      en:['Shows an error and does nothing - you must pull first','Automatically downloads it and then runs it immediately','Opens the browser to download it from the official website','Loads the most similar already-installed model']
+    },
+    correctIndex:1,
+    okMsg:{ es:'Correcto. Ollama es inteligente: si el modelo no está local, lo descarga solo y luego lo ejecuta. No necesitas hacer "ollama pull" por separado - aunque pull es útil cuando solo quieres descargar sin ejecutar.', en:'Correct. Ollama is smart: if the model isn\'t local, it downloads it automatically then runs it. You don\'t need to run "ollama pull" separately - though pull is useful when you only want to download without running.' },
+    errMsgs:{
+      es:['Incorrecto. Ollama no falla - descarga el modelo automáticamente si no lo encuentra en local.',null,'Incorrecto. Ollama descarga todo desde terminal, nunca abre el navegador para eso.','Incorrecto. Ollama no sustituye modelos. Si el modelo no existe, lo descarga él mismo.'],
+      en:['Incorrect. Ollama doesn\'t fail - it downloads the model automatically if not found locally.',null,'Incorrect. Ollama downloads everything from the terminal, it never opens the browser for that.','Incorrect. Ollama doesn\'t substitute models. If the model doesn\'t exist, it downloads it itself.']
+    }
+  },
+  /* 08 - Difícil - Opción múltiple */
+  {
+    num:'08',
+    title:{ es:'Programación del Agente', en:'Agent Programming' },
+    context:{ es:'JARVIS requiere configurar la identidad del agente personalizado. Solo una instrucción del Modelfile define su personalidad.', en:'JARVIS requires configuring the custom agent identity. Only one Modelfile instruction defines its personality.' },
+    question:{ es:'¿Qué instrucción del Modelfile define la personalidad y el rol base del asistente?', en:'Which Modelfile instruction defines the personality and base role of the assistant?' },
+    type:'choice',
+    choices:{
+      es:['FROM','PARAMETER','SYSTEM','TEMPLATE'],
+      en:['FROM','PARAMETER','SYSTEM','TEMPLATE']
+    },
+    correctIndex:2,
+    okMsg:{ es:'Correcto. SYSTEM define el "system prompt": el rol, personalidad y reglas base del asistente. Ej: SYSTEM "Eres JARVIS, asistente de STARK OS, responde siempre en español."', en:'Correct. SYSTEM defines the "system prompt": the base role, personality and rules of the assistant. Example: SYSTEM "You are JARVIS, STARK OS assistant, always respond in English."' },
+    errMsgs:{
+      es:['FROM define el modelo base (ej: FROM llama3.2). Es la base del modelo, no su personalidad.','PARAMETER ajusta valores técnicos como temperatura o num_ctx (tamaño de contexto). No define identidad.',null,'TEMPLATE define el formato interno del prompt. Es avanzado y raramente se modifica manualmente.'],
+      en:['FROM defines the base model (e.g.: FROM llama3.2). It\'s the model\'s foundation, not its personality.','PARAMETER adjusts technical values like temperature or num_ctx (context size). It doesn\'t define identity.',null,'TEMPLATE defines the internal prompt format. It\'s advanced and rarely modified manually.']
+    }
+  },
+  /* 09 - Difícil - ORDENAR (Modelfile) */
+  {
+    num:'09',
+    title:{ es:'Reconstrucción del Modelfile', en:'Modelfile Reconstruction' },
+    context:{ es:'El Modelfile del agente ha sido corrompido y sus instrucciones están desordenadas. Reconstruye el orden correcto para reactivar el protocolo.', en:'The agent\'s Modelfile has been corrupted and its instructions are out of order. Reconstruct the correct order to reactivate the protocol.' },
+    question:{ es:'Ordena las instrucciones del Modelfile en el orden correcto:', en:'Order the Modelfile instructions in the correct order:' },
+    type:'order',
+    items:['PARAMETER temperature 0.3','FROM llama3.2','SYSTEM "Eres JARVIS, asistente de STARK OS"'],
+    correctOrder:['FROM llama3.2','SYSTEM "Eres JARVIS, asistente de STARK OS"','PARAMETER temperature 0.3'],
+    okMsg:{ es:'Correcto. El Modelfile siempre: FROM primero (modelo base), luego SYSTEM (personalidad), luego los PARAMETER (ajustes técnicos). El orden importa para que Ollama lo procese correctamente.', en:'Correct. Modelfile always: FROM first (base model), then SYSTEM (personality), then PARAMETER (technical settings). Order matters for Ollama to process it correctly.' },
+    errMsg:{ es:'Orden incorrecto. Regla: FROM siempre primero, luego SYSTEM (personalidad), luego los PARAMETER. Nunca PARAMETER antes de definir el modelo base.', en:'Incorrect order. Rule: FROM always first, then SYSTEM (personality), then PARAMETER. Never PARAMETER before defining the base model.' }
+  },
+  /* 10 - Más difícil - Terminal input */
+  {
+    num:'10',
+    title:{ es:'Activación del Protocolo STARK-9', en:'STARK-9 Protocol Activation' },
+    context:{ es:'JARVIS: Activación requerida. Datos - modelo base: llama3.2 | nombre del asistente: stark-assistant | Modelfile guardado como Modelfile.txt en la carpeta actual.', en:'JARVIS: Activation required. Data - base model: llama3.2 | assistant name: stark-assistant | Modelfile saved as Modelfile.txt in current folder.' },
+    question:{ es:'Escribe el comando completo para crear el asistente personalizado:', en:'Type the complete command to create the custom assistant:' },
+    type:'input',
+    placeholder:'ollama ...',
+    correct:[
+      'ollama create stark-assistant -f ./modelfile.txt',
+      'ollama create stark-assistant -f modelfile.txt',
+      'ollama create stark-assistant --file ./modelfile.txt',
+      'ollama create stark-assistant --file modelfile.txt'
+    ],
+    normalize:normBasic,
+    okMsg:{ es:'ACCESO CONCEDIDO. Comando correcto: ollama create stark-assistant -f ./Modelfile.txt. El flag -f indica la ruta al Modelfile. El ./ indica que está en la carpeta actual. STARK OS ha sido activado.', en:'ACCESS GRANTED. Correct command: ollama create stark-assistant -f ./Modelfile.txt. The -f flag indicates the Modelfile path. The ./ means it\'s in the current folder. STARK OS has been activated.' },
+    errMsg: v => `"${v}" ${currentLang === 'en' ? 'incorrect. Structure: ollama create [name] -f [path/Modelfile]. Check: does it have "create"? The name "stark-assistant"? The flag "-f"? The path "Modelfile.txt"?' : 'incorrecto. Estructura: ollama create [nombre] -f [ruta/Modelfile]. Verifica: ¿tiene "create"? ¿el nombre "stark-assistant"? ¿el flag "-f"? ¿la ruta "Modelfile.txt"?'}`
+  }
+];
+
+/* ── Estado del juego ── */
+let currentRoom    = 0;
+let totalAttempts  = 0;
+let selectedChoice = null;
+let roomAttempts   = 0;
+let orderState     = [];
+let orderSelected  = null;
+let matchState     = {};
+let matchSelectedTerm = null;
+
+/* ── Helpers DOM ── */
+const $ = id => document.getElementById(id);
+
+/* ── Inicializar barra de progreso ── */
+function initProgressBar() {
+  const bar = $('progressBar');
+  bar.innerHTML = '';
+  for (let i = 0; i < 10; i++) {
+    const seg = document.createElement('div');
+    seg.className = 'prog-seg';
+    seg.id = 'seg-' + i;
+    bar.appendChild(seg);
+  }
+}
+
+function updateProgress() {
+  for (let i = 0; i < 10; i++) {
+    const seg = $('seg-' + i);
+    seg.className = 'prog-seg';
+    if (i < currentRoom)        seg.classList.add('done');
+    else if (i === currentRoom)  seg.classList.add('active');
+  }
+  const num = String(currentRoom + 1).padStart(2,'0');
+  const counterLabel = t('er.counter') || 'SALA';
+  $('gameCounter').innerHTML = counterLabel + ' <span>' + num + '</span> / 10';
+}
+
+/* ── Renderizar sala ── */
+function renderRoom(index) {
+  const r    = ROOMS[index];
+  const card = $('roomCard');
+  let inputHTML = '';
+
+  const roomTitle    = rLang(r.title);
+  const roomContext  = rLang(r.context);
+  const roomQuestion = rLang(r.question);
+  const verifyLabel  = t('er.verify') || 'VERIFICAR';
+
+  if (r.type === 'input') {
+    inputHTML = `
+      <div class="terminal-input-wrap">
+        <input class="terminal-input" id="roomInput" type="text"
+          placeholder="${r.placeholder}" autocomplete="off" spellcheck="false"
+          onkeydown="if(event.key==='Enter') submitAnswer()">
+      </div>`;
+
+  } else if (r.type === 'choice') {
+    const letters = ['A','B','C','D'];
+    const choices = (r.choices[currentLang] || r.choices.es);
+    const btns = choices.map((ch, i) => `
+      <button class="choice-btn" id="choice-${i}" onclick="selectChoice(${i})">
+        <span class="choice-letter">${letters[i]}</span>${ch}
+      </button>`).join('');
+    inputHTML = `<div class="choice-grid">${btns}</div>`;
+
+  } else if (r.type === 'order') {
+    orderState    = [...r.items];
+    orderSelected = null;
+    const hintText = t('er.hint.order') || 'Haz clic en un elemento para seleccionarlo (dorado), luego en otro para intercambiarlos de posición.';
+    const items = orderState.map((item, i) => `
+      <div class="order-item" id="ord-${i}" onclick="selectOrderItem(${i})">
+        <span class="order-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="order-text">${item}</span>
+      </div>`).join('');
+    inputHTML = `
+      <p class="room-hint">${hintText}</p>
+      <div class="order-list" id="orderList">${items}</div>`;
+
+  } else if (r.type === 'match') {
+    matchState        = {};
+    matchSelectedTerm = null;
+    const hintText = t('er.hint.match') || 'Selecciona un término (se resaltará en cyan), luego haz clic en su definición correcta.';
+    const termLabelStr = t('er.term.label') || 'TÉRMINO';
+    const defLabelStr  = t('er.def.label')  || 'DEFINICIÓN';
+    const termsColLabel = t('er.terms.col') || 'Términos';
+    const defsColLabel  = t('er.defs.col')  || 'Definiciones';
+
+    // Get translated terms (for room 06 Temperature/Temperatura)
+    const terms = (r.termLabels && r.termLabels[currentLang]) ? r.termLabels[currentLang] : r.terms;
+    const defs  = (r.definitions[currentLang] || r.definitions.es);
+
+    const termsHTML = terms.map((term, i) => `
+      <div class="match-item" id="term-${i}" onclick="selectMatchTerm(${i})">
+        <span class="match-badge">${termLabelStr}</span><br>${term}
+      </div>`).join('');
+    const defsHTML = defs.map((def, i) => `
+      <div class="match-item" id="def-${i}" onclick="selectMatchDef(${i})">
+        <span class="match-badge">${defLabelStr}</span><br>${def}
+      </div>`).join('');
+    inputHTML = `
+      <p class="room-hint">${hintText}</p>
+      <div class="match-wrap">
+        <div class="match-col">
+          <div class="match-col-label">${termsColLabel}</div>${termsHTML}
+        </div>
+        <div class="match-col">
+          <div class="match-col-label">${defsColLabel}</div>${defsHTML}
+        </div>
+      </div>`;
+  }
+
+  card.innerHTML = `
+    <div class="room-label">SALA ${r.num} / 10</div>
+    <div class="room-title">${roomTitle}</div>
+    <div class="room-context">${roomContext}</div>
+    <div class="room-question">${roomQuestion}</div>
+    ${inputHTML}
+    <button class="btn-verify" id="btnVerify" onclick="submitAnswer()">${verifyLabel}</button>
+    <div class="room-feedback" id="roomFeedback"></div>
+  `;
+
+  selectedChoice = null;
+  updateProgress();
+
+  if (r.type === 'input') {
+    setTimeout(() => { const inp = $('roomInput'); if (inp) inp.focus(); }, 80);
+  }
+}
+
+/* ── Opción múltiple: seleccionar ── */
+function selectChoice(index) {
+  const fb = $('roomFeedback');
+  if (fb && (fb.classList.contains('correct') || fb.classList.contains('wrong'))) return;
+  selectedChoice = index;
+  const choices = (ROOMS[currentRoom].choices[currentLang] || ROOMS[currentRoom].choices.es);
+  choices.forEach((_, i) => {
+    const btn = $('choice-' + i);
+    if (btn) btn.classList.toggle('selected', i === index);
+  });
+}
+
+/* ── Ordenar: seleccionar e intercambiar ── */
+function selectOrderItem(index) {
+  const fb = $('roomFeedback');
+  if (fb && (fb.classList.contains('correct') || fb.classList.contains('wrong'))) return;
+
+  if (orderSelected === null) {
+    orderSelected = index;
+    $('ord-' + index).classList.add('ord-selected');
+  } else if (orderSelected === index) {
+    $('ord-' + index).classList.remove('ord-selected');
+    orderSelected = null;
+  } else {
+    // Swap
+    const temp = orderState[orderSelected];
+    orderState[orderSelected] = orderState[index];
+    orderState[index] = temp;
+
+    // Update text content
+    $('ord-' + orderSelected).querySelector('.order-text').textContent = orderState[orderSelected];
+    $('ord-' + index).querySelector('.order-text').textContent = orderState[index];
+
+    $('ord-' + orderSelected).classList.remove('ord-selected');
+    orderSelected = null;
+  }
+}
+
+/* ── Emparejar: seleccionar término ── */
+function selectMatchTerm(index) {
+  const fb = $('roomFeedback');
+  if (fb && (fb.classList.contains('correct') || fb.classList.contains('wrong'))) return;
+  if (fb && fb.classList.contains('incomplete')) { fb.className = 'room-feedback'; fb.innerHTML = ''; }
+  if (matchState.hasOwnProperty(index)) return; // ya emparejado
+
+  if (matchSelectedTerm !== null) {
+    $('term-' + matchSelectedTerm).classList.remove('m-selected');
+  }
+  if (matchSelectedTerm === index) { matchSelectedTerm = null; return; }
+
+  matchSelectedTerm = index;
+  $('term-' + index).classList.add('m-selected');
+}
+
+/* ── Emparejar: seleccionar definición ── */
+function selectMatchDef(defIndex) {
+  const fb = $('roomFeedback');
+  if (fb && (fb.classList.contains('correct') || fb.classList.contains('wrong'))) return;
+
+  const alreadyUsed = Object.values(matchState).includes(defIndex);
+  if (alreadyUsed) return;
+  if (matchSelectedTerm === null) return;
+
+  matchState[matchSelectedTerm] = defIndex;
+  $('term-' + matchSelectedTerm).classList.remove('m-selected');
+  $('term-' + matchSelectedTerm).classList.add('matched');
+  $('def-' + defIndex).classList.add('matched');
+  matchSelectedTerm = null;
+}
+
+/* ── Verificar respuesta ── */
+function submitAnswer() {
+  const r         = ROOMS[currentRoom];
+  const fb        = $('roomFeedback');
+  const btnVerify = $('btnVerify');
+
+  let isCorrect = false;
+  let errText   = '';
+
+  const correctLabel  = t('er.correct')   || '- CORRECTO -';
+  const wrongLabel    = t('er.wrong')     || '- INCORRECTO -';
+  const attempt1Label = t('er.attempt1')  || '- INCORRECTO - (intento 1 de 2)';
+  const failedLabel   = t('er.failed')    || '- PROTOCOLO FALLIDO -';
+  const twofailsLabel = t('er.twofails')  || 'DOS FALLOS - REINICIO DE SEGURIDAD ACTIVADO';
+  const resetLabel    = t('er.reset')     || 'REINICIAR DESDE SALA 01';
+  const nextLabel     = t('er.next')      || 'SIGUIENTE SALA →';
+  const retryLabel    = t('er.retry')     || 'REINTENTAR';
+  const incompleteLabel = t('er.incomplete') || '- INCOMPLETO -';
+  const incompleteMsgBase = t('er.incomplete.msg') || 'Debes emparejar todos los términos antes de verificar. Faltan ';
+
+  if (r.type === 'input') {
+    const inp = $('roomInput');
+    if (!inp) return;
+    const val  = inp.value;
+    const norm = r.normalize(val);
+    isCorrect = r.correct.some(c => r.normalize(c) === norm);
+    if (!isCorrect) errText = typeof r.errMsg === 'function' ? r.errMsg(val) : rLang(r.errMsg);
+
+  } else if (r.type === 'choice') {
+    if (selectedChoice === null) return;
+    isCorrect = selectedChoice === r.correctIndex;
+    if (!isCorrect) {
+      const errMsgs = (r.errMsgs[currentLang] || r.errMsgs.es);
+      errText = errMsgs[selectedChoice] || (currentLang === 'en' ? 'Incorrect answer. Analyze the options.' : 'Respuesta incorrecta. Analiza las opciones.');
+    }
+
+  } else if (r.type === 'order') {
+    isCorrect = r.correctOrder.every((item, i) => orderState[i] === item);
+    if (!isCorrect) errText = rLang(r.errMsg);
+
+  } else if (r.type === 'match') {
+    const paired = Object.keys(matchState).length;
+    if (paired < r.terms.length) {
+      fb.className = 'room-feedback incomplete';
+      fb.innerHTML = `<div class="feedback-status" style="color:var(--gold)">${incompleteLabel}</div><div class="feedback-msg">${incompleteMsgBase}${r.terms.length - paired}.</div>`;
+      return;
+    }
+    isCorrect = r.terms.every((_, i) => matchState[i] === r.correctPairs[i]);
+    if (!isCorrect) errText = rLang(r.errMsg);
+  }
+
+  totalAttempts++;
+
+  if (isCorrect) {
+    if (btnVerify) btnVerify.disabled = true;
+    if (r.type === 'input') { const inp = $('roomInput'); if (inp) inp.disabled = true; }
+    if (r.type === 'choice') {
+      const choices = (r.choices[currentLang] || r.choices.es);
+      choices.forEach((_, i) => { const b = $('choice-'+i); if (b) b.disabled = true; });
+    }
+
+    fb.className = 'room-feedback correct';
+    fb.innerHTML = `
+      <div class="feedback-status ok">${correctLabel}</div>
+      <div class="feedback-msg">${rLang(r.okMsg)}</div>
+      <button class="btn-next" onclick="nextRoom()">${nextLabel} &rarr;</button>`;
+
+  } else {
+    roomAttempts++;
+    if (roomAttempts >= 2) {
+      if (btnVerify) btnVerify.disabled = true;
+      fb.className = 'room-feedback wrong';
+      fb.innerHTML = `
+        <div class="feedback-status err">${failedLabel}</div>
+        <div class="feedback-msg">${errText}</div>
+        <div class="feedback-msg" style="margin-top:10px;color:var(--red);font-family:var(--f1);font-size:.68rem;letter-spacing:2px;">${twofailsLabel}</div>
+        <button class="btn-retry" style="border-color:var(--red);color:var(--red);margin-top:12px;" onclick="resetToStart()">${resetLabel}</button>`;
+    } else {
+      fb.className = 'room-feedback wrong';
+      fb.innerHTML = `
+        <div class="feedback-status err">${attempt1Label}</div>
+        <div class="feedback-msg">${errText}</div>
+        <button class="btn-retry" onclick="retryRoom()">${retryLabel}</button>`;
+    }
+  }
+}
+
+/* ── Siguiente sala ── */
+function nextRoom() {
+  const card = $('roomCard');
+  card.classList.add('fade-out');
+  setTimeout(() => {
+    currentRoom++;
+    roomAttempts = 0;
+    if (currentRoom >= ROOMS.length) { showVictory(); }
+    else { card.classList.remove('fade-out'); renderRoom(currentRoom); }
+  }, 300);
+}
+
+/* ── Reintentar sala ── */
+function retryRoom() {
+  const r  = ROOMS[currentRoom];
+  const fb = $('roomFeedback');
+  fb.className  = 'room-feedback';
+  fb.innerHTML  = '';
+  const btnVerify = $('btnVerify');
+  if (btnVerify) btnVerify.disabled = false;
+
+  if (r.type === 'input') {
+    const inp = $('roomInput');
+    if (inp) { inp.value = ''; inp.disabled = false; inp.focus(); }
+  } else if (r.type === 'choice') {
+    selectedChoice = null;
+    const choices = (r.choices[currentLang] || r.choices.es);
+    choices.forEach((_, i) => { const b = $('choice-'+i); if (b) { b.classList.remove('selected'); b.disabled = false; } });
+  } else if (r.type === 'match') {
+    matchState        = {};
+    matchSelectedTerm = null;
+    r.terms.forEach((_, i)       => { const t2 = $('term-'+i); if (t2) t2.classList.remove('matched','m-selected'); });
+    const defs = (r.definitions[currentLang] || r.definitions.es);
+    defs.forEach((_, i) => { const d = $('def-'+i);  if (d) d.classList.remove('matched'); });
+  }
+  // order: el usuario puede seguir reordenando sin reset
+}
+
+/* ── Pantalla de victoria ── */
+function showVictory() {
+  $('gameSection').style.display = 'none';
+  $('victoryScreen').classList.add('active');
+  $('v-rooms').textContent    = '10 / 10';
+  $('v-attempts').textContent = totalAttempts;
+  document.getElementById('gameReactor').style.display = 'none';
+}
+
+/* ── Reiniciar desde sala 01 ── */
+function resetToStart() {
+  currentRoom    = 0;
+  totalAttempts  = 0;
+  roomAttempts   = 0;
+  selectedChoice = null;
+  initProgressBar();
+  renderRoom(0);
+}
+
+/* ── Iniciar juego ── */
+function startGame() {
+  $('hero').style.display        = 'none';
+  $('gameSection').style.display = 'block';
+  document.getElementById('gameReactor').style.display = 'block';
+  initProgressBar();
+  currentRoom    = 0;
+  totalAttempts  = 0;
+  roomAttempts   = 0;
+  selectedChoice = null;
+  renderRoom(0);
+}
+
+/* ── Volver al inicio ── */
+function restartGame() {
+  $('victoryScreen').classList.remove('active');
+  $('gameSection').style.display = 'none';
+  $('hero').style.display        = '';
+  document.getElementById('gameReactor').style.display = 'none';
+  currentRoom    = 0;
+  totalAttempts  = 0;
+  selectedChoice = null;
+}
+
+/* ── onLangChange: re-render current room if game is active ── */
+window.onLangChange = function() {
+  if (document.getElementById('gameSection').style.display !== 'none') {
+    renderRoom(currentRoom);
+  }
+};
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JARVIS CANVAS 2D - Animación holográfica
+═══════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  const canvas = document.getElementById('jarvisCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width;
+  const H = canvas.height;
+  const cx = W / 2;
+  const cy = H / 2;
+
+  const GOLD  = (a) => `rgba(212,150,15,${a})`;
+  const RED   = (a) => `rgba(212,60,60,${a})`;
+  const CYAN  = (a) => `rgba(0,212,255,${a})`;
+
+  const SCALE = W / 380;
+  let t = 0;
+
+  /* ── Anillo con guiones rotando ── */
+  function ring(radius, speed, dashOn, dashOff, color, lineW) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(t * speed);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineW || 1.5;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = color;
+    ctx.setLineDash([dashOn, dashOff]);
+    ctx.beginPath();
+    ctx.arc(0, 0, radius, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+
+  /* ── Marcas de datos alrededor de un radio ── */
+  function ticks(radius, count, color, len) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1;
+    ctx.shadowBlur = 5;
+    ctx.shadowColor = color;
+    for (let i = 0; i < count; i++) {
+      const a = (i / count) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(a) * radius, Math.sin(a) * radius);
+      ctx.lineTo(Math.cos(a) * (radius + len), Math.sin(a) * (radius + len));
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  /* ── Barrido tipo radar ── */
+  function scanner(radius, speed) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(t * speed);
+    const grad = ctx.createLinearGradient(0, 0, radius, 0);
+    grad.addColorStop(0, GOLD(0.70));
+    grad.addColorStop(0.7, GOLD(0.18));
+    grad.addColorStop(1,   GOLD(0));
+    ctx.fillStyle = grad;
+    ctx.shadowBlur = 28;
+    ctx.shadowColor = GOLD(0.85);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, radius, -0.22, 0.22);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = GOLD(1);
+    ctx.lineWidth = 2;
+    ctx.shadowBlur = 20;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(radius, 0);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  /* ── Punto orbital ── */
+  function orbitDot(radius, speed, color, size, phase) {
+    const a = t * speed + phase;
+    const x = cx + Math.cos(a) * radius;
+    const y = cy + Math.sin(a) * radius;
+    ctx.shadowBlur = 14;
+    ctx.shadowColor = color;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  /* ── Líneas de mira ── */
+  function crosshairs() {
+    ctx.save();
+    ctx.strokeStyle = GOLD(0.22);
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 12]);
+    ctx.beginPath(); ctx.moveTo(10, cy); ctx.lineTo(W - 10, cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, 10); ctx.lineTo(cx, H - 10); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+
+  /* ── Texto de datos cambiantes ── */
+  let dataVals = ['AX-0000','B-00','0x00','T:000'];
+  let dataTimer = 0;
+  function dataText() {
+    dataTimer++;
+    if (dataTimer % 28 === 0) {
+      dataVals = [
+        'AX-' + String(Math.floor(Math.random()*9000)+1000),
+        'B-'  + String(Math.floor(Math.random()*900)+100),
+        '0x'  + Math.floor(Math.random()*255).toString(16).padStart(2,'0').toUpperCase(),
+        'T:'  + String(Math.floor(t * 60) % 999).padStart(3,'0'),
+      ];
+    }
+    ctx.font = `${Math.round(8*SCALE)}px "JetBrains Mono", monospace`;
+    ctx.shadowBlur = 0;
+    const positions = [
+      { x: cx + 100*SCALE, y: cy - 108*SCALE },
+      { x: cx - 148*SCALE, y: cy + 90*SCALE  },
+      { x: cx + 80*SCALE,  y: cy + 118*SCALE },
+      { x: cx - 140*SCALE, y: cy - 100*SCALE },
+    ];
+    const colors = [GOLD(0.55), CYAN(0.45), GOLD(0.55), RED(0.45)];
+    positions.forEach((p, i) => {
+      ctx.fillStyle = colors[i];
+      ctx.fillText(dataVals[i], p.x, p.y);
+    });
+  }
+
+  /* ── Núcleo central ── */
+  function core() {
+    const pulse = 0.5 + 0.5 * Math.sin(t * 2.8);
+    const r = (13 + pulse * 5) * SCALE;
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    grad.addColorStop(0,   GOLD(1));
+    grad.addColorStop(0.5, RED(0.75));
+    grad.addColorStop(1,   RED(0));
+    ctx.shadowBlur = 28 + pulse * 18;
+    ctx.shadowColor = GOLD(0.85);
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  /* ── Loop principal ── */
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    crosshairs();
+
+    // Anillos exteriores - más grandes y brillantes
+    ring(172*SCALE, 0.08,  2, 28, GOLD(0.55), 2);
+    ticks(178*SCALE, 72, GOLD(0.55), 5*SCALE);
+    ring(158*SCALE, -0.12, 6, 14, GOLD(0.72), 2);
+    ticks(158*SCALE, 24, RED(0.45), 8*SCALE);
+
+    // Barrido radar
+    scanner(155*SCALE, 0.38);
+
+    // Anillos medios
+    ring(120*SCALE, -0.28, 10, 8,  RED(0.55),  2);
+    ring(100*SCALE,  0.55,  5, 5,  CYAN(0.45), 1.5);
+
+    // Anillos interiores
+    ring(72*SCALE,  -0.75, 3, 3, GOLD(0.60), 1.5);
+    ring(50*SCALE,   1.05, 6, 2, RED(0.50),  1);
+
+    // Puntos orbitales
+    ctx.shadowBlur = 0;
+    orbitDot(120*SCALE,  0.45, GOLD(0.95), 3, 0);
+    orbitDot(120*SCALE,  0.45, GOLD(0.95), 3, Math.PI);
+    orbitDot(100*SCALE, -0.65, CYAN(0.90), 2.5, 1.2);
+    orbitDot(72*SCALE,   1.15, RED(0.90),  2.5, 2.5);
+    orbitDot(158*SCALE,  0.22, GOLD(0.80), 2, 0.8);
+
+    dataText();
+    core();
+
+    t += 0.016;
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+</script>
+
 
 </body>
 </html>

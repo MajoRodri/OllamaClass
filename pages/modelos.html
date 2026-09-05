@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modelos de IA — Masterclass IA Local</title>
+<link rel="icon" href="../img/icon.png" type="image/png">
+<title>Modelos de IA - Masterclass IA Local</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles-info.css">
 </head>
@@ -13,15 +14,17 @@
   <div class="nav-inner">
     <a href="../index.html" style="text-decoration:none"><div class="nav-logo">STARK<span>OS</span></div></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="que-es.html">¿Qué es?</a></li>
-      <li><a href="modelos.html" class="active">Modelos</a></li>
-      <li><a href="interfaces.html">Interfaces</a></li>
-      <li><a href="rag.html">RAG</a></li>
-      <li><a href="instalacion.html">Instalación</a></li>
-      <li><a href="glosario.html">Glosario</a></li>
-      <li><a href="../escape-room.html" class="nav-escape">🔐 Escape Room</a></li>
+      <li><a href="que-es.html" data-i18n="nav.que-es">¿Qué es?</a></li>
+      <li><a href="modelos.html" class="active" data-i18n="nav.modelos">Modelos</a></li>
+      <li><a href="interfaces.html" data-i18n="nav.interfaces">Interfaces</a></li>
+      <li><a href="rag.html" data-i18n="nav.rag">RAG</a></li>
+      <li><a href="instalacion.html" data-i18n="nav.instalacion">Instalación</a></li>
+      <li><a href="glosario.html" data-i18n="nav.glosario">Glosario</a></li>
+      <li><a href="recursos.html" data-i18n="nav.recursos">Recursos</a></li>
+      <li><a href="../escape-room.html" class="nav-escape" data-i18n="nav.escape">Escape Room</a></li>
     </ul>
-    <div class="nav-status"><span class="status-dot"></span>Sistema activo</div>
+    <div class="nav-status"><span class="status-dot"></span><span data-i18n="nav.status">Sistema activo</span></div>
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()" aria-label="Switch language">EN</button>
     <button class="hamburger" id="hamBtn" aria-label="Menú"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -29,18 +32,18 @@
 <main style="padding-top: 80px;">
 
   <!-- ═══════════════════════════════════════════════════════════
-       MODELOS — ¿Qué modelo elegir?
+       MODELOS - ¿Qué modelo elegir?
   ═══════════════════════════════════════════════════════════ -->
   <section id="modelos">
     <div class="container">
       <div class="section-header anim-up">
-        <span class="sec-tag">// Módulo 02</span>
-        <h2 class="sec-title">Los <span>Modelos</span> — ¿Cuál usar?</h2>
+        <span class="sec-tag" data-i18n="modelos.tag">// Módulo 02</span>
+        <h2 class="sec-title" data-i18n="modelos.title">Los <span>Modelos</span> - ¿Cuál usar?</h2>
         <div class="divider"></div>
       </div>
 
       <div class="model-intro anim-up">
-        <p>
+        <p data-i18n="modelos.intro">
           Un <strong>modelo</strong> es el archivo que contiene el "conocimiento" de la IA. Es como el cartucho
           de una consola de videojuegos: lo insertas, y tienes una IA distinta lista para usar.
           Los modelos se miden en <strong>parámetros</strong> (abreviados como "B" de billions, miles de millones).
@@ -53,10 +56,10 @@
         <table class="model-table">
           <thead>
             <tr>
-              <th>Tu computadora (RAM / VRAM)</th>
-              <th>Tamaño de modelo</th>
-              <th>Modelos recomendados en Ollama</th>
-              <th>Nivel en Stark Industries</th>
+              <th data-i18n="modelos.table.h1">Tu computadora (RAM / VRAM)</th>
+              <th data-i18n="modelos.table.h2">Tamaño de modelo</th>
+              <th data-i18n="modelos.table.h3">Modelos recomendados en Ollama</th>
+              <th data-i18n="modelos.table.h4">Rendimiento</th>
             </tr>
           </thead>
           <tbody>
@@ -64,11 +67,11 @@
             <tr>
               <td data-label="Tu computadora">
                 <span class="tag-pill pill-green" style="margin-bottom:6px; display:inline-block;">8 GB RAM</span><br>
-                <span style="font-size:.85rem; color:var(--text2);">Laptops básicas</span>
+                <span style="font-size:.85rem; color:var(--text2);" data-i18n="modelos.8gb.label">Laptops básicas</span>
               </td>
               <td data-label="Tamaño de modelo">
                 <strong style="color:var(--text);">1B a 3B</strong><br>
-                <span style="font-size:.82rem; color:var(--text2);">parámetros</span>
+                <span style="font-size:.82rem; color:var(--text2);" data-i18n="modelos.8gb.size">parámetros</span>
               </td>
               <td data-label="Modelos recomendados">
                 <div class="model-tags">
@@ -78,20 +81,20 @@
                   <span class="mtag">qwen2.5:3b</span>
                 </div>
               </td>
-              <td data-label="Nivel Stark">
-                <span class="stark-name">🧤 Guantelete / Traje Maletín</span>
-                <span class="stark-desc">Muy rápido. Excelente para tareas simples, resúmenes y preguntas directas.</span>
+              <td data-label="Rendimiento">
+                <span class="stark-name" data-i18n="modelos.8gb.perf">⚡ Básico</span>
+                <span class="stark-desc" data-i18n="modelos.8gb.desc">Muy rápido. Excelente para tareas simples, resúmenes y preguntas directas.</span>
               </td>
             </tr>
 
             <tr class="highlight-row">
               <td data-label="Tu computadora">
                 <span class="tag-pill pill-cyan" style="margin-bottom:6px; display:inline-block;">16 GB RAM / GPU 8 GB</span><br>
-                <span style="font-size:.85rem; color:var(--text2);">Gama media / Laptops de trabajo</span>
+                <span style="font-size:.85rem; color:var(--text2);" data-i18n="modelos.16gb.label">Gama media / Laptops de trabajo</span>
               </td>
               <td data-label="Tamaño de modelo">
                 <strong style="color:var(--text);">7B a 8B</strong><br>
-                <span style="font-size:.82rem; color:var(--text2);">parámetros</span>
+                <span style="font-size:.82rem; color:var(--text2);" data-i18n="modelos.16gb.size">parámetros</span>
               </td>
               <td data-label="Modelos recomendados">
                 <div class="model-tags">
@@ -101,20 +104,20 @@
                   <span class="mtag">qwen2.5:7b</span>
                 </div>
               </td>
-              <td data-label="Nivel Stark">
-                <span class="stark-name">🛡️ Armadura Estándar (Mark VII)</span>
-                <span class="stark-desc">El estándar de oro. Razonamiento sólido, redacta muy bien y resuelve código con soltura.</span>
+              <td data-label="Rendimiento">
+                <span class="stark-name" data-i18n="modelos.16gb.perf">★ Intermedio</span>
+                <span class="stark-desc" data-i18n="modelos.16gb.desc">El estándar de oro. Razonamiento sólido, redacta muy bien y resuelve código con soltura.</span>
               </td>
             </tr>
 
             <tr>
               <td data-label="Tu computadora">
                 <span class="tag-pill pill-gold" style="margin-bottom:6px; display:inline-block;">32 GB RAM / GPU 16 GB</span><br>
-                <span style="font-size:.85rem; color:var(--text2);">PC potente / Mac M1/M2/M3 Pro</span>
+                <span style="font-size:.85rem; color:var(--text2);" data-i18n="modelos.32gb.label">PC potente / Mac M1/M2/M3 Pro</span>
               </td>
               <td data-label="Tamaño de modelo">
                 <strong style="color:var(--text);">14B a 32B</strong><br>
-                <span style="font-size:.82rem; color:var(--text2);">parámetros</span>
+                <span style="font-size:.82rem; color:var(--text2);" data-i18n="modelos.32gb.size">parámetros</span>
               </td>
               <td data-label="Modelos recomendados">
                 <div class="model-tags">
@@ -124,20 +127,20 @@
                   <span class="mtag">qwen2.5:32b</span>
                 </div>
               </td>
-              <td data-label="Nivel Stark">
-                <span class="stark-name">⚔️ Armadura de Combate Pesada</span>
-                <span class="stark-desc">Gran capacidad lógica, matemáticas complejas y código avanzado.</span>
+              <td data-label="Rendimiento">
+                <span class="stark-name" data-i18n="modelos.32gb.perf">◆ Avanzado</span>
+                <span class="stark-desc" data-i18n="modelos.32gb.desc">Gran capacidad lógica, matemáticas complejas y código avanzado.</span>
               </td>
             </tr>
 
             <tr>
               <td data-label="Tu computadora">
                 <span class="tag-pill pill-red" style="margin-bottom:6px; display:inline-block;">64 GB+ RAM / GPU 24 GB+</span><br>
-                <span style="font-size:.85rem; color:var(--text2);">Workstations / Mac Studio</span>
+                <span style="font-size:.85rem; color:var(--text2);" data-i18n="modelos.64gb.label">Workstations / Mac Studio</span>
               </td>
               <td data-label="Tamaño de modelo">
                 <strong style="color:var(--text);">70B+</strong><br>
-                <span style="font-size:.82rem; color:var(--text2);">parámetros</span>
+                <span style="font-size:.82rem; color:var(--text2);" data-i18n="modelos.64gb.size">parámetros</span>
               </td>
               <td data-label="Modelos recomendados">
                 <div class="model-tags">
@@ -146,9 +149,9 @@
                   <span class="mtag">deepseek-r1:70b</span>
                 </div>
               </td>
-              <td data-label="Nivel Stark">
-                <span class="stark-name">🦾 Protocolo Hulkbuster</span>
-                <span class="stark-desc">Nivel casi idéntico a modelos comerciales de pago como GPT-4o o Claude 3.5 Sonnet.</span>
+              <td data-label="Rendimiento">
+                <span class="stark-name" data-i18n="modelos.64gb.perf">▲ Experto</span>
+                <span class="stark-desc" data-i18n="modelos.64gb.desc">Nivel casi idéntico a modelos comerciales de pago como GPT-4o o Claude 3.5 Sonnet.</span>
               </td>
             </tr>
 
@@ -156,16 +159,16 @@
         </table>
       </div>
 
-      <div class="model-note anim-up">
+      <div class="model-note anim-up" data-i18n="modelos.note">
         Si no sabes cuánta RAM tiene tu laptop: en Windows ve a <strong>Configuración → Sistema → Acerca de</strong>.
         En Mac ve a <strong>Apple → Acerca de esta Mac</strong>. Si tienes 8 GB, empieza con <span class="mono">llama3.2:3b</span>.
       </div>
 
       <!-- Cuantización (explicación simple) -->
       <div class="anim-up" style="margin-top:48px;">
-        <span class="sec-tag">¿Qué significan las letras q4, q8, fp16?</span>
+        <span class="sec-tag" data-i18n="modelos.quant.tag">¿Qué significan las letras q4, q8, fp16?</span>
         <div class="model-intro" style="margin-top:16px;">
-          <p>
+          <p data-i18n="modelos.quant.intro">
             Los modelos existen en diferentes versiones comprimidas llamadas <strong>cuantizaciones</strong>.
             El proceso de cuantización "redondea" los números internos del modelo para que pese menos.
             Cuando busques un modelo, verás etiquetas como <span class="mono">q4_0</span>, <span class="mono">q8_0</span> o <span class="mono">fp16</span>:
@@ -175,16 +178,16 @@
 
       <div class="how-grid anim-up">
         <div class="how-card">
-          <span class="tag-pill pill-red" style="margin-bottom:12px; display:inline-block;">fp16 — Sin comprimir</span>
-          <p class="how-step-text">El modelo en su estado puro original. Pesa el doble que q8 y requiere hardware de nivel empresarial (32 GB+ RAM).</p>
+          <span class="tag-pill pill-red" style="margin-bottom:12px; display:inline-block;">fp16 - Sin comprimir</span>
+          <p class="how-step-text" data-i18n="modelos.fp16.text">El modelo en su estado puro original. Pesa el doble que q8 y requiere hardware de nivel empresarial (32 GB+ RAM).</p>
         </div>
         <div class="how-card">
-          <span class="tag-pill pill-green" style="margin-bottom:12px; display:inline-block;">q8_0 — Alta calidad</span>
-          <p class="how-step-text">Solo pierde un 1% de calidad respecto al original. Ideal si tienes 16 GB–32 GB de RAM y quieres la mejor experiencia posible.</p>
+          <span class="tag-pill pill-green" style="margin-bottom:12px; display:inline-block;">q8_0 - Alta calidad</span>
+          <p class="how-step-text" data-i18n="modelos.q8.text">Solo pierde un 1% de calidad respecto al original. Ideal si tienes 16 GB–32 GB de RAM y quieres la mejor experiencia posible.</p>
         </div>
         <div class="how-card" style="border-color:rgba(0,212,255,.35);">
-          <span class="tag-pill pill-cyan" style="margin-bottom:12px; display:inline-block;">q4_0 — Estándar Ollama ✓</span>
-          <p class="how-step-text">El que Ollama usa por defecto. Pierde solo un 2–3% de calidad pero pesa la mitad que q8. Perfecto para laptops con 8 GB de RAM.</p>
+          <span class="tag-pill pill-cyan" style="margin-bottom:12px; display:inline-block;">q4_0 - Estándar Ollama ✓</span>
+          <p class="how-step-text" data-i18n="modelos.q4.text">El que Ollama usa por defecto. Pierde solo un 2–3% de calidad pero pesa la mitad que q8. Perfecto para laptops con 8 GB de RAM.</p>
         </div>
       </div>
 
@@ -196,12 +199,8 @@
 <footer>
   <div class="container">
     <div class="footer-logo">STARK OS // PROTOCOLO OLLAMA</div>
-    <div class="footer-tag" style="margin-bottom:6px;">Masterclass · IA Local · Privada · Sin Límites</div>
-    <div class="footer-tag">
-      Sistema offline &nbsp;|&nbsp;
-      Conexión externa: <span style="color:var(--red)">DESCONECTADA</span> &nbsp;|&nbsp;
-      Privacidad: <span style="color:var(--green)">100%</span>
-    </div>
+    <div class="footer-tag" style="margin-bottom:6px;" data-i18n="footer.tag">Masterclass · IA Local · Privada · Sin Límites</div>
+    <div class="footer-tag" data-i18n="footer.author">Autora: Mariajose A.</div>
   </div>
 </footer>
 
@@ -214,5 +213,6 @@
 </div>
 
 <script src="../js/main.js"></script>
+<script src="../js/i18n.js"></script>
 </body>
 </html>

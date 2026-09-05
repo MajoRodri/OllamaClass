@@ -1,5 +1,5 @@
-/* ============================================================
-   STARK OS — Protocolo Ollama — Interactividad
+﻿/* ============================================================
+   STARK OS - Protocolo Ollama - Interactividad
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -43,9 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = code ? (code.innerText || code.textContent) : '';
 
     const apply = () => {
-      btn.textContent = '✓ Copiado';
+      const labelCopied = (typeof t === 'function') ? t('copy.copied') : '✓ Copiado';
+      const labelCopy   = (typeof t === 'function') ? t('copy.btn')   : 'Copiar';
+      btn.textContent = labelCopied;
       btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2500);
+      setTimeout(() => { btn.textContent = labelCopy; btn.classList.remove('copied'); }, 2500);
     };
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -77,22 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.anim-up').forEach(el => observer.observe(el));
 
-  // ─── ACTIVE NAV HIGHLIGHT ─────────────────────────────────
-  const sections = document.querySelectorAll('section[id]');
-  const navAs = document.querySelectorAll('.nav-links a');
-
-  const navObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const id = e.target.id;
-        navAs.forEach(a => {
-          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-        });
-      }
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-
-  sections.forEach(s => navObs.observe(s));
 
   // ─── HERO TERMINAL LINES FADE-IN ─────────────────────────
   document.querySelectorAll('.tline').forEach((line, i) => {

@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../img/icon.png" type="image/png">
+<title>Recursos - Masterclass IA Local</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles-info.css">
+<script src="https://unpkg.com/lucide@0.474.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" style="text-decoration:none"><div class="nav-logo">STARK<span>OS</span></div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="que-es.html" data-i18n="nav.que-es">¿Qué es?</a></li>
+      <li><a href="modelos.html" data-i18n="nav.modelos">Modelos</a></li>
+      <li><a href="interfaces.html" data-i18n="nav.interfaces">Interfaces</a></li>
+      <li><a href="rag.html" data-i18n="nav.rag">RAG</a></li>
+      <li><a href="instalacion.html" data-i18n="nav.instalacion">Instalación</a></li>
+      <li><a href="glosario.html" data-i18n="nav.glosario">Glosario</a></li>
+      <li><a href="recursos.html" class="active" data-i18n="nav.recursos">Recursos</a></li>
+      <li><a href="../escape-room.html" class="nav-escape" data-i18n="nav.escape">Escape Room</a></li>
+    </ul>
+    <div class="nav-status"><span class="status-dot"></span><span data-i18n="nav.status">Sistema activo</span></div>
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()" aria-label="Switch language">EN</button>
+    <button class="hamburger" id="hamBtn" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main style="padding-top: 80px;">
+
+  <section id="links">
+    <div class="container">
+      <div class="section-header anim-up">
+        <span class="sec-tag" data-i18n="recursos.tag">// Recursos</span>
+        <h2 class="sec-title" data-i18n="recursos.title"><span>Recursos</span></h2>
+        <div class="divider"></div>
+        <p class="sec-desc" data-i18n="recursos.desc">Videos, herramientas y referencias para seguir aprendiendo.</p>
+        <img src="../img/work.png" alt="Recursos" style="width:100%;max-width:700px;border-radius:10px;margin:24px auto 0;display:block;">
+      </div>
+
+      <div class="ui-cards anim-up" style="flex-wrap:wrap;">
+
+        <div class="ui-card">
+          <i data-lucide="play-circle" style="width:28px;height:28px;stroke:var(--red);align-self:flex-start;margin-bottom:4px;"></i>
+          <div class="ui-card-name" data-i18n="recursos.r1.name">Introducción a Ollama</div>
+          <p class="ui-card-text" data-i18n="recursos.r1.text">Desde su elección y configuración hasta su uso en herramientas de desarrollo como VSCode, Cursor o Claude Code.</p>
+          <a href="https://www.youtube.com/watch?v=LQqv4M_NtNc" target="_blank" rel="noopener noreferrer" class="btn btn-c" style="margin-top:auto; display:inline-flex; font-size:.78rem;" data-i18n="recursos.btn">Ver recurso →</a>
+        </div>
+
+        <div class="ui-card">
+          <i data-lucide="book-open" style="width:28px;height:28px;stroke:var(--cyan);align-self:flex-start;margin-bottom:4px;"></i>
+          <div class="ui-card-name" data-i18n="recursos.r2.name">Documentación de Ollama</div>
+          <p class="ui-card-text" data-i18n="recursos.r2.text">Documentación oficial de Ollama con instrucciones detalladas y ejemplos prácticos.</p>
+          <a href="https://docs.ollama.com/" target="_blank" rel="noopener noreferrer" class="btn btn-c" style="margin-top:auto; display:inline-flex; font-size:.78rem;" data-i18n="recursos.btn">Ver recurso →</a>
+        </div>
+
+        <div class="ui-card">
+          <i data-lucide="git-branch" style="width:28px;height:28px;stroke:var(--gold);align-self:flex-start;margin-bottom:4px;"></i>
+          <div class="ui-card-name" data-i18n="recursos.r3.name">Repositorio de Open WebUI</div>
+          <p class="ui-card-text" data-i18n="recursos.r3.text">Repositorio con instrucciones de instalación y ejecución con Ollama.</p>
+          <a href="https://github.com/open-webui/open-webui" target="_blank" rel="noopener noreferrer" class="btn btn-c" style="margin-top:auto; display:inline-flex; font-size:.78rem;" data-i18n="recursos.btn">Ver recurso →</a>
+        </div>
+
+        <div class="ui-card">
+          <i data-lucide="play-circle" style="width:28px;height:28px;stroke:var(--green);align-self:flex-start;margin-bottom:4px;"></i>
+          <div class="ui-card-name" data-i18n="recursos.r4.name">Cómo construir un RAG privado.</div>
+          <p class="ui-card-text" data-i18n="recursos.r4.text">Aprende a crear un sistema de recuperación de información (RAG) privado utilizando Llama 3, Ollama y PostgreSQL con pgvector.</p>
+          <a href="https://youtu.be/-ikCYKcPoqU" target="_blank" rel="noopener noreferrer" class="btn btn-c" style="margin-top:auto; display:inline-flex; font-size:.78rem;" data-i18n="recursos.btn">Ver recurso →</a>
+        </div>
+
+        <div class="ui-card">
+          <i data-lucide="play-circle" style="width:28px;height:28px;stroke:var(--red);align-self:flex-start;margin-bottom:4px;"></i>
+          <div class="ui-card-name" data-i18n="recursos.r5.name">Trucos para usar Ollama de forma eficiente</div>
+          <p class="ui-card-text" data-i18n="recursos.r5.text">Descubre consejos y trucos para maximizar el rendimiento de Ollama en tu entorno de desarrollo.</p>
+          <a href="https://www.youtube.com/watch?v=DN4c6KrBOv8" target="_blank" rel="noopener noreferrer" class="btn btn-c" style="margin-top:auto; display:inline-flex; font-size:.78rem;" data-i18n="recursos.btn">Ver recurso →</a>
+        </div>
+
+        <div class="ui-card">
+          <i data-lucide="git-branch" style="width:28px;height:28px;stroke:var(--gold);align-self:flex-start;margin-bottom:4px;"></i>
+          <div class="ui-card-name" data-i18n="recursos.r6.name">Repositorio de la Masterclass</div>
+          <p class="ui-card-text" data-i18n="recursos.r6.text">Repositorio con todos los materiales y ejemplos de la masterclass.</p>
+          <a href="https://github.com/MajoRodri/OllamaClass" target="_blank" rel="noopener noreferrer" class="btn btn-c" style="margin-top:auto; display:inline-flex; font-size:.78rem;" data-i18n="recursos.btn">Ver recurso →</a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FICHA DE CRITERIO ÉTICO
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="ficha" style="padding-bottom:60px;">
+    <div class="container">
+
+      <div class="section-header anim-up">
+        <span class="sec-tag" data-i18n="recursos.ethics.tag">// Criterio ético</span>
+        <h2 class="sec-title" data-i18n="recursos.ethics.title"><span>Ficha de Criterio</span> Ético - IA Local</h2>
+        <div class="divider"></div>
+        <p class="sec-desc" data-i18n="recursos.ethics.desc">Riesgos, limitaciones y responsabilidades del uso de modelos de lenguaje en entornos locales.</p>
+      </div>
+
+      <!-- Párrafo resumen -->
+      <div class="anim-up" style="background:rgba(0,0,0,.04);border-left:3px solid var(--red);padding:16px 20px;border-radius:6px;margin-bottom:48px;font-size:.88rem;line-height:1.7;color:#444;" data-i18n="recursos.ethics.para">
+        Ejecutar un LLM de forma local elimina la dependencia de servicios externos y protege la privacidad de los datos, pero no exime al usuario de responsabilidad ética. El modelo no razona ni comprende: predice texto estadísticamente probable. Su uso conlleva riesgos de sesgo, desinformación y exclusión tecnológica que deben conocerse antes de aplicarlo en contextos reales.
+      </div>
+
+      <!-- Cards éticas -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+
+        <div class="anim-up" style="border:1px solid rgba(0,0,0,.1);border-top:3px solid var(--red);border-radius:8px;padding:20px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <i data-lucide="alert-triangle" style="width:18px;height:18px;stroke:var(--red);flex-shrink:0;"></i>
+            <strong style="font-size:.85rem;font-family:'Orbitron',sans-serif;letter-spacing:.04em;" data-i18n="recursos.bias.title">Sesgos heredados</strong>
+          </div>
+          <p style="font-size:.8rem;color:#555;margin:0;line-height:1.6;" data-i18n="recursos.bias.text">Los modelos fueron entrenados sobre corpus masivos de internet que contienen sesgos culturales, de género e ideológicos. El modelo puede reproducirlos o amplificarlos sin que el usuario lo note.</p>
+        </div>
+
+        <div class="anim-up" style="border:1px solid rgba(0,0,0,.1);border-top:3px solid var(--gold);border-radius:8px;padding:20px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <i data-lucide="brain" style="width:18px;height:18px;stroke:var(--gold);flex-shrink:0;"></i>
+            <strong style="font-size:.85rem;font-family:'Orbitron',sans-serif;letter-spacing:.04em;" data-i18n="recursos.halluc.title">Alucinación</strong>
+          </div>
+          <p style="font-size:.8rem;color:#555;margin:0;line-height:1.6;" data-i18n="recursos.halluc.text">El modelo genera texto con alta confianza aunque sea incorrecto: fechas, cifras, referencias y código pueden ser plausibles pero falsos. Todo resultado crítico debe ser verificado por el usuario.</p>
+        </div>
+
+        <div class="anim-up" style="border:1px solid rgba(0,0,0,.1);border-top:3px solid var(--cyan);border-radius:8px;padding:20px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <i data-lucide="lock" style="width:18px;height:18px;stroke:var(--cyan);flex-shrink:0;"></i>
+            <strong style="font-size:.85rem;font-family:'Orbitron',sans-serif;letter-spacing:.04em;" data-i18n="recursos.priv.title">Privacidad relativa</strong>
+          </div>
+          <p style="font-size:.8rem;color:#555;margin:0;line-height:1.6;" data-i18n="recursos.priv.text">La ejecución local protege los datos de terceros externos, pero no garantiza privacidad absoluta. Los logs, el historial y los archivos de caché locales pueden exponer información sensible si el equipo no está securizado.</p>
+        </div>
+
+        <div class="anim-up" style="border:1px solid rgba(0,0,0,.1);border-top:3px solid var(--green);border-radius:8px;padding:20px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <i data-lucide="cpu" style="width:18px;height:18px;stroke:var(--green);flex-shrink:0;"></i>
+            <strong style="font-size:.85rem;font-family:'Orbitron',sans-serif;letter-spacing:.04em;" data-i18n="recursos.access.title">Brecha de acceso</strong>
+          </div>
+          <p style="font-size:.8rem;color:#555;margin:0;line-height:1.6;" data-i18n="recursos.access.text">Correr modelos de calidad requiere al menos 8–16 GB de RAM/VRAM. Esto crea una barrera de acceso que excluye a usuarios con hardware de gama baja, generando una desigualdad en quién puede beneficiarse de la herramienta.</p>
+        </div>
+
+        <div class="anim-up" style="border:1px solid rgba(0,0,0,.1);border-top:3px solid #a259e6;border-radius:8px;padding:20px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <i data-lucide="shield-off" style="width:18px;height:18px;stroke:#a259e6;flex-shrink:0;"></i>
+            <strong style="font-size:.85rem;font-family:'Orbitron',sans-serif;letter-spacing:.04em;" data-i18n="recursos.nofilter.title">Uso sin filtros externos</strong>
+          </div>
+          <p style="font-size:.8rem;color:#555;margin:0;line-height:1.6;" data-i18n="recursos.nofilter.text">A diferencia de servicios cloud, los modelos locales no tienen moderación de contenido centralizada. El usuario asume plena responsabilidad sobre su uso: puede generar desinformación o contenido dañino si no se aplica criterio ético.</p>
+        </div>
+
+        <div class="anim-up" style="border:1px solid rgba(0,0,0,.1);border-top:3px solid #555;border-radius:8px;padding:20px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <i data-lucide="calendar-x" style="width:18px;height:18px;stroke:#555;flex-shrink:0;"></i>
+            <strong style="font-size:.85rem;font-family:'Orbitron',sans-serif;letter-spacing:.04em;" data-i18n="recursos.outdated.title">Conocimiento desactualizado</strong>
+          </div>
+          <p style="font-size:.8rem;color:#555;margin:0;line-height:1.6;" data-i18n="recursos.outdated.text">El modelo tiene una fecha de corte de entrenamiento y no accede a internet. No conoce eventos recientes. Usarlo como fuente de información actual sin advertencia puede inducir a errores en quien lo consulte.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PRIMEROS AUXILIOS / TROUBLESHOOTING
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="troubleshooting" style="padding-bottom:80px;">
+    <div class="container">
+
+      <div class="section-header anim-up">
+        <span class="sec-tag" data-i18n="recursos.trouble.tag">// Primeros auxilios</span>
+        <h2 class="sec-title" data-i18n="recursos.trouble.title"><span>Errores</span> comunes - Troubleshooting</h2>
+        <div class="divider"></div>
+        <p class="sec-desc" data-i18n="recursos.trouble.desc">Si algo falla durante la instalación o la demo, revisa aquí antes de entrar en pánico.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px;" class="anim-up">
+
+        <details style="border:1px solid rgba(0,0,0,.1);border-radius:8px;overflow:hidden;">
+          <summary style="padding:14px 18px;cursor:pointer;font-weight:700;font-size:.88rem;display:flex;align-items:center;gap:10px;list-style:none;background:rgba(0,0,0,.02);">
+            <i data-lucide="terminal" style="width:16px;height:16px;stroke:var(--red);flex-shrink:0;"></i>
+            <code style="color:var(--red);">ollama: command not found</code>
+          </summary>
+          <div style="padding:14px 18px;font-size:.83rem;color:#444;line-height:1.6;border-top:1px solid rgba(0,0,0,.07);" data-i18n="recursos.err1.text">
+            Ollama no está instalado o no se añadió al PATH correctamente. <strong>Solución:</strong> descarga el instalador desde <code>ollama.com</code>, instala y <strong>reinicia la terminal</strong> (o el equipo) antes de volver a intentarlo.
+          </div>
+        </details>
+
+        <details style="border:1px solid rgba(0,0,0,.1);border-radius:8px;overflow:hidden;">
+          <summary style="padding:14px 18px;cursor:pointer;font-weight:700;font-size:.88rem;display:flex;align-items:center;gap:10px;list-style:none;background:rgba(0,0,0,.02);">
+            <i data-lucide="wifi-off" style="width:16px;height:16px;stroke:var(--red);flex-shrink:0;"></i>
+            <span data-i18n="recursos.err2.sum">La descarga del modelo se corta o tarda demasiado</span>
+          </summary>
+          <div style="padding:14px 18px;font-size:.83rem;color:#444;line-height:1.6;border-top:1px solid rgba(0,0,0,.07);" data-i18n="recursos.err2.text">
+            Los modelos pesan entre 2 y 8 GB. <strong>Solución:</strong> asegúrate de tener conexión estable. Si se corta, vuelve a ejecutar <code>ollama pull nombre-modelo</code> - retoma desde donde quedó. Evita usar WiFi público.
+          </div>
+        </details>
+
+        <details style="border:1px solid rgba(0,0,0,.1);border-radius:8px;overflow:hidden;">
+          <summary style="padding:14px 18px;cursor:pointer;font-weight:700;font-size:.88rem;display:flex;align-items:center;gap:10px;list-style:none;background:rgba(0,0,0,.02);">
+            <i data-lucide="memory-stick" style="width:16px;height:16px;stroke:var(--red);flex-shrink:0;"></i>
+            <span data-i18n="recursos.err3.sum">El modelo no carga o el sistema se congela</span>
+          </summary>
+          <div style="padding:14px 18px;font-size:.83rem;color:#444;line-height:1.6;border-top:1px solid rgba(0,0,0,.07);" data-i18n="recursos.err3.text">
+            Memoria insuficiente. <strong>Solución:</strong> cierra todas las aplicaciones abiertas y elige un modelo más ligero. Para 8 GB de RAM, usa modelos de 3B o 7B con cuantización Q4. Comprueba la RAM disponible antes con el gestor de tareas.
+          </div>
+        </details>
+
+        <details style="border:1px solid rgba(0,0,0,.1);border-radius:8px;overflow:hidden;">
+          <summary style="padding:14px 18px;cursor:pointer;font-weight:700;font-size:.88rem;display:flex;align-items:center;gap:10px;list-style:none;background:rgba(0,0,0,.02);">
+            <i data-lucide="zap-off" style="width:16px;height:16px;stroke:var(--gold);flex-shrink:0;"></i>
+            <span data-i18n="recursos.err4.sum">Respuestas muy lentas (menos de 2–3 tokens/segundo)</span>
+          </summary>
+          <div style="padding:14px 18px;font-size:.83rem;color:#444;line-height:1.6;border-top:1px solid rgba(0,0,0,.07);" data-i18n="recursos.err4.text">
+            El modelo está corriendo en CPU, no en GPU. <strong>Solución:</strong> verifica que los drivers de tu tarjeta gráfica estén actualizados. Ejecuta <code>ollama run modelo</code> y busca en los logs si aparece <code>GPU layers: 0</code> - si es así, el offload no está activo. Prueba reinstalar Ollama.
+          </div>
+        </details>
+
+        <details style="border:1px solid rgba(0,0,0,.1);border-radius:8px;overflow:hidden;">
+          <summary style="padding:14px 18px;cursor:pointer;font-weight:700;font-size:.88rem;display:flex;align-items:center;gap:10px;list-style:none;background:rgba(0,0,0,.02);">
+            <i data-lucide="plug-zap" style="width:16px;height:16px;stroke:var(--cyan);flex-shrink:0;"></i>
+            <span data-i18n="recursos.err5.sum">Chatbox / Open WebUI no se conecta a Ollama</span>
+          </summary>
+          <div style="padding:14px 18px;font-size:.83rem;color:#444;line-height:1.6;border-top:1px solid rgba(0,0,0,.07);" data-i18n="recursos.err5.text">
+            La interfaz no encuentra el servidor local. <strong>Solución:</strong> asegúrate de que Ollama esté corriendo (abre una terminal y ejecuta <code>ollama serve</code>). En la configuración de la interfaz, la URL del servidor debe ser <code>http://localhost:11434</code>.
+          </div>
+        </details>
+
+        <details style="border:1px solid rgba(0,0,0,.1);border-radius:8px;overflow:hidden;">
+          <summary style="padding:14px 18px;cursor:pointer;font-weight:700;font-size:.88rem;display:flex;align-items:center;gap:10px;list-style:none;background:rgba(0,0,0,.02);">
+            <i data-lucide="file-x" style="width:16px;height:16px;stroke:var(--cyan);flex-shrink:0;"></i>
+            <span data-i18n="recursos.err6.sum">Error al crear el Modelfile (<code>ollama create</code> falla)</span>
+          </summary>
+          <div style="padding:14px 18px;font-size:.83rem;color:#444;line-height:1.6;border-top:1px solid rgba(0,0,0,.07);" data-i18n="recursos.err6.text">
+            Ruta o nombre de archivo incorrecto. <strong>Solución:</strong> el archivo debe llamarse exactamente <code>Modelfile.txt</code> y el comando debe ejecutarse desde la misma carpeta donde está guardado: <code>ollama create mi-asistente -f ./Modelfile.txt</code>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">STARK OS // PROTOCOLO OLLAMA</div>
+    <div class="footer-tag" style="margin-bottom:6px;" data-i18n="footer.tag">Masterclass · IA Local · Privada · Sin Límites</div>
+    <div class="footer-tag" data-i18n="footer.author">Autora: Mariajose A.</div>
+  </div>
+</footer>
+
+<div class="jarvis-hud" aria-hidden="true">
+  <div class="jh-sweep"></div><div class="jh-outer"></div><div class="jh-mid"></div>
+  <div class="jh-inner"></div><div class="jh-ch h"></div><div class="jh-ch v"></div>
+  <div class="jh-tick"></div><div class="jh-tick r"></div><div class="jh-tick b"></div>
+  <div class="jh-tick l"></div><div class="jh-dot"></div>
+  <div class="jh-label">JARVIS ONLINE</div>
+</div>
+
+<script src="../js/main.js"></script>
+<script src="../js/i18n.js"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

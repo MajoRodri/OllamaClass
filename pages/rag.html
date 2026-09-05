@@ -1,11 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAG — Habla con tus Documentos — Masterclass IA Local</title>
+<link rel="icon" href="../img/icon.png" type="image/png">
+<title>RAG - Habla con tus Documentos - Masterclass IA Local</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/styles-info.css">
+<script src="https://unpkg.com/lucide@0.474.0/dist/umd/lucide.min.js"></script>
 </head>
 <body>
 
@@ -13,15 +15,17 @@
   <div class="nav-inner">
     <a href="../index.html" style="text-decoration:none"><div class="nav-logo">STARK<span>OS</span></div></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="que-es.html">¿Qué es?</a></li>
-      <li><a href="modelos.html">Modelos</a></li>
-      <li><a href="interfaces.html">Interfaces</a></li>
-      <li><a href="rag.html" class="active">RAG</a></li>
-      <li><a href="instalacion.html">Instalación</a></li>
-      <li><a href="glosario.html">Glosario</a></li>
-      <li><a href="../escape-room.html" class="nav-escape">🔐 Escape Room</a></li>
+      <li><a href="que-es.html" data-i18n="nav.que-es">¿Qué es?</a></li>
+      <li><a href="modelos.html" data-i18n="nav.modelos">Modelos</a></li>
+      <li><a href="interfaces.html" data-i18n="nav.interfaces">Interfaces</a></li>
+      <li><a href="rag.html" class="active" data-i18n="nav.rag">RAG</a></li>
+      <li><a href="instalacion.html" data-i18n="nav.instalacion">Instalación</a></li>
+      <li><a href="glosario.html" data-i18n="nav.glosario">Glosario</a></li>
+      <li><a href="recursos.html" data-i18n="nav.recursos">Recursos</a></li>
+      <li><a href="../escape-room.html" class="nav-escape"><i data-lucide="lock" style="width:13px;height:13px;stroke:currentColor;stroke-width:2.5;vertical-align:middle;margin-right:4px;"></i><span data-i18n="nav.escape">Escape Room</span></a></li>
     </ul>
-    <div class="nav-status"><span class="status-dot"></span>Sistema activo</div>
+    <div class="nav-status"><span class="status-dot"></span><span data-i18n="nav.status">Sistema activo</span></div>
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()" aria-label="Switch language">EN</button>
     <button class="hamburger" id="hamBtn" aria-label="Menú"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -29,23 +33,23 @@
 <main style="padding-top: 80px;">
 
   <!-- ═══════════════════════════════════════════════════════════
-       RAG — Habla con tus documentos
+       RAG - Habla con tus documentos
   ═══════════════════════════════════════════════════════════ -->
   <section id="rag">
     <div class="container">
       <div class="section-header anim-up">
-        <span class="sec-tag">// Módulo 05</span>
-        <h2 class="sec-title">RAG — Habla con tus <span>Documentos</span></h2>
+        <span class="sec-tag" data-i18n="rag.tag">// Módulo 04</span>
+        <h2 class="sec-title" data-i18n="rag.title">RAG - Habla con tus <span>Documentos</span></h2>
         <div class="divider"></div>
       </div>
 
       <div class="jarvis-box anim-up">
-        <p>
+        <p data-i18n="rag.jarvis.p1">
           Las IAs tienen dos problemas clásicos: <strong>no conocen tus archivos privados</strong>
           (tus apuntes, tus PDFs de trabajo) y a veces <strong>inventan información</strong>
-          cuando no saben algo —lo que se llama "alucinación".
+          cuando no saben algo -lo que se llama "alucinación".
         </p>
-        <p>
+        <p data-i18n="rag.jarvis.p2">
           <strong>RAG (Retrieval Augmented Generation)</strong> resuelve ambos problemas.
           En vez de que la IA intente recordar todo de memoria, le das tus documentos y le ordenas
           que solo responda basándose en ellos. Es como dejarle hacer el examen <em>con el libro abierto</em>.
@@ -54,62 +58,62 @@
 
       <!-- Cómo funciona el RAG -->
       <div class="anim-up" style="margin-bottom:24px;">
-        <span class="sec-tag">¿Cómo funciona? — 4 pasos</span>
+        <span class="sec-tag" data-i18n="rag.how.tag">¿Cómo funciona? - 4 pasos</span>
       </div>
       <div class="rag-flow anim-up">
         <div class="rag-node">
-          <div class="rag-node-icon">📄</div>
-          <div class="rag-node-label" style="color:var(--gold)">TU PDF</div>
-          <div class="rag-node-sub">Tu documento</div>
+          <div class="rag-node-icon"><i data-lucide="file-text" style="width:32px;height:32px;stroke:var(--gold);stroke-width:1.5;"></i></div>
+          <div class="rag-node-label" style="color:var(--gold)" data-i18n="rag.node.pdf">TU PDF</div>
+          <div class="rag-node-sub" data-i18n="rag.node.pdfsub">Tu documento</div>
         </div>
         <div class="rag-arrow">→</div>
         <div class="rag-node boxed">
-          <div class="rag-node-icon">✂️</div>
-          <div class="rag-node-label" style="color:var(--cyan)">CHUNKING</div>
-          <div class="rag-node-sub">Se corta en pedazos</div>
+          <div class="rag-node-icon"><i data-lucide="scissors" style="width:32px;height:32px;stroke:var(--cyan);stroke-width:1.5;"></i></div>
+          <div class="rag-node-label" style="color:var(--cyan)" data-i18n="rag.node.chunk">CHUNKING</div>
+          <div class="rag-node-sub" data-i18n="rag.node.chunksub">Se corta en pedazos</div>
         </div>
         <div class="rag-arrow">→</div>
         <div class="rag-node boxed">
-          <div class="rag-node-icon">🔢</div>
-          <div class="rag-node-label" style="color:var(--cyan)">EMBEDDINGS</div>
-          <div class="rag-node-sub">Texto → números</div>
+          <div class="rag-node-icon"><i data-lucide="binary" style="width:32px;height:32px;stroke:var(--cyan);stroke-width:1.5;"></i></div>
+          <div class="rag-node-label" style="color:var(--cyan)" data-i18n="rag.node.emb">EMBEDDINGS</div>
+          <div class="rag-node-sub" data-i18n="rag.node.embsub">Texto → números</div>
         </div>
         <div class="rag-arrow">→</div>
         <div class="rag-node boxed">
-          <div class="rag-node-icon">🗄️</div>
-          <div class="rag-node-label" style="color:var(--gold)">ChromaDB</div>
-          <div class="rag-node-sub">Bóveda de búsqueda</div>
+          <div class="rag-node-icon"><i data-lucide="database" style="width:32px;height:32px;stroke:var(--gold);stroke-width:1.5;"></i></div>
+          <div class="rag-node-label" style="color:var(--gold)" data-i18n="rag.node.db">ChromaDB</div>
+          <div class="rag-node-sub" data-i18n="rag.node.dbsub">Bóveda de búsqueda</div>
         </div>
         <div class="rag-arrow">→</div>
         <div class="rag-node boxed">
-          <div class="rag-node-icon">🔍</div>
-          <div class="rag-node-label" style="color:var(--cyan)">BÚSQUEDA</div>
-          <div class="rag-node-sub">Top 3 fragmentos</div>
+          <div class="rag-node-icon"><i data-lucide="search" style="width:32px;height:32px;stroke:var(--cyan);stroke-width:1.5;"></i></div>
+          <div class="rag-node-label" style="color:var(--cyan)" data-i18n="rag.node.search">BÚSQUEDA</div>
+          <div class="rag-node-sub" data-i18n="rag.node.searchsub">Top 3 fragmentos</div>
         </div>
         <div class="rag-arrow">→</div>
         <div class="rag-node">
-          <div class="rag-node-icon">🤖</div>
-          <div class="rag-node-label" style="color:var(--green)">JARVIS</div>
-          <div class="rag-node-sub">Responde sin inventar</div>
+          <div class="rag-node-icon"><i data-lucide="bot" style="width:32px;height:32px;stroke:var(--green);stroke-width:1.5;"></i></div>
+          <div class="rag-node-label" style="color:var(--green)" data-i18n="rag.node.jarvis">JARVIS</div>
+          <div class="rag-node-sub" data-i18n="rag.node.jarvissub">Responde sin inventar</div>
         </div>
       </div>
 
       <!-- Los dos caminos -->
       <div class="anim-up" style="margin:10px 0 8px;">
-        <span class="sec-tag">Elige tu camino</span>
+        <span class="sec-tag" data-i18n="rag.paths.tag">Elige tu camino</span>
       </div>
       <div class="rag-paths anim-up">
         <div class="rag-path easy">
-          <div class="rag-path-label">🟢 Camino fácil — Sin código</div>
-          <p class="rag-path-text">
+          <div class="rag-path-label"><i data-lucide="circle-check" style="width:16px;height:16px;stroke:var(--green);stroke-width:2;vertical-align:middle;margin-right:6px;"></i><span data-i18n="rag.easy.label">Camino fácil - Sin código</span></div>
+          <p class="rag-path-text" data-i18n="rag.easy.text">
             Usa <strong>Open WebUI</strong> o <strong>AnythingLLM</strong>. Solo arrastras tu archivo PDF
             o Word al chat y el sistema activa el RAG automáticamente. Sin instalar nada extra,
             sin programar nada. Ideal para empezar.
           </p>
         </div>
         <div class="rag-path tech">
-          <div class="rag-path-label">⚡ Camino técnico — Python</div>
-          <p class="rag-path-text">
+          <div class="rag-path-label"><i data-lucide="zap" style="width:16px;height:16px;stroke:var(--cyan);stroke-width:2;vertical-align:middle;margin-right:6px;"></i><span data-i18n="rag.tech.label">Camino técnico - Python</span></div>
+          <p class="rag-path-text" data-i18n="rag.tech.text">
             Usa Python con <strong>LangChain</strong> y <strong>ChromaDB</strong> para tener
             control total sobre el sistema. Te permite personalizar cómo se busca,
             cómo se fragmenta el texto y cómo responde la IA. El código completo está abajo.
@@ -123,7 +127,7 @@
           <div class="acc-head" onclick="toggleAcc('acc-python')">
             <div class="acc-head-left">
               <span class="acc-num">Python</span>
-              <span class="acc-title">Script RAG completo con LangChain y ChromaDB</span>
+              <span class="acc-title" data-i18n="rag.acc.title">Script RAG completo con LangChain y ChromaDB</span>
             </div>
             <span class="acc-icon">+</span>
           </div>
@@ -132,30 +136,30 @@
 
               <!-- Requisitos previos -->
               <div style="margin-bottom:24px;">
-                <span class="sec-tag" style="margin-bottom:12px; display:block;">Requisitos previos — Instala esto primero</span>
+                <span class="sec-tag" style="margin-bottom:12px; display:block;" data-i18n="rag.prereq.tag">Requisitos previos - Instala esto primero</span>
                 <div class="prereq-grid">
                   <div class="preq-item">
-                    <div class="preq-title">🐍 Python 3.9+</div>
-                    <div class="preq-text">Descárgalo desde python.org. Verifica con: <span class="mono" style="font-size:.75rem;">python --version</span></div>
+                    <div class="preq-title"><i data-lucide="terminal" style="width:15px;height:15px;stroke:var(--cyan);stroke-width:2;vertical-align:middle;margin-right:5px;"></i><span data-i18n="rag.py39.title">Python 3.9+</span></div>
+                    <div class="preq-text" data-i18n="rag.py39.text">Descárgalo desde python.org. Verifica con: <span class="mono" style="font-size:.75rem;">python --version</span></div>
                   </div>
                   <div class="preq-item">
-                    <div class="preq-title">🤖 Ollama activo</div>
-                    <div class="preq-text">Ollama debe estar corriendo. Si no, ejecuta: <span class="mono" style="font-size:.75rem;">ollama serve</span></div>
+                    <div class="preq-title"><i data-lucide="cpu" style="width:15px;height:15px;stroke:var(--cyan);stroke-width:2;vertical-align:middle;margin-right:5px;"></i><span data-i18n="rag.ollama.title">Ollama activo</span></div>
+                    <div class="preq-text" data-i18n="rag.ollama.text">Ollama debe estar corriendo. Si no, ejecuta: <span class="mono" style="font-size:.75rem;">ollama serve</span></div>
                   </div>
                   <div class="preq-item">
-                    <div class="preq-title">📦 Librerías Python</div>
-                    <div class="preq-text">Instala con el comando de abajo antes de ejecutar el script.</div>
+                    <div class="preq-title"><i data-lucide="package" style="width:15px;height:15px;stroke:var(--cyan);stroke-width:2;vertical-align:middle;margin-right:5px;"></i><span data-i18n="rag.libs.title">Librerías Python</span></div>
+                    <div class="preq-text" data-i18n="rag.libs.text">Instala con el comando de abajo antes de ejecutar el script.</div>
                   </div>
                   <div class="preq-item">
-                    <div class="preq-title">📄 Tu PDF</div>
-                    <div class="preq-text">Pon tu archivo en la misma carpeta del script y nómbralo <span class="mono" style="font-size:.75rem; color:var(--gold);">manual_stark.pdf</span></div>
+                    <div class="preq-title"><i data-lucide="file-text" style="width:15px;height:15px;stroke:var(--cyan);stroke-width:2;vertical-align:middle;margin-right:5px;"></i><span data-i18n="rag.pdf.title">Tu PDF</span></div>
+                    <div class="preq-text" data-i18n="rag.pdf.text">Pon tu archivo en la misma carpeta del script y nómbralo <span class="mono" style="font-size:.75rem; color:var(--gold);">manual_stark.pdf</span></div>
                   </div>
                 </div>
 
                 <div class="term-block" style="margin-top:16px;">
                   <div class="term-head">
                     <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
-                    <span class="term-fname">Instalar dependencias + descargar modelo de embeddings</span>
+                    <span class="term-fname" data-i18n="rag.deps.fname">Instalar dependencias + descargar modelo de embeddings</span>
                     <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
                   </div>
                   <div class="term-body">
@@ -169,12 +173,12 @@
               <div class="term-block">
                 <div class="term-head">
                   <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
-                  <span class="term-fname">rag_stark.py — Código completo</span>
+                  <span class="term-fname">rag_stark.py - Código completo</span>
                   <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
                 </div>
                 <div class="term-body">
                   <pre><code><span class="cm"># ============================================================
-# PROTOCOLO RAG — Habla con tus documentos privados
+# PROTOCOLO RAG - Habla con tus documentos privados
 # Conecta Ollama (JARVIS local) con cualquier PDF tuyo
 # ============================================================</span>
 
@@ -190,7 +194,7 @@
 
 <span class="cm"># ── 2. CARGAR EL PDF ──────────────────────────────────────
 # PyPDFLoader lee el PDF y lo convierte en texto plano.</span>
-print(<span class="str">"📄 Escaneando documento confidencial..."</span>)
+print(<span class="str">"Escaneando documento confidencial..."</span>)
 loader = PyPDFLoader(<span class="str">"manual_stark.pdf"</span>)
 documentos = loader.load()
 
@@ -199,7 +203,7 @@ documentos = loader.load()
 # chunk_size=1000: máximo 1000 caracteres por pedazo
 # chunk_overlap=200: 200 caracteres se repiten entre pedazos
 #   para no cortar ideas a la mitad.</span>
-print(<span class="str">"✂️  Fragmentando el texto..."</span>)
+print(<span class="str">"Fragmentando el texto..."</span>)
 cortador = RecursiveCharacterTextSplitter(
     chunk_size=1000,
     chunk_overlap=200
@@ -210,7 +214,7 @@ fragmentos = cortador.split_documents(documentos)
 # El modelo 'nomic-embed-text' convierte cada fragmento
 # de texto en una lista de números (coordenadas matemáticas).
 # Chroma guarda esos números en tu disco para buscar después.</span>
-print(<span class="str">"🔢 Traduciendo texto a coordenadas matemáticas..."</span>)
+print(<span class="str">"Traduciendo texto a coordenadas matemáticas..."</span>)
 boveda = Chroma.from_documents(
     documents=fragmentos,
     embedding=OllamaEmbeddings(model=<span class="str">"nomic-embed-text"</span>)
@@ -241,7 +245,7 @@ sistema_rag = create_retrieval_chain(buscador, cadena)
 
 <span class="cm"># ── 8. HACER LA PREGUNTA ──────────────────────────────────</span>
 pregunta = <span class="str">"¿Cuáles son las especificaciones del reactor Arc?"</span>
-print(<span class="str">f"\n🤖 Preguntando a JARVIS: {pregunta}\n"</span>)
+print(<span class="str">f"\nPreguntando a JARVIS: {pregunta}\n"</span>)
 
 respuesta = sistema_rag.invoke({<span class="str">"input"</span>: pregunta})
 
@@ -256,6 +260,73 @@ print(<span class="str">"=" * 52</span>)</code></pre>
         </div>
       </div>
 
+      <!-- Instalación AnythingLLM -->
+      <div class="anim-up" style="margin-top:52px;">
+        <span class="sec-tag" data-i18n="rag.anything.tag">Instalación - AnythingLLM (sin código)</span>
+        <p style="color:var(--text2); font-size:.95rem; margin-top:8px; max-width:700px;" data-i18n="rag.anything.desc">
+          La forma más fácil de hablar con tus documentos sin programar nada.
+          Solo instala, configura y arrastra tu PDF.
+        </p>
+      </div>
+
+      <div class="install-step anim-up">
+        <div class="install-num">a</div>
+        <div class="install-body">
+          <div class="install-title" data-i18n="rag.a.title">Descarga e instala AnythingLLM</div>
+          <p class="install-desc" data-i18n="rag.a.desc">
+            Instalaremos <strong>AnythingLLM Desktop</strong>, un programa gratuito especializado en RAG.
+            Entra a su página y descarga la versión para tu computadora.
+          </p>
+          <a href="https://anythingllm.com/" target="_blank" rel="noopener noreferrer" class="btn btn-c" style="margin-bottom:16px; display:inline-flex;" data-i18n="rag.a.btn">
+            ⬇ Descargar AnythingLLM - anythingllm.com
+          </a>
+        </div>
+      </div>
+
+      <div class="install-step anim-up">
+        <div class="install-num">b</div>
+        <div class="install-body">
+          <div class="install-title" data-i18n="rag.b.title">Configura el proveedor de IA</div>
+          <p class="install-desc" data-i18n="rag.b.desc">
+            Al abrir el programa por primera vez, te mostrará una pantalla de configuración inicial de tres pasos:
+          </p>
+          <div class="how-grid" style="margin-top:16px; gap:12px;">
+            <div class="how-card" style="padding:18px;">
+              <div class="how-step-num" style="font-size:1rem; margin-bottom:4px;">a</div>
+              <div class="how-step-title" style="color:var(--cyan); margin-bottom:8px;" data-i18n="rag.b1.title">LLM Provider</div>
+              <p class="how-step-text" data-i18n="rag.b1.text">Elige <strong>Ollama</strong> y selecciona el modelo <span class="mono">llama3.2:3b</span>.</p>
+            </div>
+            <div class="how-card" style="padding:18px;">
+              <div class="how-step-num" style="font-size:1rem; margin-bottom:4px;">b</div>
+              <div class="how-step-title" style="color:var(--cyan); margin-bottom:8px;" data-i18n="rag.b2.title">Vector Database</div>
+              <p class="how-step-text" data-i18n="rag.b2.text">Deja la opción por defecto (<strong>LanceDB</strong>). No necesitas instalar nada extra.</p>
+            </div>
+            <div class="how-card" style="padding:18px;">
+              <div class="how-step-num" style="font-size:1rem; margin-bottom:4px;">c</div>
+              <div class="how-step-title" style="color:var(--cyan); margin-bottom:8px;" data-i18n="rag.b3.title">Embedder</div>
+              <p class="how-step-text" data-i18n="rag.b3.text">Deja la opción por defecto (<strong>AnythingLLM</strong>). Funciona automáticamente.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="install-step anim-up">
+        <div class="install-num">c</div>
+        <div class="install-body">
+          <div class="install-title" data-i18n="rag.c.title">Sube tu PDF y empieza a preguntar</div>
+          <p class="install-desc" data-i18n="rag.c.desc">
+            Haz clic en <strong>"Crear un Workspace"</strong> y ponle un nombre (ej. "Mis Documentos").
+            Luego entra a ese espacio, haz clic en el ícono para subir documentos y selecciona tu PDF.
+            Haz clic en <strong>"Move to Workspace"</strong> y luego en <strong>"Save and Embed"</strong>.
+            Espera unos segundos a que procese el archivo y escribe tu primera pregunta en el chat.
+          </p>
+          <div class="model-note" style="margin-top:16px;" data-i18n="rag.c.note">
+            El sistema buscará en tu documento y te responderá <strong>basándose solo en tu archivo</strong>,
+            sin inventar información. Exactamente como tener un asistente que leyó todo tu manual.
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -264,12 +335,8 @@ print(<span class="str">"=" * 52</span>)</code></pre>
 <footer>
   <div class="container">
     <div class="footer-logo">STARK OS // PROTOCOLO OLLAMA</div>
-    <div class="footer-tag" style="margin-bottom:6px;">Masterclass · IA Local · Privada · Sin Límites</div>
-    <div class="footer-tag">
-      Sistema offline &nbsp;|&nbsp;
-      Conexión externa: <span style="color:var(--red)">DESCONECTADA</span> &nbsp;|&nbsp;
-      Privacidad: <span style="color:var(--green)">100%</span>
-    </div>
+    <div class="footer-tag" style="margin-bottom:6px;" data-i18n="footer.tag">Masterclass · IA Local · Privada · Sin Límites</div>
+    <div class="footer-tag" data-i18n="footer.author">Autora: Mariajose A.</div>
   </div>
 </footer>
 
@@ -282,5 +349,7 @@ print(<span class="str">"=" * 52</span>)</code></pre>
 </div>
 
 <script src="../js/main.js"></script>
+<script src="../js/i18n.js"></script>
+<script>lucide.createIcons();</script>
 </body>
 </html>
