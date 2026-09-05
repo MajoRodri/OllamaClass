@@ -367,6 +367,7 @@ code .str { color:#c87c5e; }
 .img-ph-text { font-family:var(--f3); font-size:.68rem; color:var(--muted); letter-spacing:2px; text-transform:uppercase; }
 
 /* ─── COMMANDS TABLE ─── */
+.cmd-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .cmd-table { width:100%; border-collapse:collapse; margin-top:16px; }
 .cmd-table th { font-family:var(--f3); font-size:.68rem; color:var(--cyan); letter-spacing:2px; padding:10px 14px; text-align:left; background:rgba(0,212,255,.05); border-bottom:1px solid var(--border); }
 .cmd-table td { padding:10px 14px; border-bottom:1px solid rgba(0,212,255,.07); vertical-align:top; }
