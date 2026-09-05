@@ -852,8 +852,6 @@ function toggleLang() {
   applyLang(currentLang === 'es' ? 'en' : 'es');
 }
 
-/* Apply language immediately on load - body starts hidden to prevent FOUC */
 document.addEventListener('DOMContentLoaded', function() {
   applyLang(currentLang);
-  document.body.style.visibility = 'visible';
 });

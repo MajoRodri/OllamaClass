@@ -411,6 +411,101 @@ success</span>
 
       </div><!-- /FASE 5 COMANDOS -->
 
+      <!-- ── DESINSTALACIÓN ── -->
+      <div class="phase" style="border-color: rgba(220,60,60,0.25); margin-top: 48px;">
+        <div class="phase-header anim-up">
+          <div class="phase-num" style="background: rgba(220,60,60,0.12); color: var(--red, #dc3c3c); border-color: rgba(220,60,60,0.35);">✕</div>
+          <div>
+            <div class="phase-label">Opcional</div>
+            <div class="phase-name">Desinstalación del Programa</div>
+          </div>
+        </div>
+
+        <div class="model-intro anim-up" style="border-left-color: var(--red, #dc3c3c); margin-bottom: 28px;">
+          <p style="margin:0;">Si en algún momento decides que ya no quieres Ollama en tu computadora, sigue estos pasos para eliminarlo por completo y recuperar el espacio en disco.</p>
+        </div>
+
+        <!-- Paso 1 -->
+        <div class="install-step anim-up">
+          <div class="install-num">1</div>
+          <div class="install-body">
+            <div class="install-title">
+              Cerrar los programas
+              <span style="font-family: var(--f3, monospace); font-size: 0.72rem; color: var(--muted, #888); font-weight: 400; margin-left: 10px;">~1 min</span>
+            </div>
+            <p class="install-desc">
+              Cierra <strong>Chatbox</strong>. Luego ve a la barra de tareas en la esquina inferior derecha
+              de tu pantalla (cerca del reloj), haz clic derecho sobre el ícono de la pequeña llama de Ollama
+              y selecciona <strong>Quit</strong> (Salir).
+            </p>
+          </div>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="install-step anim-up">
+          <div class="install-num">2</div>
+          <div class="install-body">
+            <div class="install-title">
+              Desinstalar las aplicaciones
+              <span style="font-family: var(--f3, monospace); font-size: 0.72rem; color: var(--muted, #888); font-weight: 400; margin-left: 10px;">~2 min</span>
+            </div>
+            <p class="install-desc">
+              Abre el menú de Inicio de Windows, escribe <strong>Aplicaciones instaladas</strong> y abre esa opción.
+              Busca <strong>Ollama</strong> en la lista, haz clic en los tres puntos (<span class="mono">···</span>)
+              y selecciona <strong>Desinstalar</strong>. Repite este mismo paso para buscar y desinstalar
+              <strong>Chatbox AI</strong>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="install-step anim-up">
+          <div class="install-num">3</div>
+          <div class="install-body">
+            <div class="install-title">
+              Borrar los modelos - Limpieza profunda
+              <span style="font-family: var(--f3, monospace); font-size: 0.72rem; color: var(--muted, #888); font-weight: 400; margin-left: 10px;">~2 min</span>
+            </div>
+            <p class="install-desc">
+              Desinstalar Ollama <strong>no borra los modelos</strong> descargados. Para eliminarlos por completo
+              y recuperar los gigabytes que ocupan, abre el Explorador de archivos de Windows.
+              Haz clic en la barra de direcciones de la parte superior, escribe exactamente lo siguiente
+              y presiona <strong>Enter</strong>:
+            </p>
+            <div class="term-block">
+              <div class="term-head">
+                <div class="term-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
+                <span class="term-fname">Explorador de archivos - Barra de direcciones</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+              </div>
+              <div class="term-body">
+                <pre><code>%USERPROFILE%</code></pre>
+              </div>
+            </div>
+            <p class="install-desc" style="margin-top: 14px;">
+              Busca una carpeta llamada <span class="mono">.ollama</span> y elimínala.
+              Esto borrará por completo los modelos y dejará tu equipo como nuevo.
+            </p>
+          </div>
+        </div>
+
+        <!-- Paso 4 -->
+        <div class="install-step anim-up" style="border-color: rgba(255,255,255,0.05);">
+          <div class="install-num" style="opacity: 0.5;">4</div>
+          <div class="install-body">
+            <div class="install-title" style="opacity: 0.75;">
+              Eliminar carpetas de prueba
+              <span style="font-family: var(--f3, monospace); font-size: 0.72rem; color: var(--muted, #888); font-weight: 400; margin-left: 10px;">Opcional</span>
+            </div>
+            <p class="install-desc" style="opacity: 0.7;">
+              Ve a tu escritorio y borra la carpeta que creaste para guardar el archivo
+              <span class="mono">Modelfile.txt</span> (la que usaste durante la Fase 04).
+            </p>
+          </div>
+        </div>
+
+      </div><!-- /DESINSTALACIÓN -->
+
     </div>
   </section>
 

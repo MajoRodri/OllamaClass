@@ -2,8 +2,8 @@
    STARK OS - Protocolo Ollama - Masterclass
    ============================================================ */
 
-/* FOUC prevention - i18n.js makes body visible after applying translations */
-body { visibility: hidden; }
+/* FOUC prevention handled via JS class - see i18n.js */
+body.fouc-hidden { visibility: hidden; }
 
 /* ─── VARIABLES ─── */
 :root {

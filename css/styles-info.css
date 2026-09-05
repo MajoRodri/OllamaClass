@@ -5,8 +5,8 @@
    Importar en lugar de styles.css para activar el tema claro.
    ============================================================ */
 
-/* FOUC prevention - i18n.js makes body visible after applying translations */
-body { visibility: hidden; }
+/* FOUC prevention handled via JS class - see i18n.js */
+body.fouc-hidden { visibility: hidden; }
 
 /* Inter - fuente legible para cuerpo y encabezados informativos */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
