@@ -1,7 +1,7 @@
 <div align="center">
   <img src="img/icon.png" alt="OllamaClass" width="120" />
 
-# STARK OS // PROTOCOLO OLLAMA
+# STARK OS 
 ### *Masterclass de IA Local · Privada · Sin Límites*
 
 > *"No necesitas llamar a alguien más. Tienes a JARVIS en tu propio taller."*
@@ -258,12 +258,9 @@ Esta masterclass no solo enseña a usar IA, también habla con claridad de sus r
 
 ---
 
-## Autora
+## Autoría
 
-Creado por **Mariajose A.** como proyecto educativo para democratizar el acceso a la inteligencia artificial local.
+Creado por mí **Mariajose A.** como proyecto educativo para democratizar el acceso a la inteligencia artificial local.
 
 El sitio está disponible en **Español e Inglés** con cambio de idioma en tiempo real sin recargar la página.
 
----
-
-*"La IA no tiene que ser de otra empresa. Puede ser tuya."*
