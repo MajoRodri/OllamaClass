@@ -1,7 +1,7 @@
 <div align="center">
   <img src="img/icon.png" alt="OllamaClass" width="120" />
 
-# STARK OS // PROTOCOLO OLLAMA
+# STARK OS 
 ### *Masterclass de IA Local · Privada · Sin Límites*
 
 > *"No necesitas llamar a alguien más. Tienes a JARVIS en tu propio taller."*
