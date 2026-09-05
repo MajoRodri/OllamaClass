@@ -258,12 +258,9 @@ Esta masterclass no solo enseña a usar IA, también habla con claridad de sus r
 
 ---
 
-## Autora
+## Autoría
 
-Creado por **Mariajose A.** como proyecto educativo para democratizar el acceso a la inteligencia artificial local.
+Creado por mí **Mariajose A.** como proyecto educativo para democratizar el acceso a la inteligencia artificial local.
 
 El sitio está disponible en **Español e Inglés** con cambio de idioma en tiempo real sin recargar la página.
 
----
-
-*"La IA no tiene que ser de otra empresa. Puede ser tuya."*
