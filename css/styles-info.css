@@ -8,8 +8,7 @@
 /* FOUC prevention handled via JS class - see i18n.js */
 body.fouc-hidden { visibility: hidden; }
 
-/* Inter - fuente legible para cuerpo y encabezados informativos */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Inter - loaded via <link> in HTML to avoid blocking CSS chain */
 
 /* ─── VARIABLES - Tema Claro ─── */
 :root {
@@ -20,7 +19,7 @@ body.fouc-hidden { visibility: hidden; }
   --term:     #1a2232;    /* bloques de terminal/código: siempre oscuros */
 
   /* Acentos */
-  --cyan:     #1565c0;    /* azul profundo - rol "cyan" para compatibilidad HTML */
+  --cyan:     #12539e;    /* azul profundo - rol "cyan" para compatibilidad HTML */
   --gold:     #b5840a;    /* dorado oscuro */
   --red:      #c0392b;    /* rojo Iron Man - acento primario */
   --green:    #1a9c70;    /* verde oscuro legible en fondo claro */
@@ -563,8 +562,8 @@ footer {
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 0;
-  opacity: .22;
-  filter: drop-shadow(0 0 18px rgba(0,195,220,.25));
+  opacity: .65;
+  filter: drop-shadow(0 0 28px rgba(0,140,255,.55));
 }
 .ar-ring {
   position: absolute;
@@ -576,43 +575,43 @@ footer {
 /* Anillo exterior - cyan brillante, gira lento */
 .ar-r1 {
   width: 100%; height: 100%;
-  border: 2px solid rgba(0,195,220,.8);
-  box-shadow: 0 0 12px rgba(0,195,220,.3), inset 0 0 12px rgba(0,195,220,.08);
+  border: 2px solid rgba(0, 130, 230, 0.9);
+  box-shadow: 0 0 18px rgba(0,140,255,.6), inset 0 0 18px rgba(0,140,255,.15);
   animation: arCW 50s linear infinite;
 }
 .ar-r1::before {
   content: '';
   position: absolute;
   width: 12px; height: 12px;
-  background: rgba(0,210,235,1);
+  background: rgb(0, 160, 255);
   border-radius: 50%;
   top: -6px; left: 50%;
   transform: translateX(-50%);
-  box-shadow: 0 0 10px rgba(0,210,235,.8), 0 0 24px rgba(0,210,235,.4);
+  box-shadow: 0 0 14px rgba(0, 160, 255, 1), 0 0 30px rgba(0, 120, 230, 0.6);
 }
 
 /* Anillo 2 - punteado, giro inverso */
 .ar-r2 {
   width: 82%; height: 82%;
-  border: 1.5px dashed rgba(0,195,220,.55);
+  border: 1.5px dashed rgba(0, 140, 255, 0.75);
   animation: arCCW 30s linear infinite;
 }
 
 /* Anillo 3 - sólido, puntos dorados */
 .ar-r3 {
   width: 65%; height: 65%;
-  border: 2px solid rgba(0,195,220,.7);
-  box-shadow: 0 0 8px rgba(0,195,220,.2);
+  border: 2px solid rgba(0, 140, 255, 0.85);
+  box-shadow: 0 0 14px rgba(0,140,255,.45);
   animation: arCW 20s linear infinite;
 }
 .ar-r3::before, .ar-r3::after {
   content: '';
   position: absolute;
   width: 8px; height: 8px;
-  background: rgba(212,150,15,1);
+  background: rgb(173, 121, 7);
   border-radius: 50%;
   left: 50%; transform: translateX(-50%);
-  box-shadow: 0 0 8px rgba(212,150,15,.7);
+  box-shadow: 0 0 8px rgba(131, 89, 0, 0.7);
 }
 .ar-r3::before { top: -4px; }
 .ar-r3::after  { bottom: -4px; }
