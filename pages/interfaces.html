@@ -206,6 +206,46 @@ success</span>
         </div>
       </div>
 
+      <!-- REGLAS DE SINTAXIS -->
+      <div class="anim-up" style="margin-top:48px;">
+        <span class="sec-tag" data-i18n="interfaces.mf.rules.tag">// Reglas de sintaxis esenciales</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:20px;">
+
+          <div style="background:rgba(0,0,0,.03);border:1px solid var(--border);border-radius:10px;padding:18px;">
+            <div style="font-size:.8rem;font-weight:700;color:var(--cyan);margin-bottom:8px;">FROM obligatorio</div>
+            <p style="font-size:.83rem;color:var(--text2);line-height:1.6;" data-i18n="interfaces.mf.rule1">
+              Todo Modelfile debe tener una instrucción <code>FROM</code>. Apunta a un modelo del registro
+              (<code>FROM llama3</code>) o a un archivo local (<code>FROM ./modelo.gguf</code>).
+            </p>
+          </div>
+
+          <div style="background:rgba(0,0,0,.03);border:1px solid var(--border);border-radius:10px;padding:18px;">
+            <div style="font-size:.8rem;font-weight:700;color:var(--cyan);margin-bottom:8px;">Bloques multilínea con <code>"""</code></div>
+            <p style="font-size:.83rem;color:var(--text2);line-height:1.6;" data-i18n="interfaces.mf.rule2">
+              Las instrucciones con texto largo como <code>SYSTEM</code> o <code>TEMPLATE</code>
+              deben ir entre tres comillas dobles (<code>"""</code>).
+            </p>
+          </div>
+
+          <div style="background:rgba(0,0,0,.03);border:1px solid var(--border);border-radius:10px;padding:18px;">
+            <div style="font-size:.8rem;font-weight:700;color:var(--cyan);margin-bottom:8px;">Permisos de archivos locales</div>
+            <p style="font-size:.83rem;color:var(--text2);line-height:1.6;" data-i18n="interfaces.mf.rule3">
+              Si usas rutas locales, Ollama necesita permisos de lectura sobre esos archivos.
+              Las rutas relativas se calculan desde donde ejecutas <code>ollama create</code>.
+            </p>
+          </div>
+
+          <div style="background:rgba(0,0,0,.03);border:1px solid var(--border);border-radius:10px;padding:18px;">
+            <div style="font-size:.8rem;font-weight:700;color:var(--cyan);margin-bottom:8px;">Última declaración gana</div>
+            <p style="font-size:.83rem;color:var(--text2);line-height:1.6;" data-i18n="interfaces.mf.rule4">
+              Las instrucciones se leen de arriba hacia abajo. Si repites un parámetro
+              (ej. <code>PARAMETER temperature</code>), el último valor sobrescribe al anterior.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </section>
 

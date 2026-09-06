@@ -417,7 +417,7 @@ nav {
   margin-top: 3px;
   box-shadow: 0 2px 8px rgba(192,57,43,.25);
 }
-.install-body { flex: 1; }
+.install-body { flex: 1; min-width: 0; }
 .install-title { font-family: var(--f2); font-size: .95rem; font-weight: 600; color: var(--cyan); letter-spacing: .1px; margin-bottom: 8px; }
 .install-desc { color: var(--text2); font-size: .95rem; margin-bottom: 14px; line-height: 1.7; }
 
@@ -743,8 +743,12 @@ footer {
   .how-grid { grid-template-columns: 1fr; }
   .install-step { flex-direction: column; gap: 10px; }
   .install-num { font-size: 2rem; }
+  .install-body { width: 100%; }
   .ui-cards { grid-template-columns: 1fr; }
   .rag-flow { padding: 16px; }
   .rag-arrow { display: none; }
   .glos-grid { grid-template-columns: 1fr; }
+  .term-dots { flex-shrink: 0; }
+  .term-fname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 8px; }
+  .copy-btn { flex-shrink: 0; }
 }

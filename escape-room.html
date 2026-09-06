@@ -235,7 +235,7 @@
     gap: 14px;
     margin-bottom: 28px;
   }
-  @media(max-width: 520px) {
+  @media(max-width: 560px) {
     .choice-grid { grid-template-columns: 1fr; }
   }
   .choice-btn {
@@ -430,6 +430,7 @@
     margin-bottom: 40px;
     animation: fadeUp .7s .6s both;
   }
+  @media(max-width: 480px) { .victory-stats { grid-template-columns: 1fr; } }
   .victory-stat {
     border: 1px solid var(--border);
     padding: 16px; background: rgba(0,0,0,.3);
@@ -474,7 +475,7 @@
 
   /* ── MATCH TYPE ── */
   .match-wrap { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px; }
-  @media(max-width:540px) { .match-wrap { grid-template-columns:1fr; } }
+  @media(max-width:560px) { .match-wrap { grid-template-columns:1fr; } }
   .match-col { display:flex; flex-direction:column; gap:8px; }
   .match-col-label { font-family:var(--f1); font-size:.55rem; color:var(--muted); letter-spacing:3px; margin-bottom:4px; text-transform:uppercase; }
   .match-item {
